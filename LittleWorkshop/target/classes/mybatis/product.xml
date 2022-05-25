@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="product">
+
+	<resultMap type="Product" id="ProductMap">
+		<id column="product_code" property="productCode"/>
+		<result column="seller_id" property="sellerId"/>
+		<result column="product_category_code" property="productCategoryCode"/>
+		<result column="product_category" property="category"/>
+		<result column="product_name" property="productName"/>
+		<result column="product_price" property="productPrice"/>
+		<result column="product_reg_date" property="productRegDate"/>
+		<result column="product_like_count" property="productLikeCount"/>
+		<result column="product_description" property="productDescription"/>
+		<result column="product_sell_count"/>
+		
+		<collection property="productOptionList" column="po_product_code" ofType="ProductOption" javaType="ArrayList">
+			<id column="product_option_code" property="productOptionCode"/>
+			<result column="po_product_code" property="productCode"/>
+			<result column="product_option_name" property="productOptionName"/>
+			<result column="product_necessary_option" property="productNecessaryOption"/>
+			
+			<collection property="productOptionDetail" column="pod_product_option_code" ofType="ProductOptionDetail" javaType="ArrayList">
+				<id column="product_option_detail_code" property="productOptionDetailCode"/>
+				<result column="pod_product_option_code" property="productOptionCode"/>
+				<result column="product_option_detail_name" property="productOptionDetailName"/>
+			</collection>
+		</collection>
+	</resultMap>
+	
+	<select id="list" resultMap="ProductMap">
+		SELECT
+		p.product_code product_code,
+		p.seller_id seller_id,
+		c.product_category product_category,
+		p.product_name product_name,
+		p.product_price product_price,
+		p.product_reg_date product_reg_date,
+		p.product_like_count product_like_count
+		FROM product p
+		JOIN product_category_list c ON p.product_category_code = c.product_category_code
+	</select>
+	
+	<select id="item" resultMap="ProductMap">
+		SELECT
+		p.product_code product_code,
+		p.seller_id seller_id,
+		p.category_code product_category_code,
+		c.product_category product_category,
+		p.product_name product_name,
+		p.product_price product_price,
+		p.product_reg_date product_reg_date,
+		p.product_like_count product_like_count,
+		p.product_description product_description,
+		po.product_code po_product_code,
+		po.product_option_name product_option_name,
+		po.product_option_code product_option_code,
+		po.product_necessary_option product_necessary_option,
+		pod.product_option_code pod_product_option_code,
+		pod.product_option_detail_name product_option_detail_name,
+		pod.product_option_detail_code product_option_detail_code
+		FROM product p
+		JOIN product_option po ON p.product_code = po.product_code
+		JOIN product_option_detail pod ON po.PRODUCT_OPTION_CODE = pod.PRODUCT_OPTION_CODE
+		JOIN product_category_list c ON p.product_category_code = c.product_category_code
+		WHERE p.product_code = #{productCode}
+	</select>
+	
+	<select id="categories" resultType="Category">
+		SELECT * FROM product_category
+	</select>
+	
+	<insert id="productAdd">
+		INSERT INTO product
+		(product_code, seller_id, category_code, product_name, product_price, product_description, product_reg_date)
+		VALUES(PRODUCT_SEQ.nextval, #{sellerId}, #{productCategoryCode}, #{productName}, #{productPrice}, #{productDescription}, sysdate)
+	
+		<selectKey keyColumn="product_code" resultType="Integer" keyProperty="productCode" order="AFTER">
+			SELECT PRODUCT_SEQ.currval product_code FROM dual
+		</selectKey>
+	</insert>
+	
+	<insert id="productOptionAdd">
+		INSERT INTO product_option
+		VALUES(PRODUCT_OPTION_SEQ.nextval, #{productCode}, #{productOptionName}, #{productNecessaryOption})
+		
+		<selectKey  keyColumn="product_option_code" keyProperty="productOptionCode" resultType="Integer" order="AFTER">
+			SELECT PRODUCT_OPTION_SEQ.currval product_option_code FROM dual
+		</selectKey>
+	</insert>
+	
+	<insert id="productOptionDetailAdd">
+		INSERT INTO product_option_detail
+		(product_option_detail_code, product_option_code, product_option_detail_name)
+		VALUES(PRODUCT_OPTION_DETAIL_SEQ.nextval, #{productOptionCode}, #{productOptionDetailName})
+	</insert>
+	
+	<delete id="productDelete">
+		DELETE product
+		WHERE product_code = #{productCode}
+	</delete>
+	
+	<update id="productUpdate">
+		UPDATE product
+		SET category_code = #{productCategoryCode}, product_name = #{productName}, product_price = #{productPrice}, product_description = #{productDescription}
+		WHERE product_code = #{productCode}
+	</update>
+	
+	<delete id="initProductOptions">
+		DELETE product_option
+		WHERE product_code = #{productCode}
+	</delete>
+	
+</mapper>

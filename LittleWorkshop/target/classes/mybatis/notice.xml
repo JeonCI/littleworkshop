@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="notice">
+
+	<select id="noticeList" resultType="Notice">
+		SELECT n.notice_code notice_code,
+		n.notice_category_code notice_category_code,
+		nc.notice_category notice_category,
+		n.notice_registrant notice_registrant,
+		n.notice_contents notice_contents,
+		n.notice_reg_date notice_reg_date,
+		n.notice_important notice_important,
+		n.notice_subject notice_subject
+		FROM notice n
+		JOIN notice_category_list nc ON n.notice_category_code = nc.notice_category_code
+		ORDER BY n.notice_important desc
+	</select>
+	
+	<insert id="noticeAdd">
+		INSERT INTO notice
+		VALUES(NOTICE_SEQ.nextval, #{noticeCategoryCode}, #{noticeRegistrant}, #{noticeContents}, sysdate, #{noticeImportant}, #{noticeSubject})
+	</insert>
+	
+	<select id="noticeItem" resultType="Notice">
+		SELECT n.notice_code notice_code,
+		n.notice_category_code notice_category_code,
+		nc.notice_category notice_category,
+		n.notice_registrant notice_registrant,
+		n.notice_contents notice_contents,
+		n.notice_reg_date notice_reg_date,
+		n.notice_important notice_important,
+		n.notice_subject notice_subject
+		FROM notice n
+		JOIN notice_category_list nc ON n.notice_category_code = nc.notice_category_code
+		WHERE n.notice_code = #{noticeCode}
+	</select>
+	
+	<update id="noticeUpdate">
+		UPDATE notice
+		SET notice_code = #{noticeCode},
+		notice_category_code = #{noticeCategoryCode},
+		notice_contents = #{noticeContents},
+		notice_important = #{noticeImportant},
+		notice_subject = #{noticeSubject}
+		WHERE notice_code = #{noticeCode}
+	</update>
+	
+	<delete id="noticeDelete">
+		DELETE FROM notice WHERE notice_code = #{noticeCode}
+	</delete>
+	
+</mapper>

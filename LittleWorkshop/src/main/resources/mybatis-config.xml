@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+<configuration>
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+
+	<typeAliases>
+		<typeAlias type="kr.co.littleworkshop.model.Product" alias="Product"/>
+		<typeAlias type="kr.co.littleworkshop.model.Account" alias="Account"/>
+		<typeAlias type="kr.co.littleworkshop.model.AccountAddress" alias="AccountAddress"/>
+		<typeAlias type="kr.co.littleworkshop.model.ProductOption" alias="ProductOption"/>
+		<typeAlias type="kr.co.littleworkshop.model.ProductOptionDetail" alias="ProductOptionDetail"/>
+		<typeAlias type="kr.co.littleworkshop.model.Category" alias="Category"/>
+		<typeAlias type="kr.co.littleworkshop.model.Notice" alias="Notice"/>
+		<typeAlias type="kr.co.littleworkshop.model.AccountInquery" alias="AccountInquery"/>
+		<typeAlias type="kr.co.littleworkshop.model.ProductCategory" alias="ProductCategory"/>
+		<typeAlias type="kr.co.littleworkshop.model.NoticeCategory" alias="NoticeCategory"/>
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="mybatis/product.xml"/>
+		<mapper resource="mybatis/account.xml"/>
+		<mapper resource="mybatis/accountAddress.xml"/>
+		<mapper resource="mybatis/notice.xml"/>
+		<mapper resource="mybatis/accountInquery.xml"/>
+		<mapper resource="mybatis/category.xml"/>
+	</mappers>
+</configuration>

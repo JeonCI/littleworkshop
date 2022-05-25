@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="accountInquery">
+
+	<select id="list" resultType="AccountInquery">
+		SELECT ai.account_inquery_code account_inquery_code,
+		ai.id account_id,
+		ai.account_inquery_content account_inquery_content,
+		ai.account_inquery_subject account_inquery_subject,
+		aicl.account_inquery_category_code account_inquery_category_code,
+		aicl.account_inquery_category account_inquery_category,
+		aia.account_inquery_answer_code account_inquery_answer_code,
+		aia.account_inquery_answer account_inquery_answer
+		FROM account_inquery ai
+		JOIN account_inquery_category_list aicl ON ai.account_inquery_category_code = aicl.account_inquery_category_code
+		LEFT JOIN account_inquery_answers aia ON ai.account_inquery_code = aia.account_inquery_code
+	</select>
+	
+	<select id="categoryList" resultType="AccountInquery">
+		SELECT * FROM account_inquery_category_list
+	</select>
+	
+	<insert id="add">
+		INSERT INTO account_inquery
+		VALUES(ACCOUNT_INQUERY_SEQ.nextval, #{accountId}, #{accountInqueryCategoryCode}, #{accountInqueryContent}, #{accountInquerySubject})
+	</insert>
+	
+	<select id="item" resultType="AccountInquery">
+		SELECT ai.account_inquery_code account_inquery_code,
+		ai.id account_id,
+		ai.account_inquery_content account_inquery_content,
+		ai.account_inquery_subject account_inquery_subject,
+		aicl.account_inquery_category_code account_inquery_category_code,
+		aicl.account_inquery_category account_inquery_category,
+		aia.account_inquery_answer_code account_inquery_answer_code,
+		aia.account_inquery_answer account_inquery_answer
+		FROM account_inquery ai
+		JOIN account_inquery_category_list aicl ON ai.account_inquery_category_code = aicl.account_inquery_category_code
+		JOIN account_inquery_answers aia ON ai.account_inquery_code = aia.account_inquery_code
+		WHERE ai.account_inquery_code = #{accountInqueryCode}
+	</select>
+	
+	<update id="update">
+		UPDATE account_inquery
+		SET account_inquery_category_code = #{accountInqueryCategoryCode}, account_inquery_content = #{acountInqueryContent}, account_inquery_subject = #{accountInquerySubject}
+		WHERE account_inquery_code = #{accountInqueryCode}
+	</update>
+	
+	<delete id="delete">
+		DELETE account_inquery
+		WHERE account_inquery_code = #{accountInqueryCode}
+	</delete>
+	
+</mapper>

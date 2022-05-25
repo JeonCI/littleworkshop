@@ -1,0 +1,107 @@
+package kr.co.littleworkshop.model;
+
+import java.util.Date;
+import java.util.List;
+
+public class Product {
+	private int productCode;
+	private String sellerId;
+	private int productCategoryCode;
+	private String category;
+	private String productName;
+	private int productPrice;
+	private String productDescription;
+	private Date productRegDate;
+	private int productLikeCount;
+	private int productSellCount;
+	
+	private List<ProductOption> productOptionList;
+	
+	public int getProductCategoryCode() {
+		return productCategoryCode;
+	}
+
+	public void setProductCategoryCode(int productCategoryCode) {
+		this.productCategoryCode = productCategoryCode;
+	}
+
+	public List<ProductOption> getProductOptionList() {
+		return productOptionList;
+	}
+
+	public void setProductOptionList(List<ProductOption> productOptionList) {
+		this.productOptionList = productOptionList;
+	}
+
+	public int getProductCode() {
+		return productCode;
+	}
+	
+	public void setProductCode(int productCode) {
+		this.productCode = productCode;
+	}
+	
+	public String getCategory() {
+		return category;
+	}
+	
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
+	public String getSellerId() {
+		return sellerId;
+	}
+	
+	public void setSellerId(String sellerId) {
+		this.sellerId = sellerId;
+	}
+	
+	public String getProductName() {
+		return productName;
+	}
+	
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	
+	public int getProductPrice() {
+		return productPrice;
+	}
+	
+	public void setProductPrice(int productPrice) {
+		this.productPrice = productPrice;
+	}
+	
+	public String getProductDescription() {
+		return productDescription;
+	}
+	
+	public void setProductDescription(String productDescription) {
+		this.productDescription = productDescription;
+	}
+	
+	public Date getProductRegDate() {
+		return productRegDate;
+	}
+	
+	public void setProductRegDate(Date productRegDate) {
+		this.productRegDate = productRegDate;
+	}
+	
+	public int getProductLikeCount() {
+		return productLikeCount;
+	}
+	
+	public void setProductLikeCount(int productLikeCount) {
+		this.productLikeCount = productLikeCount;
+	}
+
+	public int getProductSellCount() {
+		return productSellCount;
+	}
+
+	public void setProductSellCount(int productSellCount) {
+		this.productSellCount = productSellCount;
+	}
+}

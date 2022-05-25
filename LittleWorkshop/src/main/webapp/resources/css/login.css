@@ -1,0 +1,149 @@
+* {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.logo{
+    margin-top: 130px;
+    margin-left: 877px;
+}
+.login_area{
+    display: flex;
+    margin-left: 660px;
+    margin-top: 65px;
+    font-size: 18px;
+}
+
+.login{
+    border-bottom: solid 1px #ddd;
+    padding-bottom: 25px;
+    width: 300px;
+}
+.sign_up{
+    border-bottom: solid 2px #92b6f3;
+    
+    width: 300px;
+}
+.login>a{
+    margin: 125px;
+}
+.sign_up>a{
+    margin-left: 125px;   
+}
+.sign_up>a:link{
+    color: black;
+    text-decoration: none;
+}
+.sign_up>a:visited{
+    color: black;
+    text-decoration: none;
+}
+.textbox{
+    display: flex;
+    flex-direction: column;
+    margin-top: 55px;
+    margin-left: 770px;
+    width: 380px;
+    height: 45px;
+}
+.login_box{
+    display: flex;
+    font-size: 16px;
+    line-height: 45px;
+    border-radius: 1px;
+    border :1px solid #dddddd;
+    margin-top: 5px;
+}
+input::placeholder {
+    
+    color: #888888;
+    font-size: 13px;
+}
+input{
+    text-indent: 2%;
+}
+.textbox>div>label>span{
+    font-size: 12px;
+    margin-left: 5px;
+}
+input[type="checkbox"]{
+    position: relative;
+    top: 2px;
+    border: solid #888888;
+    width: 15px;
+    height: 15px;
+}
+.login_option{
+    display: flex;
+    color: #888888;
+    margin-top: 15px;
+}
+.login_option>div:nth-child(2){
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.login_option>div{
+    
+    font-size: 12px;
+    line-height: 27px;
+}
+#find{
+    margin-left: 150px;
+}
+.login_option>div>a:link{
+    color: #888888;
+    text-decoration: none;
+}
+.login_option>div>a:visited{
+    color: #888888;
+    text-decoration: none;
+}
+.login-btn{
+    width: 380px;
+    height: 50px;
+    font-size:14px;
+    line-height: 50px;
+    text-align: center;
+    border: 0px;
+    color: #fff;
+    background: #92b6f3;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    margin-top: 35px;
+}
+.login-btn>a{
+    color: #fff;
+    text-decoration: none;
+}
+.login-btn>a:link{
+    color: #fff;
+    text-decoration: none;
+    
+}
+.login-btn>a:visited{
+    color: #fff;
+    text-decoration: none;
+}
+hr{
+    width: 600px;
+    border: 1px;
+    height: 2px;
+    background: #dddddd;
+    margin: 0;
+    
+    margin-top: 50px;
+}
+.login_sns{
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+}
+.btn-sns{
+    background: #fff;
+    border:0;
+    padding: 0;
+    
+}
+.btn-sns:nth-child(2){
+    margin-left: 15px;
+}

@@ -88,13 +88,19 @@
 		});
 
 	};
+	
+	
+function imageChange(event){
+	console.log("dd");
+		
+}
 </script>
 
 </head>
 <body>
 	<div>
 		<div>
-			<form method="post">
+			<form method="post" enctype="multipart/form-data">
 				<div>
 					<label>판매자 : </label>
 					<input type="text" value="${account.id }" readonly="readonly" name="sellerId">
@@ -107,6 +113,10 @@
 							<option value="${category.productCategoryCode}">${category.productCategory}</option>
 						</c:forEach>
 					</select>
+				</div>
+				<div id="imageContainer">
+					<label>제품 사진 : </label>
+					<input type="file" name="productName" accept="image/*" multiple onchange="imageChange(event);">
 				</div>
 				<div>
 					<label>제품 이름 : </label>

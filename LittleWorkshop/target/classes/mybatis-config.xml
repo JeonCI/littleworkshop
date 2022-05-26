@@ -8,6 +8,7 @@
 
 	<typeAliases>
 		<typeAlias type="kr.co.littleworkshop.model.Product" alias="Product"/>
+		<typeAlias type="kr.co.littleworkshop.model.Product" alias="ProductImages"/>
 		<typeAlias type="kr.co.littleworkshop.model.Account" alias="Account"/>
 		<typeAlias type="kr.co.littleworkshop.model.AccountAddress" alias="AccountAddress"/>
 		<typeAlias type="kr.co.littleworkshop.model.ProductOption" alias="ProductOption"/>

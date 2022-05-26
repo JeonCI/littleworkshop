@@ -49,8 +49,8 @@ public class ProductController {
 	
 	@GetMapping("/add")
 	public String add(Model model, HttpSession session) {
-		List<Category> categories = service.categories();
-		
+		List<Product> categories = service.categories();
+	
 		Account account = (Account) session.getAttribute("account");
 		
 		model.addAttribute("productCategories", categories);
@@ -65,6 +65,8 @@ public class ProductController {
 			@RequestParam("optionCount") List<Integer> optionCount,
 			@RequestParam("productNecessaryOption") List<Integer> necessaryOptionValues,
 			Product product) {
+			
+
 		
 		service.add(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues, product);
 		
@@ -73,7 +75,7 @@ public class ProductController {
 	
 	@GetMapping("/update/{productCode}")
 	public String update(@PathVariable int productCode, Model model) {
-		List<Category> categories = service.categories();
+		List<Product> categories = service.categories();
 		
 		Product item = new Product();
 		

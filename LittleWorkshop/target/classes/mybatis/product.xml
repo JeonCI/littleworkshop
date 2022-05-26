@@ -7,7 +7,7 @@
 		<id column="product_code" property="productCode"/>
 		<result column="seller_id" property="sellerId"/>
 		<result column="product_category_code" property="productCategoryCode"/>
-		<result column="product_category" property="category"/>
+		<result column="product_category" property="productCategory"/>
 		<result column="product_name" property="productName"/>
 		<result column="product_price" property="productPrice"/>
 		<result column="product_reg_date" property="productRegDate"/>
@@ -46,7 +46,7 @@
 		SELECT
 		p.product_code product_code,
 		p.seller_id seller_id,
-		p.category_code product_category_code,
+		p.product_category_code product_category_code,
 		c.product_category product_category,
 		p.product_name product_name,
 		p.product_price product_price,
@@ -67,15 +67,14 @@
 		WHERE p.product_code = #{productCode}
 	</select>
 	
-	<select id="categories" resultType="Category">
-		SELECT * FROM product_category
+	<select id="categories" resultType="Product">
+		SELECT * FROM product_category_list
 	</select>
 	
 	<insert id="productAdd">
 		INSERT INTO product
-		(product_code, seller_id, category_code, product_name, product_price, product_description, product_reg_date)
+		(product_code, seller_id, product_category_code, product_name, product_price, product_description, product_reg_date)
 		VALUES(PRODUCT_SEQ.nextval, #{sellerId}, #{productCategoryCode}, #{productName}, #{productPrice}, #{productDescription}, sysdate)
-	
 		<selectKey keyColumn="product_code" resultType="Integer" keyProperty="productCode" order="AFTER">
 			SELECT PRODUCT_SEQ.currval product_code FROM dual
 		</selectKey>

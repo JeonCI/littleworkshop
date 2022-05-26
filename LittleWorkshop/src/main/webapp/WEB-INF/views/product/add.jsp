@@ -104,7 +104,7 @@
 					<select name="productCategoryCode">
 						<option selected="selected" disabled="disabled">카테고리</option>
 						<c:forEach var="category" items="${productCategories }">
-							<option value="${category.categoryCode}">${category.productCategory}</option>
+							<option value="${category.productCategoryCode}">${category.productCategory}</option>
 						</c:forEach>
 					</select>
 				</div>

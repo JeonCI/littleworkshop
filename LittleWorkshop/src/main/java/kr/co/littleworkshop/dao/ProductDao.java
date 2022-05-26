@@ -14,7 +14,7 @@ public interface ProductDao {
 
 	Product item(int code);
 
-	List<Category> categories();
+	List<Product> categories();
 
 	void productAdd(Product product);
 

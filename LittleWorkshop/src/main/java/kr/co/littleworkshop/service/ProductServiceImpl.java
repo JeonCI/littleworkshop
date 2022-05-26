@@ -54,7 +54,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Category> categories() {
+	public List<Product> categories() {
 		return dao.categories();
 	}
 

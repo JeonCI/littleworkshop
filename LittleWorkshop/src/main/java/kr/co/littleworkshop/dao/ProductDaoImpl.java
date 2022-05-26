@@ -29,7 +29,7 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public List<Category> categories() {
+	public List<Product> categories() {
 		return sql.selectList("product.categories");
 	}
 

@@ -12,7 +12,7 @@ public interface ProductService {
 
 	Product item(int code);
 
-	List<Category> categories();
+	List<Product> categories();
 
 	void add(List<String> productOptionNames, List<String> productOptionDetailNames, List<Integer> optionCount,
 			List<Integer> necessaryOptionValues, Product product);

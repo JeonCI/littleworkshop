@@ -7,7 +7,7 @@ public class Product {
 	private int productCode;
 	private String sellerId;
 	private int productCategoryCode;
-	private String category;
+	private String productCategory;
 	private String productName;
 	private int productPrice;
 	private String productDescription;
@@ -41,14 +41,7 @@ public class Product {
 		this.productCode = productCode;
 	}
 	
-	public String getCategory() {
-		return category;
-	}
-	
-	public void setCategory(String category) {
-		this.category = category;
-	}
-	
+
 	public String getSellerId() {
 		return sellerId;
 	}
@@ -95,6 +88,16 @@ public class Product {
 	
 	public void setProductLikeCount(int productLikeCount) {
 		this.productLikeCount = productLikeCount;
+	}
+	
+	
+
+	public String getProductCategory() {
+		return productCategory;
+	}
+
+	public void setProductCategory(String productCategory) {
+		this.productCategory = productCategory;
 	}
 
 	public int getProductSellCount() {

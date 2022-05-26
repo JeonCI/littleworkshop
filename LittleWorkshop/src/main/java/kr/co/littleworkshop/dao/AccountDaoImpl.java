@@ -35,8 +35,8 @@ public class AccountDaoImpl implements AccountDao {
 	}
 
 	@Override
-	public void item(Account item) {
-		sql.selectOne("account.item", item);
+	public Account item(Account item) {
+		return sql.selectOne("account.item", item);
 	}
 
 	@Override

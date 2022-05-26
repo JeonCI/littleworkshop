@@ -29,7 +29,7 @@
 	
 	<update id="update">
 		UPDATE account
-		SET nickname = #{nickname}, phone = #{phone}, email = #{email}, classify = #{classify}
+		SET nickname = #{nickName}, phone = #{phone}, email = #{email}, classify = #{classify}
 		WHERE id = #{id}
 	</update>
 	

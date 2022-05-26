@@ -14,7 +14,7 @@ public interface AccountDao {
 
 	void delete(String id);
 
-	void item(Account item);
+	Account item(Account item);
 
 	void update(Account account);
 

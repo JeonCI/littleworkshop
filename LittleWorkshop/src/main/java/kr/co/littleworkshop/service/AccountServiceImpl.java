@@ -50,12 +50,12 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public void item(String id) {
+	public Account item(String id) {
 		Account item = new Account();
 		
 		item.setId(id);
 		
-		dao.item(item);
+		return dao.item(item);
 	}
 
 	@Override

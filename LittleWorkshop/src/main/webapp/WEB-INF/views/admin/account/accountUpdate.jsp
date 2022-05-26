@@ -24,7 +24,7 @@
 				</div>
 				<div>
 					<label>닉네임 : </label>
-					<input type="text" value="${item.nickname }" readonly="readonly" name="nickname">
+					<input type="text" value="${item.nickName }" readonly="readonly" name="nickName">
 				</div>
 				<div>
 					<label>핸드폰 번호 : </label>
@@ -36,7 +36,7 @@
 				</div>
 				<div>
 					<label>회원 유형 : </label>
-					<select name="noticeImportant">
+					<select name="classify">
 						<option value="1" ${item.classify == 1 ? 'selected':''}>일반 회원</option>
 						<option value="2" ${item.classify == 2 ? 'selected':''}>판매자</option>
 						<option value="3" ${item.classify == 3 ? 'selected':''}>관리자</option>

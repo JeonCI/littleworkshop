@@ -14,7 +14,7 @@ public interface AccountService {
 
 	void delete(String id);
 
-	void item(String id);
+	Account item(String id);
 
 	void update(Account account);
 

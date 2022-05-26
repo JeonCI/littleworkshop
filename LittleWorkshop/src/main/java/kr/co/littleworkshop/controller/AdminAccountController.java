@@ -39,7 +39,9 @@ public class AdminAccountController {
 	
 	@GetMapping("/accountUpdate/{id}")
 	public String accountUpdate(@PathVariable String id, Model model) {
-		accountService.item(id);
+		Account item = accountService.item(id);
+		
+		model.addAttribute("item", item);
 		
 		return path + "accountUpdate";
 	}

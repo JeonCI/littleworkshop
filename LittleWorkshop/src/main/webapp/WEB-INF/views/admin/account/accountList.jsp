@@ -37,7 +37,7 @@
 						<tr>
 							<td>${item.id}</td>
 							<td>${item.accountName }</td>
-							<td>${item.nickname}</td>
+							<td>${item.nickName}</td>
 							<td><fmt:formatDate value="${item.accountRegDate}" pattern="yyyy-MM-dd"/></td>
 							<td>${item.classifyStr}</td>
 							<td><a href="accountUpdate/${item.id}">회원 수정</a> / <a href="accountDelete/${item.id }">회원 삭제</a></td>

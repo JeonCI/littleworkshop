@@ -14,7 +14,7 @@
 		<div>
 			<p>${item.productCode }</p>
 			<p>${item.sellerId }</p>
-			<p>${item.category }</p>
+			<p>${item.productCategory }</p>
 			<p>${item.productName }</p>
 			<p>${item.productPrice }</p>
 			<p>${item.productDescription }</p>

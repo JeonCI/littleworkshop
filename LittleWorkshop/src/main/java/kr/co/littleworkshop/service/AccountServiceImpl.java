@@ -49,4 +49,18 @@ public class AccountServiceImpl implements AccountService {
 		dao.delete(id);
 	}
 
+	@Override
+	public void item(String id) {
+		Account item = new Account();
+		
+		item.setId(id);
+		
+		dao.item(item);
+	}
+
+	@Override
+	public void update(Account account) {
+		dao.update(account);
+	}
+
 }

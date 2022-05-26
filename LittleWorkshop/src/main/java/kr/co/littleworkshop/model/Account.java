@@ -16,6 +16,17 @@ public class Account {
 	
 	private List<AccountAddress> address;
 	
+	public String getClassifyStr() {
+		if(classify == 1) {
+			return "일반회원";
+		} else if(classify == 2) {
+			return "판매자";
+		} else if(classify == 3) {
+			return "관리자";
+		} else
+			return "false";
+	}
+	
 	public List<AccountAddress> getAddress() {
 		return address;
 	}

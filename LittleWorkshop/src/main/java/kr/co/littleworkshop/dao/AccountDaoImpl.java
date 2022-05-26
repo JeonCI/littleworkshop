@@ -34,4 +34,14 @@ public class AccountDaoImpl implements AccountDao {
 		sql.delete("account.delete");
 	}
 
+	@Override
+	public void item(Account item) {
+		sql.selectOne("account.item", item);
+	}
+
+	@Override
+	public void update(Account account) {
+		sql.update("account.update", account);
+	}
+
 }

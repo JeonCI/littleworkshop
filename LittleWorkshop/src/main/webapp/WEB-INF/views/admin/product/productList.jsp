@@ -42,7 +42,7 @@
 							<td><a href="productView/${item.productCode}">${item.productName}</a></td>
 							<td>${item.productPrice}</td>
 							<td><fmt:formatDate value="${item.productRegDate }" pattern="yyyy-MM-dd"/></td>
-							<td><a href="update/${item.productCode }">수정</a> / <a href="delete/${item.productCode }">삭제</a></td>
+							<td><a href="productDelete/${item.productCode }">삭제</a></td>
 						</tr>
 					</c:forEach>
 					</c:if>

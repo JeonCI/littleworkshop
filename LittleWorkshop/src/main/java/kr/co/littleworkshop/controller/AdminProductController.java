@@ -35,7 +35,7 @@ public class AdminProductController {
 		return path + "productList";
 	}
 	
-	@GetMapping("/deleteProduct/{productCode}")
+	@GetMapping("/productDelete/{productCode}")
 	public String deleteProduct(@PathVariable int productCode) {
 		productService.delete(productCode);
 		

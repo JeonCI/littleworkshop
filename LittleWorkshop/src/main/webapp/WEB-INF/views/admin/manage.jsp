@@ -10,12 +10,12 @@
 <body>
 	<div>관리자 페이지</div>
 	<ul>
-		<li><a href="noticeList">공지 목록</a></li>
-		<li><a href="productList">상품 목록</a></li>
-		<li><a href="fdList">펀딩 목록</a></li>
-		<li><a href="accountList">계정 목록</a></li>
-		<li><a href="productCategoryList">상품 카테고리 목록</a></li>
-		<li><a href="noticeCategoryList">공지 카테고리 목록</a></li>
+		<li><a href="notice/noticeList">공지 목록</a></li>
+		<li><a href="product/productList">상품 목록</a></li>
+		<li><a href="fd/fdList">펀딩 목록</a></li>
+		<li><a href="account/accountList">계정 목록</a></li>
+		<li><a href="product/productCategoryList">상품 카테고리 목록</a></li>
+		<li><a href="notice/noticeCategoryList">공지 카테고리 목록</a></li>
 	</ul>
 </body>
 </html>

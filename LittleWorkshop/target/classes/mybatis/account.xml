@@ -22,4 +22,15 @@
 		WHERE id = #{id}
 	</delete>
 	
+	<select id="item" resultType="Account">
+		SELECT id, account_name, nickname, phone, email, classify, account_reg_date FROM account
+		WHERE id = #{id}
+	</select>
+	
+	<update id="update">
+		UPDATE account
+		SET nickname = #{nickname}, phone = #{phone}, email = #{email}, classify = #{classify}
+		WHERE id = #{id}
+	</update>
+	
 </mapper>

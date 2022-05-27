@@ -114,10 +114,10 @@ function imageChange(event){
 						</c:forEach>
 					</select>
 				</div>
-				<div id="imageContainer">
-					<label>제품 사진 : </label>
-					<input type="file" name="productName" accept="image/*" multiple onchange="imageChange(event);">
-				</div>
+<!-- 				<div id="imageContainer"> -->
+<!-- 					<label>제품 사진 : </label> -->
+<!-- 					<input type="file" accept="image/*" multiple onchange="imageChange(event);"> -->
+<!-- 				</div> -->
 				<div>
 					<label>제품 이름 : </label>
 					<input type="text" name="productName">

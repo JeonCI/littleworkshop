@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kr.co.littleworkshop.model.Account;
 import kr.co.littleworkshop.model.Category;
 import kr.co.littleworkshop.model.Product;
+import kr.co.littleworkshop.model.ProductImages;
 import kr.co.littleworkshop.service.ProductService;
 import kr.co.littleworkshop.util.Pager;
 
@@ -63,6 +64,7 @@ public class ProductController {
 	public String add(@RequestParam("productOptionName") List<String> productOptionNames,
 			@RequestParam("productOptionDetailName") List<String> productOptionDetailNames,
 			@RequestParam("optionCount") List<Integer> optionCount,
+//			@RequestParam("ProductImage") List<ProductImages> ProductImageList,
 			@RequestParam("productNecessaryOption") List<Integer> necessaryOptionValues,
 			Product product) {
 			

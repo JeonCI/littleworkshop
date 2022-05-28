@@ -16,7 +16,18 @@ public class Product {
 	private int productSellCount;
 	
 	private List<ProductOption> productOptionList;
+	private List<ProductImages> ProductImageList;
 	
+	
+	
+	public List<ProductImages> getProductImageList() {
+		return ProductImageList;
+	}
+
+	public void setProductImageList(List<ProductImages> productImageList) {
+		ProductImageList = productImageList;
+	}
+
 	public int getProductCategoryCode() {
 		return productCategoryCode;
 	}

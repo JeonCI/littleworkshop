@@ -14,10 +14,16 @@
 		border: 1px solid;
 		padding: 5 5 5 5;
 	}
+	
+	#imageContainer > img{
+		width: 70px;
+		height: 70px;
+	}
 </style>
 
 <script type="text/javascript">
 	window.onload = function() {
+		let imageList = [];
 		var optionList = document.getElementById("optionList");
 		let index = 0;
 		
@@ -91,16 +97,43 @@
 	
 	
 function imageChange(event){
-	console.log("dd");
-		
+	
+    let i = event.target.files.length-1;
+    for(let image of event.target.files){
+        let img = document.createElement("img");
+	  	const reader = new FileReader();
+		reader.onload = function(event){
+			img.setAttribute("src", event.target.result);
+		}
+		reader.readAsDataURL(event.target.files[i--]);	
+		document.querySelector("#imageContainer").appendChild(img);
+	}
 }
+
+
+
+
+function btu(){
+	var formData = new FormData(document.getElementById("productForm"));
+	
+// 	for (let key of formData.keys()) {
+// 		console.log(key, ":", formData.get(key));
+// 	}
+for (let value of formData.values()) {
+      console.log(value);
+}
+}
+
+
+	
+
 </script>
 
 </head>
 <body>
 	<div>
 		<div>
-			<form method="post" enctype="multipart/form-data">
+			<form method="post" enctype="multipart/form-data" id = "productForm">
 				<div>
 					<label>판매자 : </label>
 					<input type="text" value="${account.id }" readonly="readonly" name="sellerId">
@@ -114,10 +147,10 @@ function imageChange(event){
 						</c:forEach>
 					</select>
 				</div>
-<!-- 				<div id="imageContainer"> -->
-<!-- 					<label>제품 사진 : </label> -->
-<!-- 					<input type="file" accept="image/*" multiple onchange="imageChange(event);"> -->
-<!-- 				</div> -->
+				<div id="imageContainer">
+					<label>제품 사진 : </label>
+					<input type="file" name="ProductImage" accept="image/*" multiple onchange="imageChange(event);">
+				</div>
 				<div>
 					<label>제품 이름 : </label>
 					<input type="text" name="productName">

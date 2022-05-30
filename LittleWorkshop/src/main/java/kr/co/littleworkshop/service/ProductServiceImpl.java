@@ -20,29 +20,39 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	ProductDao dao;
-	
-	private void productOptionAdd(List<String> productOptionNames, List<String> productOptionDetailNames, List<Integer> optionCount,
-			List<Integer> necessaryOptionValues, int productCode) {
-		
-		for(int i = 0; i < productOptionNames.size(); i++) {
+
+	private void productOptionAdd(List<String> productOptionNames, List<String> productOptionDetailNames,
+			List<Integer> optionCount, List<Integer> necessaryOptionValues, int productCode) {
+
+		for (int i = 0; i < productOptionNames.size(); i++) {
 			ProductOption productOption = new ProductOption();
-			
+
 			productOption.setProductOptionName(productOptionNames.get(i));
 			productOption.setProductCode(productCode);
 			productOption.setProductNecessaryOption(necessaryOptionValues.get(i));
-			
+
 			dao.productOptionAdd(productOption);
-			
-			for(int k = 0; k < optionCount.get(i); k++) {
+
+			for (int k = 0; k < optionCount.get(i); k++) {
 				ProductOptionDetail productOptionDetail = new ProductOptionDetail();
-				
+
 				productOptionDetail.setProductOptionCode(productOption.getProductOptionCode());
 				productOptionDetail.setProductOptionDetailName(productOptionDetailNames.get(0));
 				productOptionDetailNames.remove(0);
-				
+
 				dao.productOptionDetailAdd(productOptionDetail);
 			}
 		}
+	}
+	
+	@Override
+	public void imageUpload(Product product){
+
+		for (ProductImages image : product.getProductImageList()) {
+			image.setProductCode(product.getProductCode());
+			dao.imageUpload(image);
+		}
+		
 	}
 	
 	@Override
@@ -64,30 +74,28 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional
 	public void add(List<String> productOptionNames, List<String> productOptionDetailNames, List<Integer> optionCount,
 			List<Integer> necessaryOptionValues, Product product) {
-		
+
 		dao.productAdd(product);
-		
-		productOptionAdd(productOptionNames,
-				productOptionDetailNames,
-				optionCount,
-				necessaryOptionValues,
+
+		productOptionAdd(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues,
 				product.getProductCode());
 		
-		for(ProductImages image: product.getProductImageList()) {
-			image.setProductCode(product.getProductCode());
-			System.out.println("코드:"+product.getProductCode());
-			dao.imageUpload(image);
-		}
+		imageUpload(product);
 		
-		
+
 	}
 
 	@Override
-	@Transactional
 	public void delete(int productCode) {
-		Product root = dao.item(productCode);
-		DeleteFile<ProductImages> delete = new DeleteFile<ProductImages>();
-		if(delete.deleteImage("productimage"+"/"+root.getProductCode()+"/"+root.getProductName())) {
+		Product item = dao.item(productCode);
+		if (item.getProductImageList() == null) {
+			System.out.println("##############널이당");
+			dao.delete(productCode);
+		}else {
+			System.out.println("##################널아니당");
+			String root = "productimage/" + item.getSellerId() + "/" + item.getProductCode() + "_"+ item.getProductName();
+			DeleteFile<ProductImages> delete = new DeleteFile<ProductImages>();
+			delete.deleteImage(root);
 			dao.delete(productCode);
 		}
 
@@ -98,13 +106,10 @@ public class ProductServiceImpl implements ProductService {
 	public void update(List<String> productOptionNames, List<String> productOptionDetailNames,
 			List<Integer> optionCount, List<Integer> necessaryOptionValues, Product product) {
 		dao.update(product);
-		
+
 		dao.initProductOptions(product.getProductCode());
-		
-		productOptionAdd(productOptionNames,
-				productOptionDetailNames,
-				optionCount,
-				necessaryOptionValues,
+
+		productOptionAdd(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues,
 				product.getProductCode());
 	}
 

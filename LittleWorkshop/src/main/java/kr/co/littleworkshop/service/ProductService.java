@@ -21,4 +21,6 @@ public interface ProductService {
 
 	void delete(int productCode);
 
+	void imageUpload(Product product);
+
 }

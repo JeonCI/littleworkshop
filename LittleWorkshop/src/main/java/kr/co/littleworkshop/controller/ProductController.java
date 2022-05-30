@@ -73,11 +73,15 @@ public class ProductController {
 			@RequestParam("productNecessaryOption") List<Integer> necessaryOptionValues,
 			Product product) {
 
+		service.add(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues, product);
+		
 		Uploader<ProductImages> uploader = new Uploader<>();
+		String root = "productimage/"+product.getSellerId()+"/"+product.getProductCode()+"_"+product.getProductName();
+
 		try {
-			List<ProductImages> Images = uploader.makeProductImageList(ProductImages, ProductImages.class, "productimage/"+product.getProductCode()+"/"+product.getProductName());
+			List<ProductImages> Images = uploader.makeProductImageList(ProductImages, ProductImages.class,root);
 			product.setProductImageList(Images);
-			service.add(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues, product);
+			service.imageUpload(product);
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="fdOpinion">
+
+	<select id="list" resultType="FdOpinion">
+		SELECT * FROM fd_opinion
+		WHERE fd_code = #{fdCode}
+	</select>
+	
+	<insert id="add">
+		INSERT INTO fd_opinion
+		(fd_opinion_code, fd_code, fd_opinion, writer_id, fd_opinion_reg_date)
+		VALUES(FD_OPINION_SEQ.nextval, #{fdCode}, #{fdOpinion}, #{writerId}, sysdate)
+	</insert>
+	
+</mapper>

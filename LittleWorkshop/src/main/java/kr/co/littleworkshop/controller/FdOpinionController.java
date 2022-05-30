@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -23,9 +24,9 @@ public class FdOpinionController {
 	@Autowired
 	FdOpinionService service;
 	
-	@GetMapping("/fdOpinionList")
-	public String fdOpinionList(Model model) {
-		List<FdOpinion> list = service.fdOpinionList();
+	@GetMapping("/fdOpinionList/{fdCode}")
+	public String fdOpinionList(Model model, @PathVariable int fdCode) {
+		List<FdOpinion> list = service.fdOpinionList(fdCode);
 		
 		model.addAttribute("list", list);
 		
@@ -40,6 +41,6 @@ public class FdOpinionController {
 		
 		service.fdOpinionAdd(fdOpinion);
 		
-		return "redirect:./";
+		return "redirect:fdOpinionList" + fdOpinion.getFdCode();
 	}
 }

@@ -1,10 +1,10 @@
-package kr.co.littleworkshop.service;
+package kr.co.littleworkshop.dao;
 
 import java.util.List;
 
 import kr.co.littleworkshop.model.FdOpinion;
 
-public interface FdOpinionService {
+public interface FdOpinionDao {
 
 	List<FdOpinion> fdOpinionList(int fdCode);
 

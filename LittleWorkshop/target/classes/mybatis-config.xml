@@ -15,11 +15,14 @@
 		<typeAlias type="kr.co.littleworkshop.model.ProductOptionDetail" alias="ProductOptionDetail"/>
 		<typeAlias type="kr.co.littleworkshop.model.Category" alias="Category"/>
 		<typeAlias type="kr.co.littleworkshop.model.Notice" alias="Notice"/>
+		<typeAlias type="kr.co.littleworkshop.model.NoticeCategory" alias="NoticeCategory"/>
 		<typeAlias type="kr.co.littleworkshop.model.AccountInquery" alias="AccountInquery"/>
 		<typeAlias type="kr.co.littleworkshop.model.ProductCategory" alias="ProductCategory"/>
 		<typeAlias type="kr.co.littleworkshop.model.Fd" alias="Fd"/>
 		<typeAlias type="kr.co.littleworkshop.model.FdOption" alias="FdOption"/>
 		<typeAlias type="kr.co.littleworkshop.model.FdOptionDetail" alias="FdOptionDetail"/>
+		<typeAlias type="kr.co.littleworkshop.model.FdOpinion" alias="FdOpinion"/>
+		<typeAlias type="kr.co.littleworkshop.model.FdOpinionAnswers" alias="FdOpinionAnswers"/>
 	</typeAliases>
 
 	<mappers>
@@ -30,5 +33,6 @@
 		<mapper resource="mybatis/accountInquery.xml"/>
 		<mapper resource="mybatis/category.xml"/>
 		<mapper resource="mybatis/fd.xml"/>
+		<mapper resource="mybatis/fdOpinion.xml"/>
 	</mappers>
 </configuration>

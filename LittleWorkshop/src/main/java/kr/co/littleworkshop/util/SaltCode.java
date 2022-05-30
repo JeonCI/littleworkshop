@@ -7,8 +7,9 @@ import kr.co.littleworkshop.model.Account;
 
 public class SaltCode {
 	public void accountSaltCode(Account account) {
+		String password = account.getPasswd();
 		String SaltCode = account.getId();
-			    
+		
 	    for(int i = 0; i < 3; i++) {
 	       MessageDigest md = null;
 	       
@@ -19,14 +20,14 @@ public class SaltCode {
 	       }
 	       
 	       md.update(SaltCode.getBytes());
-	       
+	       md.update(password.getBytes());
+	      
 	       String hex = String.format("%064x", new BigInteger(1, md.digest()));
-	       
-	       SaltCode = hex;
-	       System.out.println(SaltCode);
+	       password = hex;
+	     
 	    }
-	    account.setSaltCode(SaltCode);
-
+	    account.setPasswd(password);
+	    System.out.println(password);
   }
 	
 		

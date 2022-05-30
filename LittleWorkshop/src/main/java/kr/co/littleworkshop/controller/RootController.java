@@ -37,6 +37,9 @@ public class RootController {
 	
 	@PostMapping("/login")
 	public String login(HttpSession session, Account account, Model model) {
+		SaltCode salt = new SaltCode();
+		salt.accountSaltCode(account);
+		
 		if(accountService.login(account)) {
 			account.setPasswd(null);
 			
@@ -65,18 +68,11 @@ public class RootController {
 	
 	@PostMapping("/signup")
 	public String signup(Account item) {
-//		SHAPW PW = NEW SHAPW();
-//		item.setPasswd(PWW(item.getPasswd());
 		
+		item.setSaltCode(item.getId());
 		SaltCode salt = new SaltCode();
 		salt.accountSaltCode(item);
-		salt.accountSaltCode(item);
-		salt.accountSaltCode(item);
-		System.out.println("짠짠"+item.getSaltCode());
-		
-		
-		
-		//accountService.signup(item);
+		accountService.signup(item);
 		
 		return "redirect:.";
 	}

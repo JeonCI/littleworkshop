@@ -20,8 +20,8 @@ public class ProductDaoImpl implements ProductDao {
 	SqlSession sql;
 	
 	@Override
-	public List<Product> list() {
-		return sql.selectList("product.list");
+	public List<Product> list(Pager pager) {
+		return sql.selectList("product.list", pager);
 	}
 
 	@Override
@@ -69,5 +69,11 @@ public class ProductDaoImpl implements ProductDao {
 		sql.insert("product.imageUpload", image);
 		
 	}
+
+	@Override
+	public int total(Pager pager) {
+		return sql.selectOne("product.total", pager);
+	}
+
 
 }

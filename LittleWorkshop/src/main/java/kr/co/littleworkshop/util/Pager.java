@@ -10,7 +10,7 @@ public class Pager {
 	private int perGroup = 10;
 	
 	private String keyword;
-	private int search;
+	private int search = 0;
 	
 	public String getKeyword() {
 		return keyword;

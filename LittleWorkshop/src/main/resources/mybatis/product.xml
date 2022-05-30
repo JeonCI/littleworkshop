@@ -3,6 +3,14 @@
 
 <mapper namespace="product">
 
+<sql id="search">
+	<if test="keyword != null">
+		<where>
+			product_name LIKE CONCAT('%',CONCAT(#{keyword},'%'))
+		</where>
+	</if>
+</sql>
+
 	<resultMap type="Product" id="ProductMap">
 		<id column="product_code" property="productCode"/>
 		<result column="seller_id" property="sellerId"/>
@@ -43,9 +51,18 @@
 		p.product_name product_name,
 		p.product_price product_price,
 		p.product_reg_date product_reg_date
-		FROM product p
+		FROM (SELECT ROWNUM AS RNUM, sub.* FROM
+		(SELECT * FROM product <include refid="search"></include>) sub) p
 		JOIN product_category_list c ON p.product_category_code = c.product_category_code
+		<![CDATA[ WHERE RNUM > ((#{page} - 1) * #{perPage}) and RNUM <= ( #{page} * #{perPage})	]]>
+		
 	</select>
+	
+	<select id="total" resultType="Integer">
+		SELECT count(*) FROM product <include refid="search"></include>
+	</select>
+	
+	
 	
 	<select id="item" resultMap="ProductMap">
 		SELECT

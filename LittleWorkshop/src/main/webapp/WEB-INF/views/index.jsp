@@ -23,8 +23,7 @@
 	<header>
         <div class="container login_area">
         	<c:if test="${account != null }">
-				${account.id }
-				${account.nickName }
+				${account.nickName} 님
 				<c:if test="${account.classify == 3 }">
 					<ul class="bar">｜</ul>
 					<ul><a href="admin/manage">관리자 페이지</a></ul>
@@ -43,10 +42,10 @@
             <div class="logo">
                 <a href="./"><img src="/image/logo.png"></a>
             </div>
-           <div class="search">
-               <input class="searchbox" type="text" name="login_id" placeholder="원하시는 물건을 찾아보세요! ">
+           <form class="search" method="get" action="/product/search">
+               <input class="searchbox" type="text" name="keyword" placeholder="원하시는 물건을 찾아보세요! ">
                 <i class="bi bi-search"></i>
-           </div>
+           </form>
            <div class="icon">
             <i class="bi bi-person-circle"></i>
             <i class="bi bi-cart"  ></i>
@@ -57,8 +56,8 @@
         <div class="container menubar">
             <div class="category">카테고리</div>
             <div><a href="product/list">추천작품</a></div>
-            <div><a href="product/list">최신작품</a></div>
-            <div><a href="product/list">인기작품</a></div>
+            <div><a href="#">최신작품</a></div>
+            <div><a href="#">인기작품</a></div>
             <div><a href="#">인기작가</a></div>
             <div><a href="#">작가추천</a></div>
             <div><a href="#">할인작품</a></div>

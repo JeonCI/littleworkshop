@@ -56,8 +56,11 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public List<Product> list() {
-		return dao.list();
+	public List<Product> list(Pager pager) {
+		int total = dao.total(pager);
+		pager.setTotal(total);
+		
+		return dao.list(pager);
 	}
 
 	@Override

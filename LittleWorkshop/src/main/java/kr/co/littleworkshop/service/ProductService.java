@@ -8,7 +8,7 @@ import kr.co.littleworkshop.util.Pager;
 
 public interface ProductService {
 
-	List<Product> list();
+	List<Product> list(Pager pager);
 
 	Product item(int code);
 

@@ -11,7 +11,7 @@ import kr.co.littleworkshop.util.Pager;
 
 public interface ProductDao {
 
-	List<Product> list();
+	List<Product> list(Pager pager);
 
 	Product item(int code);
 
@@ -30,4 +30,7 @@ public interface ProductDao {
 	void initProductOptions(int productCode);
 
 	void imageUpload(ProductImages image);
+
+	int total(Pager pager);
+
 }

@@ -32,15 +32,16 @@ public class ProductController {
 	@Autowired
 	ProductService service;
 
-	@RequestMapping("/list")
-	public String list(Model model) {
-		List<Product> list = service.list();
+	@RequestMapping({"/list", "/search"})
+	public String list(Model model, Pager pager) {
+		List<Product> list = service.list(pager);
 
 		model.addAttribute("list", list);
 
 		return path + "list";
 	}
-
+	
+	
 	@GetMapping("/view/{productCode}")
 	public String view(@PathVariable int productCode, Model model) {
 		Product item = service.item(productCode);

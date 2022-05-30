@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.littleworkshop.model.Account;
 import kr.co.littleworkshop.model.FdOpinion;
+import kr.co.littleworkshop.service.FdOpinionService;
 
 @Controller
 @RequestMapping("/fd/fdOpinion")
@@ -34,6 +35,10 @@ public class FdOpinionController {
 	@PostMapping("/fdOpinionAdd")
 	public String fdOpinionAdd(FdOpinion fdOpinion, HttpSession session) {
 		Account account = (Account) session.getAttribute("session");
+		
+		fdOpinion.setWriterId(account.getId());
+		
+		service.fdOpinionAdd(fdOpinion);
 		
 		return "redirect:./";
 	}

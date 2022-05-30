@@ -1,11 +1,15 @@
 package kr.co.littleworkshop.model;
 
+import java.util.Date;
+
 public class FdOpinion {
 	private int fdOpinionCode;
 	private int fdCode;
 	private String fdOpinion;
 	private int goodCount;
 	private int producerSelection;
+	private String writerId;
+	private Date fdOpinionRegDate;
 	
 	private FdOpinionAnswers fdOpinionAnswer;
 	
@@ -55,5 +59,21 @@ public class FdOpinion {
 
 	public void setFdOpinionAnswer(FdOpinionAnswers fdOpinionAnswer) {
 		this.fdOpinionAnswer = fdOpinionAnswer;
+	}
+
+	public String getWriterId() {
+		return writerId;
+	}
+
+	public void setWriterId(String writerId) {
+		this.writerId = writerId;
+	}
+
+	public Date getFdOpinionRegDate() {
+		return fdOpinionRegDate;
+	}
+
+	public void setFdOpinionRegDate(Date fdOpinionRegDate) {
+		this.fdOpinionRegDate = fdOpinionRegDate;
 	}
 }

@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
-
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <style type="text/css">
 	.option {
 		border: 1px solid;
@@ -22,8 +22,8 @@
 </style>
 
 <script type="text/javascript">
+var fileList = {};
 	window.onload = function() {
-		let imageList = [];
 		var optionList = document.getElementById("optionList");
 		let index = 0;
 		
@@ -88,8 +88,6 @@
 
 			index++;
 
-			console.log(index);
-			
 			optionListDiv.appendChild(divv);
 		});
 
@@ -98,6 +96,14 @@
 	
 function imageChange(event){
 	
+	//파일 등록 부분
+	let formData = new FormData(document.getElementById("productForm"));
+	let item = document.getElementById("ProductImage");
+	
+	for(let i = 0; i < item.files.length; i++)
+		fileList[item.files[i].name] = item.files[i];
+
+	// 미리보기 부분
     let i = event.target.files.length-1;
     for(let image of event.target.files){
         let img = document.createElement("img");
@@ -113,15 +119,29 @@ function imageChange(event){
 
 
 
-function btu(){
+function but(){
 	var formData = new FormData(document.getElementById("productForm"));
+	formData.delete("ProductImage");
+	let name = Object.keys(fileList);
 	
-// 	for (let key of formData.keys()) {
-// 		console.log(key, ":", formData.get(key));
-// 	}
-for (let value of formData.values()) {
-      console.log(value);
-}
+	for(let i =0; i < name.length; i++){
+		formData.append("ProductImage", fileList[name[i]]);
+	}
+	
+
+	$.ajax({
+		type: "post",
+		url:"./add",
+		enctype: 'multipart/form-data',
+        processData: false,
+        contentType: false,
+		data: formData,
+		success: function(result){
+			location.href= "./list";
+		},error: function(){
+			console.log("실패");
+		}
+	});
 }
 
 
@@ -149,7 +169,7 @@ for (let value of formData.values()) {
 				</div>
 				<div id="imageContainer">
 					<label>제품 사진 : </label>
-					<input type="file" name="ProductImage" accept="image/*" multiple onchange="imageChange(event);">
+					<input type="file" name="ProductImage" id= "ProductImage" accept="image/*" multiple onchange="imageChange(event);">
 				</div>
 				<div>
 					<label>제품 이름 : </label>
@@ -169,7 +189,7 @@ for (let value of formData.values()) {
 				</div>
 				<div id=optionListDiv>
 				</div>
-				<button>등록하기</button>
+				<button type="button" onclick="but();">등록하기</button>
 			</form>
 			<a href="./list">뒤로가기</a>
 		</div>

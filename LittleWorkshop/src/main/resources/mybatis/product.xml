@@ -14,7 +14,7 @@
 		<result column="product_like_count" property="productLikeCount"/>
 		<result column="product_description" property="productDescription"/>
 		<result column="product_sell_count"/>
-		
+
 		<collection property="productOptionList" column="po_product_code" ofType="ProductOption" javaType="ArrayList">
 			<id column="product_option_code" property="productOptionCode"/>
 			<result column="po_product_code" property="productCode"/>
@@ -26,6 +26,13 @@
 				<result column="pod_product_option_code" property="productOptionCode"/>
 				<result column="product_option_detail_name" property="productOptionDetailName"/>
 			</collection>
+		</collection>	
+		
+		<collection property="productImageList" column="pi_product_code" ofType="ProductImages" javaType="ArrayList">
+			<id column="product_image_code" property="productImageCode"/>
+			<result column="pi_product_code" property="productCode"/>
+			<result column="product_image_uuid" property="productImageUuid"/>
+			<result column="product_image_name" property="productImageName"/>
 		</collection>
 	</resultMap>
 	
@@ -59,11 +66,16 @@
 		po.product_necessary_option product_necessary_option,
 		pod.product_option_code pod_product_option_code,
 		pod.product_option_detail_name product_option_detail_name,
-		pod.product_option_detail_code product_option_detail_code
+		pod.product_option_detail_code product_option_detail_code,
+		pi.product_code pi_product_code,
+		pi.product_image_code product_image_code,
+		pi.product_image_uuid product_image_uuid,
+		pi.product_image_name product_image_name
 		FROM product p
 		JOIN product_option po ON p.product_code = po.product_code
 		JOIN product_option_detail pod ON po.PRODUCT_OPTION_CODE = pod.PRODUCT_OPTION_CODE
 		JOIN product_category_list c ON p.product_category_code = c.product_category_code
+		JOIN PRODUCT_IMAGES pi ON pi.product_code = p.product_code
 		WHERE p.product_code = #{productCode}
 	</select>
 	
@@ -110,5 +122,11 @@
 		DELETE product_option
 		WHERE product_code = #{productCode}
 	</delete>
+	
+	
+	<insert id="imageUpload">
+		INSERT INTO PRODUCT_IMAGES (PRODUCT_IMAGE_CODE,PRODUCT_CODE, PRODUCT_IMAGE_UUID, PRODUCT_IMAGE_NAME)
+		VALUES(PRODUCT_IMAGES_SEQ.nextval, #{productCode}, #{productImageUuid}, #{productImageName})
+	</insert>
 	
 </mapper>

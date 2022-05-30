@@ -1,6 +1,8 @@
 package kr.co.littleworkshop.model;
 
-public class ProductImages {
+import kr.co.littleworkshop.util.UploadFile;
+
+public class ProductImages implements UploadFile{
 	
 	int productImageCode;
 	int productCode;
@@ -30,6 +32,22 @@ public class ProductImages {
 	}
 	public void setProductImageName(String productImageName) {
 		this.productImageName = productImageName;
+	}
+	@Override
+	public void setFileNm(String filename) {
+		this.productImageName = filename;
+	}
+	@Override
+	public void setFileUuid(String uuid) {
+		this.productImageUuid = uuid;
+	}
+	@Override
+	public String getFileNm() {
+		return productImageName;
+	}
+	@Override
+	public String getFileUuid() {
+		return productImageUuid;
 	}
 	
 	

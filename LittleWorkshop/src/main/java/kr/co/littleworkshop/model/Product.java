@@ -16,16 +16,17 @@ public class Product {
 	private int productSellCount;
 	
 	private List<ProductOption> productOptionList;
-	private List<ProductImages> ProductImageList;
+	private List<ProductImages> productImageList;
 	
 	
-	
+
+
 	public List<ProductImages> getProductImageList() {
-		return ProductImageList;
+		return productImageList;
 	}
 
 	public void setProductImageList(List<ProductImages> productImageList) {
-		ProductImageList = productImageList;
+		this.productImageList = productImageList;
 	}
 
 	public int getProductCategoryCode() {

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.littleworkshop.model.Category;
 import kr.co.littleworkshop.model.Product;
+import kr.co.littleworkshop.model.ProductImages;
 import kr.co.littleworkshop.model.ProductOption;
 import kr.co.littleworkshop.model.ProductOptionDetail;
 import kr.co.littleworkshop.util.Pager;
@@ -61,6 +62,12 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public void initProductOptions(int productCode) {
 		sql.delete("product.initProductOptions", productCode);
+	}
+
+	@Override
+	public void imageUpload(ProductImages image) {
+		sql.insert("product.imageUpload", image);
+		
 	}
 
 }

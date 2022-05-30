@@ -9,8 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.littleworkshop.dao.ProductDao;
 import kr.co.littleworkshop.model.Category;
 import kr.co.littleworkshop.model.Product;
+import kr.co.littleworkshop.model.ProductImages;
 import kr.co.littleworkshop.model.ProductOption;
 import kr.co.littleworkshop.model.ProductOptionDetail;
+import kr.co.littleworkshop.util.DeleteFile;
 import kr.co.littleworkshop.util.Pager;
 
 @Service
@@ -70,11 +72,25 @@ public class ProductServiceImpl implements ProductService {
 				optionCount,
 				necessaryOptionValues,
 				product.getProductCode());
+		
+		for(ProductImages image: product.getProductImageList()) {
+			image.setProductCode(product.getProductCode());
+			System.out.println("코드:"+product.getProductCode());
+			dao.imageUpload(image);
+		}
+		
+		
 	}
 
 	@Override
+	@Transactional
 	public void delete(int productCode) {
-		dao.delete(productCode);
+		Product root = dao.item(productCode);
+		DeleteFile<ProductImages> delete = new DeleteFile<ProductImages>();
+		if(delete.deleteImage("productimage"+"/"+root.getProductCode()+"/"+root.getProductName())) {
+			dao.delete(productCode);
+		}
+
 	}
 
 	@Override

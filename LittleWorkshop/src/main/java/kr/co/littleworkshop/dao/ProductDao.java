@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.co.littleworkshop.model.Category;
 import kr.co.littleworkshop.model.Product;
+import kr.co.littleworkshop.model.ProductImages;
 import kr.co.littleworkshop.model.ProductOption;
 import kr.co.littleworkshop.model.ProductOptionDetail;
 import kr.co.littleworkshop.util.Pager;
@@ -27,4 +28,6 @@ public interface ProductDao {
 	void update(Product product);
 
 	void initProductOptions(int productCode);
+
+	void imageUpload(ProductImages image);
 }

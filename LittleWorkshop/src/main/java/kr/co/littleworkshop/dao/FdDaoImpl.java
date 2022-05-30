@@ -1,5 +1,6 @@
 package kr.co.littleworkshop.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -59,6 +60,27 @@ public class FdDaoImpl implements FdDao {
 	@Override
 	public void delete(int fdCode) {
 		sql.delete("fd.delete", fdCode);
+	}
+
+	@Override
+	public int nowCount(int fdCode) {
+		return sql.selectOne("fd.nowCount", fdCode);
+	}
+
+	@Override
+	public void viewCount(Fd fd) {
+		sql.update("fd.viewCount", fd);
+	}
+
+	@Override
+	public void participateFd(int participationPrice, int fdCode, String id) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("participationPrice", participationPrice);
+		map.put("fdCode", fdCode);
+		map.put("id", id);
+		
+		sql.insert("fd.participateFd", map);
 	}
 
 }

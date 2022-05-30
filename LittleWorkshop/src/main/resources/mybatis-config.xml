@@ -8,7 +8,7 @@
 
 	<typeAliases>
 		<typeAlias type="kr.co.littleworkshop.model.Product" alias="Product"/>
-		<typeAlias type="kr.co.littleworkshop.model.Product" alias="ProductImages"/>
+		<typeAlias type="kr.co.littleworkshop.model.ProductImages" alias="ProductImages"/>
 		<typeAlias type="kr.co.littleworkshop.model.Account" alias="Account"/>
 		<typeAlias type="kr.co.littleworkshop.model.AccountAddress" alias="AccountAddress"/>
 		<typeAlias type="kr.co.littleworkshop.model.ProductOption" alias="ProductOption"/>
@@ -17,7 +17,9 @@
 		<typeAlias type="kr.co.littleworkshop.model.Notice" alias="Notice"/>
 		<typeAlias type="kr.co.littleworkshop.model.AccountInquery" alias="AccountInquery"/>
 		<typeAlias type="kr.co.littleworkshop.model.ProductCategory" alias="ProductCategory"/>
-		<typeAlias type="kr.co.littleworkshop.model.NoticeCategory" alias="NoticeCategory"/>
+		<typeAlias type="kr.co.littleworkshop.model.Fd" alias="Fd"/>
+		<typeAlias type="kr.co.littleworkshop.model.FdOption" alias="FdOption"/>
+		<typeAlias type="kr.co.littleworkshop.model.FdOptionDetail" alias="FdOptionDetail"/>
 	</typeAliases>
 
 	<mappers>
@@ -27,5 +29,6 @@
 		<mapper resource="mybatis/notice.xml"/>
 		<mapper resource="mybatis/accountInquery.xml"/>
 		<mapper resource="mybatis/category.xml"/>
+		<mapper resource="mybatis/fd.xml"/>
 	</mappers>
 </configuration>

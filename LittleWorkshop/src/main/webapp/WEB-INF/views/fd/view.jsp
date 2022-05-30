@@ -32,6 +32,15 @@
 				</c:forEach>
 			</c:if>
 		</div>
+		<div>
+			<form action="participateFd/${item.fdCode}" method="get">
+				<div>
+					<label>후원 금액 : </label>
+					<input type="number" name="participationPrice" min="1000">
+				</div>		
+				<button>참여하기</button>
+			</form>
+		</div>
 	</div>
 </body>
 </html>

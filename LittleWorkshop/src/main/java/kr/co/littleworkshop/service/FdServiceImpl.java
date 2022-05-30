@@ -18,7 +18,7 @@ public class FdServiceImpl implements FdService {
 	
 	private void FdOptionAdd(List<String> fdOptionNames,
 							List<String> fdOptionDetailNames, List<Integer> optionCount,
-							List<Integer> necessaryOptionValues, int fdCode) {
+							List<Integer> necessaryOptionValues, List<Integer> fdSoldOutValues, int fdCode) {
 		
 		for(int i = 0; i < fdOptionNames.size(); i++) {
 			FdOption fdOption = new FdOption();
@@ -34,7 +34,9 @@ public class FdServiceImpl implements FdService {
 				
 				fdOptionDetail.setFdOptionCode(fdOption.getFdOptionCode());
 				fdOptionDetail.setFdOptionDetailName(fdOptionDetailNames.get(0));
+				fdOptionDetail.setFdSoldOut(fdSoldOutValues.get(0));
 				fdOptionDetailNames.remove(0);
+				fdSoldOutValues.remove(0);
 				
 				dao.fdOptionDetailAdd(fdOptionDetail);
 			}
@@ -58,25 +60,41 @@ public class FdServiceImpl implements FdService {
 
 	@Override
 	public void add(List<String> fdOptionNames, List<String> fdOptionDetailNames, List<Integer> optionCount,
-			List<Integer> necessaryOptionValues, Fd fd) {
+			List<Integer> necessaryOptionValues, List<Integer> fdSoldOutValues, Fd fd) {
 		dao.add(fd);
 		
-		FdOptionAdd(fdOptionNames, fdOptionDetailNames, optionCount, necessaryOptionValues, fd.getFdCode());
+		FdOptionAdd(fdOptionNames, fdOptionDetailNames, optionCount, necessaryOptionValues, fdSoldOutValues, fd.getFdCode());
 	}
 
 	@Override
 	public void update(List<String> fdOptionNames, List<String> fdOptionDetailNames, List<Integer> optionCount,
-			List<Integer> necessaryOptionValues, Fd fd) {
+			List<Integer> necessaryOptionValues, List<Integer> fdSoldOutValues, Fd fd) {
 		dao.update(fd);
 		
 		dao.initFdOption(fd.getFdCode());
 		
-		FdOptionAdd(fdOptionNames, fdOptionDetailNames, optionCount, necessaryOptionValues, fd.getFdCode());
+		FdOptionAdd(fdOptionNames, fdOptionDetailNames, optionCount, necessaryOptionValues, fdSoldOutValues, fd.getFdCode());
 	}
 
 	@Override
 	public void delete(int fdCode) {
 		dao.delete(fdCode);
+	}
+
+	@Override
+	public void viewCount(int fdCode) {
+		Fd fd = new Fd();
+		int nowCount = dao.nowCount(fdCode);
+		
+		fd.setFdCode(fdCode);
+		fd.setFdViewCount(nowCount);
+		
+		dao.viewCount(fd);
+	}
+
+	@Override
+	public void participateFd(int participationPrice, int fdCode, String id) {
+		dao.participateFd(participationPrice, fdCode, id);
 	}
 
 }

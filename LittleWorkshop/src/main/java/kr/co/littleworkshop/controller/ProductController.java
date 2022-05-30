@@ -19,7 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.co.littleworkshop.model.Account;
 import kr.co.littleworkshop.model.Category;
 import kr.co.littleworkshop.model.Product;
+import kr.co.littleworkshop.model.ProductCategory;
 import kr.co.littleworkshop.model.ProductImages;
+import kr.co.littleworkshop.service.CategoryService;
 import kr.co.littleworkshop.service.ProductService;
 import kr.co.littleworkshop.util.Pager;
 import kr.co.littleworkshop.util.Uploader;
@@ -32,12 +34,24 @@ public class ProductController {
 	@Autowired
 	ProductService service;
 
+	@Autowired
+	CategoryService categoryService;
+	
 	@RequestMapping({"/list", "/search"})
 	public String list(Model model, Pager pager) {
+		
+		System.out.println(pager.getSearch());
+		
 		List<Product> list = service.list(pager);
-
+		List<ProductCategory> categoryList = categoryService.productCategoryList();
+		
+		for(ProductCategory item : categoryList) {
+			System.out.println( item.getProductCategoryCode()+":"+item.getProductCategory());
+		}
+		
 		model.addAttribute("list", list);
-
+		model.addAttribute("categoryList",categoryList);
+		
 		return path + "list";
 	}
 	

@@ -70,7 +70,7 @@ public class AdminProductController {
 	
 	@PostMapping("/productCategoryUpdate/{productCategoryCode}")
 	public String productCategoryUpdate(@PathVariable int productCategoryCode, ProductCategory productCategory) {
-		productCategory.setProductCateogryCode(productCategoryCode);
+		productCategory.setProductCategoryCode(productCategoryCode);
 		
 		categoryService.productCateogryUpdate(productCategory);
 		

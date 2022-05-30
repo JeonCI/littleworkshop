@@ -12,6 +12,21 @@ public class Pager {
 	private String keyword;
 	private int search = 0;
 	
+	
+	
+	public String getQuery() {
+		String query = "";
+
+		if (search != 0)
+			query += "&search=" + search;
+
+		if (keyword != null)
+			query += "&keyword=" + keyword;
+
+		return query;
+	}
+	
+	
 	public String getKeyword() {
 		return keyword;
 	}

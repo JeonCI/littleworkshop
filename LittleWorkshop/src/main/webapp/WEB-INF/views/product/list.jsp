@@ -9,10 +9,42 @@
 <head>
 <meta charset="UTF-8">
 <title>Little Workshop</title>
+<style>
+.click{
+	color : blue;
+}
+</style>
+<script>
+
+window.onload = function(){
+
+
+}
+
+function setCategory(category){
+// 	if(category.classList.contains("click"))
+// 		document.getElementById("search").value = '';
+// 	else
+// 		document.getElementById("search").value = category.value;
+	category.classList.toggle("click");
+
+// 	document.getElementById("searchForm").submit();
+}
+</script>
 </head>
 <body>
 	<div>
 		<h1>상품 목록</h1>
+		<form method="get" id="searchForm">
+			<input type="hidden" id="search" name="search">
+			<c:if test="${categoryList.size() > 0 }">
+				<ul>
+				<c:forEach var="category" items="${categoryList}">
+					<li class="category ${category.productCategoryCode == pager.search?'click':''}" onclick="setCategory(this);" value="${category.productCategoryCode}">${category.productCategory}</label>
+				</c:forEach>
+				</ul>
+			</c:if>
+		</form>
 		<div>
 			<table border="1">
 				<thead>

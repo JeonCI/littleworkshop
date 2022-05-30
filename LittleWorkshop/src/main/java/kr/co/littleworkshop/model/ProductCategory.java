@@ -2,22 +2,26 @@ package kr.co.littleworkshop.model;
 
 public class ProductCategory {
 	
-	private int productCateogryCode;
+	private int productCategoryCode; 
 	private String productCategory;
 	
-	public int getProductCateogryCode() {
-		return productCateogryCode;
-	}
 	
-	public void setProductCateogryCode(int productCateogryCode) {
-		this.productCateogryCode = productCateogryCode;
-	}
 	
-	public String getProcutCategory() {
+
+	public int getProductCategoryCode() {
+		return productCategoryCode;
+	}
+	public void setProductCategoryCode(int productCategoryCode) {
+		this.productCategoryCode = productCategoryCode;
+	}
+	public String getProductCategory() {
 		return productCategory;
 	}
-	
-	public void setProcutCategory(String procutCategory) {
-		this.productCategory = procutCategory;
+	public void setProductCategory(String productCategory) {
+		this.productCategory = productCategory;
 	}
+	
+	
+	
+	
 }

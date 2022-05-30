@@ -29,7 +29,7 @@ public class CategoryServiceImpl implements CategoryService {
 	public ProductCategory productCategoryItem(int productCategoryCode) {
 		ProductCategory item = new ProductCategory();
 		
-		item.setProductCateogryCode(productCategoryCode);
+		item.setProductCategoryCode(productCategoryCode);
 		
 		return dao.productCategoryItem(item);
 	}

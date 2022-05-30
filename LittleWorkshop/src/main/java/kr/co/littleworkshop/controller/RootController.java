@@ -1,6 +1,6 @@
 package kr.co.littleworkshop.controller;
 
-import java.util.List;
+import java.io.Console;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.littleworkshop.model.Account;
-import kr.co.littleworkshop.model.Product;
 import kr.co.littleworkshop.service.AccountService;
 import kr.co.littleworkshop.service.ProductService;
+import kr.co.littleworkshop.util.SaltCode;
 
 @Controller
 public class RootController {
@@ -65,7 +65,18 @@ public class RootController {
 	
 	@PostMapping("/signup")
 	public String signup(Account item) {
-		accountService.signup(item);
+//		SHAPW PW = NEW SHAPW();
+//		item.setPasswd(PWW(item.getPasswd());
+		
+		SaltCode salt = new SaltCode();
+		salt.accountSaltCode(item);
+		salt.accountSaltCode(item);
+		salt.accountSaltCode(item);
+		System.out.println("짠짠"+item.getSaltCode());
+		
+		
+		
+		//accountService.signup(item);
 		
 		return "redirect:.";
 	}

@@ -1,5 +1,6 @@
 package kr.co.littleworkshop.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -42,6 +43,7 @@ public class FdController {
 	@GetMapping("/view/{fdCode}")
 	public String view(Model model, @PathVariable int fdCode) {
 		Fd item = service.item(fdCode);
+		service.viewCount(fdCode);
 		
 		model.addAttribute("item", item);
 		
@@ -66,7 +68,13 @@ public class FdController {
 					@RequestParam("optionCount") List<Integer> optionCount,
 					@RequestParam("fdtNecessaryOption") List<Integer> necessaryOptionValues,
 					Fd fd) {
-		service.add(fdOptionNames, fdOptionDetailNames, optionCount, necessaryOptionValues, fd);
+		List<Integer> soldOutValues = new ArrayList<Integer>();
+		
+		for(int i = 0; i < fdOptionDetailNames.size(); i++) {
+			soldOutValues.add(0);
+		}
+		
+		service.add(fdOptionNames, fdOptionDetailNames, optionCount, necessaryOptionValues, soldOutValues, fd);
 		
 		return "redirect:list";
 	}
@@ -88,11 +96,12 @@ public class FdController {
 						@RequestParam("fdOptionName") List<String> fdOptionNames,
 						@RequestParam("fdOptionDetailName") List<String> fdOptionDetailNames,
 						@RequestParam("optionCount") List<Integer> optionCount,
-						@RequestParam("fdtNecessaryOption") List<Integer> necessaryOptionValues,
+						@RequestParam("fdNecessaryOption") List<Integer> necessaryOptionValues,
+						@RequestParam("fdSoldOut") List<Integer> soldOutValues,
 						Fd fd) {
 		fd.setFdCode(fdCode);
 		
-		service.update(fdOptionNames, fdOptionDetailNames, optionCount, necessaryOptionValues, fd);
+		service.update(fdOptionNames, fdOptionDetailNames, optionCount, necessaryOptionValues, soldOutValues, fd);
 		
 		return "redirect:../list";
 	}
@@ -102,5 +111,13 @@ public class FdController {
 		service.delete(fdCode);
 		
 		return "redirect:../list";
+	}
+	
+	@GetMapping("/participateFd/{fdCode}")
+	public String participateFd(@PathVariable int fdCode, @RequestParam("participationPrice") int participationPrice, HttpSession session) {
+		Account account = (Account) session.getAttribute("account");
+		service.participateFd(participationPrice, fdCode, account.getId());
+		
+		return "redirect:../view/" + fdCode;
 	}
 }

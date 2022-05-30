@@ -26,4 +26,10 @@ public interface FdDao {
 
 	void delete(int fdCode);
 
+	int nowCount(int fdCode);
+
+	void viewCount(Fd fd);
+
+	void participateFd(int participationPrice, int fdCode, String id);
+
 }

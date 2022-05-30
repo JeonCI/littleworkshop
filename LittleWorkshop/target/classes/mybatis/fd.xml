@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="fd">
+
+	<resultMap type="Fd" id="FdMap">
+		<id column="fd_code" property="fdCode"/>
+		<result column="fd_seller_id" property="fdSellerId"/>
+		<result column="product_category_code" property="productCategoryCode"/>
+		<result column="product_category" property="productCategory"/>
+		<result column="fd_name" property="fdName"/>
+		<result column="fd_price" property="fdPrice"/>
+		<result column="fd_reg_date" property="fdRegDate"/>
+		<result column="fd_view_count" property="fdViewCount"/>
+		<result column="fd_description" property="fdDescription"/>
+		<result column="fd_progress_state" property="fdProgressState"/>
+		<result column="fd_minimum_user" property="fdMinimumUser"/>
+		<result column="fd_recruitment_period" property="fdRecruitmentPeriod"/>
+		
+		<collection property="fdOptionList" column="fo_fd_code" ofType="FdOption" javaType="ArrayList">
+			<id column="fd_option_code" property="fdOptionCode"/>
+			<result column="fo_fd_code" property="fdCode"/>
+			<result column="fd_option_name" property="fdOptionName"/>
+			<result column="fd_necessary_option" property="fdNecessaryOption"/>
+			
+			<collection property="fdOptionDetail" column="fod_fd_option_code" ofType="FdOptionDetail" javaType="ArrayList">
+				<id column="fd_option_detail_code" property="fdOptionDetailCode"/>
+				<result column="fod_product_option_code" property="fdOptionCode"/>
+				<result column="fd_option_detail_name" property="fdOptionDetailName"/>
+				<result column="fd_sold_out" property="fdSoldOut"/>
+			</collection>
+		</collection>
+	</resultMap>
+	
+	<select id="list" resultMap="FdMap">
+		SELECT
+		fd.fd_code fd_code,
+		fd.fd_seller_id fd_seller_id,
+		c.product_category product_category,
+		fd.fd_name fd_name,
+		fd.fd_price fd_price,
+		fd.fd_reg_date fd_reg_date,
+		fd.fd_view_count fd_view_count
+		FROM fd
+		JOIN product_category_list c ON fd.product_category_code = c.product_category_code
+	</select>
+	
+	<select id="item" resultMap="FdMap">
+		SELECT
+		fd.fd_code fd_code,
+		fd.fd_seller_id fd_seller_id,
+		fd.product_category_code product_category_code,
+		c.product_category product_category,
+		fd.fd_name fd_name,
+		fd.fd_price fd_price,
+		fd.fd_reg_date fd_reg_date,
+		fd.fd_view_count fd_view_count,
+		fd.fd_description fd_description,
+		fd.fd_progress_state fd_progress_state,
+		fd.fd_minimum_user fd_minimum_user,
+		fd.fd_recruitment_period fd_recruitment_period,
+		fo.fd_code fo_fd_code,
+		fo.fd_option_name fd_option_name,
+		fo.fd_option_code fd_option_code,
+		fo.fd_necessary_option fd_necessary_option,
+		fod.fd_option_code fod_fd_option_code,
+		fod.fd_option_detail_name fd_option_detail_name,
+		fod.fd_option_detail_code fd_option_detail_code
+		FROM fd
+		JOIN fd_option fo ON fd.fd_code = fo.fd_code
+		JOIN fd_option_detail fod ON fo.fd_option_code = fod.fd_option_code
+		JOIN product_category_list c ON fd.product_category_code = c.product_category_code
+		WHERE fd.fd_code = #{fdCode}
+	</select>
+	
+	<select id="categories" resultType="Fd">
+		SELECT * FROM product_category_list
+	</select>
+	
+	<insert id="add">
+		INSERT INTO fd
+		(fd_code, fd_seller_id, product_category_code, fd_name, fd_price, fd_description, fd_reg_date, fd_minimum_user, fd_recruitment_period)
+		VALUES(FD_SEQ.nextval, #{fdSellerId}, #{productCategoryCode}, #{fdName}, #{fdPrice}, #{fdDescription}, sysdate, #{fdMinimumUser}, to_date(#{fdRecruitmentPeriod}, 'YYYY-MM-DD'))
+		<selectKey keyColumn="fd_code" resultType="Integer" keyProperty="fdCode" order="AFTER">
+			SELECT FD_SEQ.currval fd_code FROM dual
+		</selectKey>
+	</insert>
+	
+	<insert id="fdOptionAdd">
+		INSERT INTO fd_option
+		VALUES(FD_OPTION_SEQ.nextval, #{fdCode}, #{fdOptionName}, #{fdNecessaryOption})
+		
+		<selectKey  keyColumn="fd_option_code" keyProperty="fdOptionCode" resultType="Integer" order="AFTER">
+			SELECT FD_OPTION_SEQ.currval fd_option_code FROM dual
+		</selectKey>
+	</insert>
+	
+	<insert id="fdOptionDetailAdd">
+		INSERT INTO fd_option_detail
+		VALUES(FD_OPTION_DETAIL_SEQ.nextval, #{fdOptionCode}, #{fdOptionDetailName}, #{fdSoldOut})
+	</insert>
+	
+	<delete id="delete">
+		DELETE fd
+		WHERE fd_code = #{fdCode}
+	</delete>
+	
+	<update id="update">
+		UPDATE fd
+		SET product_category_code = #{productCategoryCode},
+		fd_name = #{fdName},
+		fd_price = #{fdPrice},
+		fd_description = #{fdDescription},
+		fd_minimum_user = #{fdMinimumUser},
+		fd_recruitment_period = to_date(#{fdRecruitmentPeriod}, 'YYYY-MM-DD')
+		WHERE fd_code = #{fdCode}
+	</update>
+	
+	<delete id="initFdOptions">
+		DELETE fd_option
+		WHERE fd_code = #{fdCode}
+	</delete>
+	
+	<select id="nowCount" resultType="Integer">
+		SELECT fd_view_count FROM fd
+		WHERE fd_code = #{fdCode}
+	</select>
+	
+	<update id="viewCount">
+		UPDATE fd
+		SET fd_view_count = #{fdViewCount}
+		WHERE fd_code = #{fdCode}
+	</update>
+	
+	<insert id="participateFd">
+		INSERT INTO participate_fd_list
+		VALUES(PARTICIPATE_FD_LIST_SEQ.nextval, #{id}, #{fdCode}, #{participationPrice})
+	</insert>
+	
+</mapper>

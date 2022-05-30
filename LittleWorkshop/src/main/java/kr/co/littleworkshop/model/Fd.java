@@ -15,6 +15,7 @@ public class Fd {
 	private int fdViewCount;
 	private int fdProgressState;
 	private int fdMinimumUser;
+	private Date fdRecruitmentPeriod;
 	
 	private List<FdOption> fdOptionList;
 	private List<FdImages> fdImagesList;
@@ -136,5 +137,13 @@ public class Fd {
 
 	public void setFdImagesList(List<FdImages> fdImagesList) {
 		this.fdImagesList = fdImagesList;
+	}
+
+	public Date getFdRecruitmentPeriod() {
+		return fdRecruitmentPeriod;
+	}
+
+	public void setFdRecruitmentPeriod(Date fdRecruitmentPeriod) {
+		this.fdRecruitmentPeriod = fdRecruitmentPeriod;
 	}
 }

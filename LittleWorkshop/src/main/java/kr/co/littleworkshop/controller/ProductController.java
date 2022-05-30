@@ -36,8 +36,6 @@ public class ProductController {
 	public String list(Model model) {
 		List<Product> list = service.list();
 
-		System.out.println(list);
-
 		model.addAttribute("list", list);
 
 		return path + "list";

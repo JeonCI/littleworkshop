@@ -10,7 +10,7 @@
 	
 	<insert id="signup">
 		INSERT INTO account
-		VALUES (#{id}, #{passwd}, #{accountName}, #{nickName}, #{phone}, #{email}, 1, sysdate, 123)
+		VALUES (#{id}, #{passwd}, #{accountName}, #{nickName}, #{phone}, #{email}, 1, sysdate)
 	</insert>
 	
 	<select id="list" resultType="Account">

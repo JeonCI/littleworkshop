@@ -7,7 +7,6 @@ public class DeleteFile<T extends UploadFile> {
 	final String filePath = "c:/upload/";
 
 	public Boolean deleteImage(String root) {
-		System.out.println(filePath + root);
 		File f = new File(filePath + root);
 		try {
 			while (f.exists()) {
@@ -15,7 +14,6 @@ public class DeleteFile<T extends UploadFile> {
 
 				for (int i = 0; i < f_list.length; i++) {
 					f_list[i].delete(); // 파일 삭제
-					System.out.println(i + "파일이 삭제되었습니다.");
 				}
 				f.delete();
 

@@ -79,20 +79,14 @@ public class ProductServiceImpl implements ProductService {
 
 		productOptionAdd(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues,
 				product.getProductCode());
-		
-		imageUpload(product);
-		
-
 	}
 
 	@Override
 	public void delete(int productCode) {
 		Product item = dao.item(productCode);
-		if (item.getProductImageList() == null) {
-			System.out.println("##############널이당");
+		if (item == null) {
 			dao.delete(productCode);
 		}else {
-			System.out.println("##################널아니당");
 			String root = "productimage/" + item.getSellerId() + "/" + item.getProductCode() + "_"+ item.getProductName();
 			DeleteFile<ProductImages> delete = new DeleteFile<ProductImages>();
 			delete.deleteImage(root);

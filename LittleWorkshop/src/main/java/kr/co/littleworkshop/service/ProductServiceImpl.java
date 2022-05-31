@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.littleworkshop.dao.ProductDao;
-import kr.co.littleworkshop.model.Category;
 import kr.co.littleworkshop.model.Product;
 import kr.co.littleworkshop.model.ProductImages;
 import kr.co.littleworkshop.model.ProductOption;
@@ -22,7 +21,7 @@ public class ProductServiceImpl implements ProductService {
 	ProductDao dao;
 
 	private void productOptionAdd(List<String> productOptionNames, List<String> productOptionDetailNames,
-			List<Integer> optionCount, List<Integer> necessaryOptionValues, int productCode) {
+			List<Integer> optionCount, List<Integer> necessaryOptionValues, List<Integer> soldOutValues, int productCode) {
 
 		for (int i = 0; i < productOptionNames.size(); i++) {
 			ProductOption productOption = new ProductOption();
@@ -38,7 +37,9 @@ public class ProductServiceImpl implements ProductService {
 
 				productOptionDetail.setProductOptionCode(productOption.getProductOptionCode());
 				productOptionDetail.setProductOptionDetailName(productOptionDetailNames.get(0));
+				productOptionDetail.setProductSoldOut(soldOutValues.get(0));
 				productOptionDetailNames.remove(0);
+				soldOutValues.remove(0);
 
 				dao.productOptionDetailAdd(productOptionDetail);
 			}
@@ -76,12 +77,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public void add(List<String> productOptionNames, List<String> productOptionDetailNames, List<Integer> optionCount,
-			List<Integer> necessaryOptionValues, Product product) {
+			List<Integer> necessaryOptionValues, List<Integer> soldOutValues, Product product) {
 
 		dao.productAdd(product);
 
-		productOptionAdd(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues,
-				product.getProductCode());
+		productOptionAdd(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues, soldOutValues, product.getProductCode());
 	}
 
 	@Override
@@ -101,13 +101,12 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public void update(List<String> productOptionNames, List<String> productOptionDetailNames,
-			List<Integer> optionCount, List<Integer> necessaryOptionValues, Product product) {
+			List<Integer> optionCount, List<Integer> necessaryOptionValues, List<Integer> soldOutValues, Product product) {
 		dao.update(product);
 
 		dao.initProductOptions(product.getProductCode());
 
-		productOptionAdd(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues,
-				product.getProductCode());
+		productOptionAdd(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues, soldOutValues, product.getProductCode());
 	}
 
 }

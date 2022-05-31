@@ -15,9 +15,9 @@ public interface ProductService {
 	List<Product> categories();
 
 	void add(List<String> productOptionNames, List<String> productOptionDetailNames, List<Integer> optionCount,
-			List<Integer> necessaryOptionValues, Product product);
+			List<Integer> necessaryOptionValues, List<Integer> soldOutValues, Product product);
 
-	void update(List<String> productOptionNames, List<String> productOptionDetailNames, List<Integer> optionCount, List<Integer> necessaryOptionValues, Product product);
+	void update(List<String> productOptionNames, List<String> productOptionDetailNames, List<Integer> optionCount, List<Integer> necessaryOptionValues, List<Integer> soldOutValues, Product product);
 
 	void delete(int productCode);
 

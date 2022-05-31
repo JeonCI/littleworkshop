@@ -1,5 +1,6 @@
 package kr.co.littleworkshop.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -10,14 +11,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.littleworkshop.model.Account;
-import kr.co.littleworkshop.model.Category;
 import kr.co.littleworkshop.model.Product;
 import kr.co.littleworkshop.model.ProductCategory;
 import kr.co.littleworkshop.model.ProductImages;
@@ -80,13 +79,18 @@ public class ProductController {
 	@ResponseBody
 	@PostMapping("/add")
 	public String add(@RequestParam("productOptionName") List<String> productOptionNames,
-			@RequestParam("productOptionDetailName") List<String> productOptionDetailNames,
-			@RequestParam("optionCount") List<Integer> optionCount,
-			@RequestParam("ProductImage") List<MultipartFile> ProductImages,
-			@RequestParam("productNecessaryOption") List<Integer> necessaryOptionValues,
-			Product product) {
-
-		service.add(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues, product);
+					@RequestParam("productOptionDetailName") List<String> productOptionDetailNames,
+					@RequestParam("optionCount") List<Integer> optionCount,
+					@RequestParam("ProductImage") List<MultipartFile> ProductImages,
+					@RequestParam("productNecessaryOption") List<Integer> necessaryOptionValues,
+					Product product) {
+		List<Integer> soldOutValues = new ArrayList<Integer>();
+		
+		for(int i = 0; i < productOptionDetailNames.size(); i++) {
+			soldOutValues.add(0);
+		}
+		
+		service.add(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues, soldOutValues, product);
 		
 		Uploader<ProductImages> uploader = new Uploader<>();
 		String root = "productimage/"+product.getSellerId()+"/"+product.getProductCode()+"_"+product.getProductName();
@@ -121,13 +125,15 @@ public class ProductController {
 
 	@PostMapping("/update/{productCode}")
 	public String update(@PathVariable int productCode,
-			@RequestParam("productOptionName") List<String> productOptionNames,
-			@RequestParam("productOptionDetailName") List<String> productOptionDetailNames,
-			@RequestParam("optionCount") List<Integer> optionCount,
-			@RequestParam("productNecessaryOption") List<Integer> necessaryOptionValues, Product product) {
+						@RequestParam("productOptionName") List<String> productOptionNames,
+						@RequestParam("productOptionDetailName") List<String> productOptionDetailNames,
+						@RequestParam("optionCount") List<Integer> optionCount,
+						@RequestParam("productNecessaryOption") List<Integer> necessaryOptionValues,
+						@RequestParam("fdSoldOut") List<Integer> soldOutValues,
+						Product product) {
 		product.setProductCode(productCode);
 
-		service.update(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues, product);
+		service.update(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues, soldOutValues, product);
 
 		return "redirect:../list";
 	}

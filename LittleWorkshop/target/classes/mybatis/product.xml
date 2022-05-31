@@ -89,7 +89,7 @@
 		JOIN product_option po ON p.product_code = po.product_code
 		JOIN product_option_detail pod ON po.PRODUCT_OPTION_CODE = pod.PRODUCT_OPTION_CODE
 		JOIN product_category_list c ON p.product_category_code = c.product_category_code
-		JOIN PRODUCT_IMAGES pi ON pi.product_code = p.product_code
+		LEFT JOIN PRODUCT_IMAGES pi ON pi.product_code = p.product_code
 		WHERE p.product_code = #{productCode}
 	</select>
 	

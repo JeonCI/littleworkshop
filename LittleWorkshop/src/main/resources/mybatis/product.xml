@@ -9,6 +9,24 @@
 			product_name LIKE CONCAT('%',CONCAT(#{keyword},'%'))
 		</where>
 	</if>
+
+	<if test="condition != null">
+		<choose>
+			<!-- 최신작품 -->
+			<when test="condition.equals('lates')">
+				order by product_reg_date
+			</when>
+			<!-- 인기작품 -->
+<!-- 			<when test="condition == 'best'"> -->
+<!-- 			</when> -->
+			<!-- 추천작품  -->
+<!-- 			<when test="condition == 'rcmnd'"> -->
+<!-- 			</when> -->
+			<!-- 할인작품 -->
+<!-- 			<when test="condition == 'sale'"> -->
+<!-- 			</when> -->
+		</choose>
+	</if>
 </sql>
 
 	<resultMap type="Product" id="ProductMap">
@@ -51,10 +69,15 @@
 		c.product_category product_category,
 		p.product_name product_name,
 		p.product_price product_price,
-		p.product_reg_date product_reg_date
+		p.product_reg_date product_reg_date,
+		pi.product_code pi_product_code,
+		pi.product_image_code product_image_code,
+		pi.product_image_uuid product_image_uuid,
+		pi.product_image_name product_image_name
 		FROM (SELECT ROWNUM AS RNUM, sub.* FROM
 		(SELECT * FROM product <include refid="search"></include>) sub) p
 		JOIN product_category_list c ON p.product_category_code = c.product_category_code
+		LEFT JOIN PRODUCT_IMAGES pi ON pi.product_code = p.product_code
 		<![CDATA[ WHERE RNUM > ((#{page} - 1) * #{perPage}) and RNUM <= ( #{page} * #{perPage})	]]>
 		
 	</select>

@@ -1,6 +1,5 @@
 package kr.co.littleworkshop.controller;
 
-import java.io.Console;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -16,6 +15,7 @@ import kr.co.littleworkshop.model.Account;
 import kr.co.littleworkshop.model.Product;
 import kr.co.littleworkshop.service.AccountService;
 import kr.co.littleworkshop.service.ProductService;
+import kr.co.littleworkshop.util.ProductPager;
 import kr.co.littleworkshop.util.SaltCode;
 
 @Controller
@@ -28,7 +28,12 @@ public class RootController {
 	ProductService productService;
 	
 	@RequestMapping("/")
-	public String index() {
+	public String index(Model model, ProductPager pager) {
+		
+		//최신작품
+		pager.setCondition("lates");
+		List<Product> latestList = productService.list(pager);
+		model.addAttribute("latestList",latestList);
 		return "index";
 	}
 	

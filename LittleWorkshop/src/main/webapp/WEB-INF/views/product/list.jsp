@@ -10,6 +10,11 @@
 <meta charset="UTF-8">
 <title>Little Workshop</title>
 <style>
+
+a {
+  text-decoration: none;
+}
+
 .click{
 	color : blue;
 }
@@ -40,7 +45,7 @@ function setCategory(category){
 			<c:if test="${categoryList.size() > 0 }">
 				<ul>
 				<c:forEach var="category" items="${categoryList}">
-					<li class="category ${category.productCategoryCode == pager.search?'click':''}" onclick="setCategory(this);" value="${category.productCategoryCode}">${category.productCategory}</label>
+					<li class="category ${category.productCategoryCode == pager.search?'click':''}" onclick="setCategory(this);" value="${category.productCategoryCode}">${category.productCategory}</li>
 				</c:forEach>
 				</ul>
 			</c:if>

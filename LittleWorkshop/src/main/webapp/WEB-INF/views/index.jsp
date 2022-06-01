@@ -56,7 +56,7 @@
         <div class="container menubar">
             <div class="category">카테고리</div>
             <div><a href="product/list">추천작품</a></div>
-            <div><a href="#">최신작품</a></div>
+            <div><a href="product/list?condition=lates">최신작품</a></div>
             <div><a href="#">인기작품</a></div>
             <div><a href="#">인기작가</a></div>
             <div><a href="#">작가추천</a></div>
@@ -143,81 +143,33 @@
         <div class="title"><span>NEW&nbsp;</span> 최신작품</div>
         <div class="box_area2">
             <div class="product_box">
+            <c:forEach var="latesItem" items="${latestList}" end ="8">
                   <div class="new-box">
                         <button><i class="bi bi-heart"></i></button>
-                        <div class="product_img"><a href="#"><img src="image/11.png"></a></div>
-                        <div class="sellr"><a href="#">판매자명</a></div>
-                        <div class="product_name"><a href="#">제품명</a></div>
+                        <div class="product_img">
+                        <c:forEach var="image" items="${latesItem.productImageList}" end ="0">
+                        	<a href="product/view/${latesItem.productCode}"><img src="/upload/productimage/${latesItem.sellerId}/${latesItem.productCode}_${latesItem.productName}/${image.productImageUuid}"></a></div>
+                        </c:forEach>
+                        <div class="sellr"><a href="#">${latesItem.sellerId}</a></div>
+                        <div class="product_name"><a href="#">${latesItem.productName}</a></div>
                         <div class="price">
-                        <div>가격</div>
-                        </div>
-                        </div>
-                  <div class="new-box">
-                        <button><i class="bi bi-heart"></i></button>
-                       <div class="product_img"><a href="#"><img src="image/11.png"></a></div>
-                        <div class="sellr"><a href="#">판매자명</a></div>
-                        <div class="product_name"><a href="#">제품명</a></div>
-                        <div class="price">
-                        <div>가격</div>
-                        </div>
-                        </div>
-                  <div class="new-box">
-                        <button><i class="bi bi-heart"></i></button>
-                        <div class="product_img"><a href="#"><img src="image/11.png"></a></div>
-                        <div class="sellr"><a href="#">판매자명</a></div>
-                        <div class="product_name"><a href="#">제품명</a></div>
-                        <div class="price">
-                        <div>가격</div>
-                        </div>
-                        </div>
-                  <div class="new-box">
-                        <button><i class="bi bi-heart"></i></button>
-                        <div class="product_img"><a href="#"><img src="image/11.png"></a></div>
-                        <div class="sellr"><a href="#">판매자명</a></div>
-                        <div class="product_name"><a href="#">제품명</a></div>
-                        <div class="price">
-                        <div>가격</div>
-                        </div>
-                        </div>
+                        <div>${latesItem.productPrice}원</div></div>
+                   </div>
+             </c:forEach>
+ 
             </div>
-            <div class="new_product_box">
-                  <div class="new-box">
-                        <button><i class="bi bi-heart"></i></button>
-                        <div class="product_img"><a href="#"><img src="image/11.png"></a></div>
-                        <div class="sellr"><a href="#">판매자명</a></div>
-                        <div class="product_name"><a href="#">제품명</a></div>
-                        <div class="price">
-                        <div>가격</div>
-                        </div>
-                        </div>
-                  <div class="new-box">
-                        <button><i class="bi bi-heart"></i></button>
-                        <div class="product_img"><a href="#"><img src="image/11.png"></a></div>
-                        <div class="sellr"><a href="#">판매자명</a></div>
-                        <div class="product_name"><a href="#">제품명</a></div>
-                        <div class="price">
-                        <div>가격</div>
-                        </div>
-                        </div>
-                  <div class="new-box">
-                        <button><i class="bi bi-heart"></i></button>
-                        <div class="product_img"><a href="#"><img src="image/11.png"></a></div>
-                        <div class="sellr"><a href="#">판매자명</a></div>
-                        <div class="product_name"><a href="#">제품명</a></div>
-                        <div class="price">
-                        <div>가격</div>
-                        </div>
-                        </div>
-                  <div class="new-box">
-                        <button><i class="bi bi-heart"></i></button>
-                        <div class="product_img"><a href="#"><img src="image/11.png"></a></div>
-                        <div class="sellr"><a href="#">판매자명</a></div>
-                        <div class="product_name"><a href="#">제품명</a></div>
-                        <div class="price">
-                        <div>가격</div>
-                        </div>
-                        </div>
-            </div>
+<!--             <div class="new_product_box"> -->
+<!--                   <div class="new-box"> -->
+<!--                         <button><i class="bi bi-heart"></i></button> -->
+<!--                         <div class="product_img"><a href="#"><img src="image/11.png"></a></div> -->
+<!--                         <div class="sellr"><a href="#">판매자명</a></div> -->
+<!--                         <div class="product_name"><a href="#">제품명</a></div> -->
+<!--                         <div class="price"> -->
+<!--                         <div>가격</div> -->
+<!--                         </div> -->
+<!--                </div> -->
+<!--  
+<!--             </div> -->
         </div>
         
          <div class="title"><span>BEST PICK&nbsp;</span> 인기작품</div>
@@ -259,6 +211,7 @@
                         <div>가격</div>
                         </div>
                         </div>
+                        
             </div>
             <div class="new_product_box">
                   <div class="new-box">

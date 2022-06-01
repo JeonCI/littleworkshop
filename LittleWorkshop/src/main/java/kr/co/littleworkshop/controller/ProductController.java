@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,7 @@ import kr.co.littleworkshop.model.ProductOptionDetail;
 import kr.co.littleworkshop.service.CategoryService;
 import kr.co.littleworkshop.service.ProductService;
 import kr.co.littleworkshop.util.Pager;
+import kr.co.littleworkshop.util.ProductPager;
 import kr.co.littleworkshop.util.Uploader;
 
 @Controller
@@ -39,7 +41,7 @@ public class ProductController {
 	CategoryService categoryService;
 	
 	@RequestMapping({"/list", "/search"})
-	public String list(Model model, Pager pager) {
+	public String list(Model model, @ModelAttribute("pager") ProductPager pager) {
 		
 		System.out.println(pager.getSearch());
 		

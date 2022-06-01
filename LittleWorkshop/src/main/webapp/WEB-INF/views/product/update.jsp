@@ -75,6 +75,11 @@
 									<c:forEach var="productOptionDetail" items="${productOption.productOptionDetail}">
 										<div>
 											<input type="text" name="productOptionDetailName" readonly value="${productOptionDetail.productOptionDetailName }">
+											<label>품절 여부 : </label>
+											<select name="productSoldOut">
+												<option value="0" <c:if test="${productOptionDetail.productSoldOut == 0 }"> slected="selected"</c:if>>No</option>
+												<option value="1" <c:if test="${productOptionDetail.productSoldOut == 1 }"> slected="selected"</c:if>>Yes</option>
+											</select>
 											<span data-order="${status.index}" class="podRemoveSpan${status.index }">x</span>
 										</div>
 									</c:forEach>
@@ -115,6 +120,10 @@
 	</div>
 	<div id="detailInput" style="display: none;">
 		<input type="text" name="productOptionDetailName" readonly value="">
+		<select name="productSoldOut">
+			<option value="0" selected="selected">No</option>
+			<option value="1">Yes</option>
+		</select>
 		<span>x</span>
 	</div>
 </body>

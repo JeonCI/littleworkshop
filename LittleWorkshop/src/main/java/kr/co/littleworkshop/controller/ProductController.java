@@ -20,6 +20,8 @@ import kr.co.littleworkshop.model.Account;
 import kr.co.littleworkshop.model.Product;
 import kr.co.littleworkshop.model.ProductCategory;
 import kr.co.littleworkshop.model.ProductImages;
+import kr.co.littleworkshop.model.ProductOption;
+import kr.co.littleworkshop.model.ProductOptionDetail;
 import kr.co.littleworkshop.service.CategoryService;
 import kr.co.littleworkshop.service.ProductService;
 import kr.co.littleworkshop.util.Pager;
@@ -116,6 +118,12 @@ public class ProductController {
 		item.setProductCode(productCode);
 
 		item = service.item(productCode);
+		
+		for(ProductOption po : item.getProductOptionList()) {
+			for(ProductOptionDetail pod : po.getProductOptionDetail()) {
+				System.out.println(pod.getProductSoldOut());
+			}
+		}
 
 		model.addAttribute("item", item);
 		model.addAttribute("productCategories", categories);
@@ -129,7 +137,7 @@ public class ProductController {
 						@RequestParam("productOptionDetailName") List<String> productOptionDetailNames,
 						@RequestParam("optionCount") List<Integer> optionCount,
 						@RequestParam("productNecessaryOption") List<Integer> necessaryOptionValues,
-						@RequestParam("fdSoldOut") List<Integer> soldOutValues,
+						@RequestParam("productSoldOut") List<Integer> soldOutValues,
 						Product product) {
 		product.setProductCode(productCode);
 

@@ -32,6 +32,7 @@
 				<id column="product_option_detail_code" property="productOptionDetailCode"/>
 				<result column="pod_product_option_code" property="productOptionCode"/>
 				<result column="product_option_detail_name" property="productOptionDetailName"/>
+				<result column="product_sold_out" property="productSoldOut"/>
 			</collection>
 		</collection>	
 		
@@ -81,6 +82,7 @@
 		pod.product_option_code pod_product_option_code,
 		pod.product_option_detail_name product_option_detail_name,
 		pod.product_option_detail_code product_option_detail_code,
+		pod.product_sold_out product_sold_out,
 		pi.product_code pi_product_code,
 		pi.product_image_code product_image_code,
 		pi.product_image_uuid product_image_uuid,
@@ -117,8 +119,8 @@
 	
 	<insert id="productOptionDetailAdd">
 		INSERT INTO product_option_detail
-		(product_option_detail_code, product_option_code, product_option_detail_name)
-		VALUES(PRODUCT_OPTION_DETAIL_SEQ.nextval, #{productOptionCode}, #{productOptionDetailName})
+		(product_option_detail_code, product_option_code, product_option_detail_name, product_sold_out)
+		VALUES(PRODUCT_OPTION_DETAIL_SEQ.nextval, #{productOptionCode}, #{productOptionDetailName}, #{productSoldOut})
 	</insert>
 	
 	<delete id="productDelete">
@@ -128,7 +130,7 @@
 	
 	<update id="productUpdate">
 		UPDATE product
-		SET category_code = #{productCategoryCode}, product_name = #{productName}, product_price = #{productPrice}, product_description = #{productDescription}
+		SET product_category_code = #{productCategoryCode}, product_name = #{productName}, product_price = #{productPrice}, product_description = #{productDescription}
 		WHERE product_code = #{productCode}
 	</update>
 	

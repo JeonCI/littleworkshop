@@ -9,7 +9,20 @@
 			product_name LIKE CONCAT('%',CONCAT(#{keyword},'%'))
 		</where>
 	</if>
-
+	
+	<if test="search != 0">
+		<!-- 검색 페이지 일때  -->
+		<if test="keyword != null">
+			AND product_category_code = #{search} 
+		</if>
+		<!-- 네비게이션 페이지 일때  -->
+		<if test="keyword == null">
+			<where>
+				product_category_code = #{search} 
+			</where>
+		</if>
+	</if>
+	
 	<if test="condition != null">
 		<choose>
 			<!-- 최신작품 -->

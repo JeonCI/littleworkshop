@@ -27,13 +27,9 @@ window.onload = function(){
 }
 
 function setCategory(category){
-// 	if(category.classList.contains("click"))
-// 		document.getElementById("search").value = '';
-// 	else
-// 		document.getElementById("search").value = category.value;
+	
 	category.classList.toggle("click");
 
-// 	document.getElementById("searchForm").submit();
 }
 </script>
 </head>
@@ -45,7 +41,7 @@ function setCategory(category){
 			<c:if test="${categoryList.size() > 0 }">
 				<ul>
 				<c:forEach var="category" items="${categoryList}">
-					<li class="category ${category.productCategoryCode == pager.search?'click':''}" onclick="setCategory(this);" value="${category.productCategoryCode}">${category.productCategory}</li>
+					<li class="category ${category.productCategoryCode == pager.search?'click':''}" onclick="setCategory(this);" value="${category.productCategoryCode}"><a href="./list?search=${category.productCategoryCode}">${category.productCategory}</a></li>
 				</c:forEach>
 				</ul>
 			</c:if>

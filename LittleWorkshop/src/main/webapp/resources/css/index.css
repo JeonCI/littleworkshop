@@ -122,19 +122,21 @@ input::placeholder {
     line-height: 70px;
 }
 
+
 .icon {
     display: flex;
     background-color: #00ff0000;
-    margin-left: 180px;
+    float: left;
+    margin-left: 305px;
     margin-bottom: 0;
     margin-top: 0;
-    padding: 7px;
+    padding: 10px;
     font-size: 30px;
     line-height: 50px;
     justify-content: flex-end;
 }
 
-.icon > i {
+.icon > a>i {
     margin-left: 60px;
 }
 
@@ -311,7 +313,7 @@ button{
     margin-left: 15px;
 }
 .product_name{
-    font-sizre : 14px;
+    font-size : 14px;
     font-weight: 500;
     margin-left: 15px;
 }

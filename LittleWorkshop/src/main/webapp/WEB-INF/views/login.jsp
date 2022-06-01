@@ -22,7 +22,7 @@
 </head>
 <body>
 	<div class="logo">
-        <a><img src="image/logogo.png"></a>
+        <a href="."><img src="image/logogo.png"></a>
     </div>
     <div class="login_area">
 	    <c:if test="${msg != null }">

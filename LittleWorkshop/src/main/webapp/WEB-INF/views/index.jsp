@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -24,10 +24,6 @@
         <div class="container login_area">
         	<c:if test="${account != null }">
 				${account.nickName} 님
-				<c:if test="${account.classify == 3 }">
-					<ul class="bar">｜</ul>
-					<ul><a href="admin/manage">관리자 페이지</a></ul>
-				</c:if>
 				<ul class="bar">｜</ul>
 				<ul><a href="logout">로그아웃</a></ul>
 			</c:if>
@@ -47,9 +43,14 @@
                 <i class="bi bi-search"></i>
            </form>
            <div class="icon">
-            <i class="bi bi-person-circle"></i>
-            <i class="bi bi-cart"  ></i>
-            <i class="bi bi-heart" ></i>
+           <c:if test="${account.classify == 1 }">
+            	<a href="mypage/buyer"><i class="bi bi-person-circle"></i></a>
+            </c:if>
+            <c:if test="${account.classify == 2 }">
+            	<a href="mypage/seller"><i class="bi bi-person-circle"></i></a>
+            </c:if>
+            <a href="cart"><i class="bi bi-cart"></i></a>
+            <a href="like"><i class="bi bi-heart"></i></a>
             </div>
         </div>
         <hr>
@@ -74,105 +75,145 @@
     <div class="container mainbanner">
             <img src="/image/main.png">
         </div>
-    <div class="container maincontent">
-    <div class="title"><span>ONLY YOU</span><span id="heart">♥</span> 이런 작품 어떠세요?</div>
-    <div class="show_more"><a href="#">더보기</a></div>
-     <div class="box_area">
-                <div><a href="#"><img src="image/image1.jpg"></a></div>
-                <div>
-                    <div class="product_box">
-                        <div class="only-box">
-                        <button><i class="bi bi-heart"></i></button>
-                        <div class="product_img"><a href="#"><img src="image/11.png"></a></div>
-                        <div class="sellr"><a href="#">판매자명</a></div>
-                        <div class="product_name"><a href="#">제품명</a></div>
-                        <div class="price">
-                        <div>가격</div>
-                        </div>
-                        </div>
-                          <div class="only-box">
-                        <button><i class="bi bi-heart"></i></button>
-                        <div class="product_img"><a href="#"><img src="image/11.png"></a></div>
-                        <div class="sellr">판매자명</div>
-                        <div class="product_name"> 제품명</div>
-                        <div class="price">
-                        <div>가격</div>
-                        </div>
-                        </div>
-                        <div class="only-box">
-                        <button><i class="bi bi-heart"></i></button>
-                        <div class="product_img"><a href="#"><img src="image/11.png"></a></div>
-                        <div class="sellr"><a href="#">판매자명</a></div>
-                        <div class="product_name"><a href="#">제품명</a></div>
-                        <div class="price">
-                        <div>가격</div>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="product_box">
-                          <div class="only-box">
-                        <button><i class="bi bi-heart"></i></button>
-                        <div class="product_img"><a href="#"><img src="image/11.png"></a></div>
-                        <div class="sellr"><a href="#">판매자명</a></div>
-                        <div class="product_name"><a href="#">제품명</a></div>
-                        <div class="price">
-                        <div>가격</div>
-                        </div>
-                        </div>
-                          <div class="only-box">
-                        <button><i class="bi bi-heart"></i></button>
-                        <div class="product_img"><a href="#"><img src="image/11.png"></a></div>
-                        <div class="sellr"><a href="#">판매자명</a></div>
-                        <div class="product_name"><a href="#">제품명</a></div>
-                        <div class="price">
-                        <div>가격</div>
-                        </div>
-                        </div>
-                          <div class="only-box">
-                        <button><i class="bi bi-heart"></i></button>
-                        <div class="product_img"><a href="#"><img src="image/11.png"></a></div>
-                        <div class="sellr"><a href="#">판매자명</a></div>
-                        <div class="product_name"><a href="#">제품명</a></div>
-                        <div class="price">
-                        <div>가격</div>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <div class="title"><span>NEW&nbsp;</span> 최신작품</div>
-        <div class="box_area2">
-            <div class="product_box">
-            <c:forEach var="latesItem" items="${latestList}" end ="8">
-                  <div class="new-box">
-                        <button><i class="bi bi-heart"></i></button>
-                        <div class="product_img">
-                        <c:forEach var="image" items="${latesItem.productImageList}" end ="0">
-                        	<a href="product/view/${latesItem.productCode}"><img src="/upload/productimage/${latesItem.sellerId}/${latesItem.productCode}_${latesItem.productName}/${image.productImageUuid}"></a></div>
-                        </c:forEach>
-                        <div class="sellr"><a href="#">${latesItem.sellerId}</a></div>
-                        <div class="product_name"><a href="#">${latesItem.productName}</a></div>
-                        <div class="price">
-                        <div>${latesItem.productPrice}원</div></div>
-                   </div>
-             </c:forEach>
- 
-            </div>
-<!--             <div class="new_product_box"> -->
-<!--                   <div class="new-box"> -->
-<!--                         <button><i class="bi bi-heart"></i></button> -->
-<!--                         <div class="product_img"><a href="#"><img src="image/11.png"></a></div> -->
-<!--                         <div class="sellr"><a href="#">판매자명</a></div> -->
-<!--                         <div class="product_name"><a href="#">제품명</a></div> -->
-<!--                         <div class="price"> -->
-<!--                         <div>가격</div> -->
-<!--                         </div> -->
-<!--                </div> -->
-<!--  
-<!--             </div> -->
-        </div>
-        
-         <div class="title"><span>BEST PICK&nbsp;</span> 인기작품</div>
+	<div class="container maincontent">
+		<div class="title">
+			<span>ONLY YOU</span><span id="heart">♥</span> 이런 작품 어떠세요?
+		</div>
+		<div class="show_more">
+			<a href="#">더보기</a>
+		</div>
+		<div class="box_area">
+			<div>
+				<a href="#"><img src="image/image1.jpg"></a>
+			</div>
+			<div>
+				<div class="product_box">
+					<div class="only-box">
+						<button>
+							<i class="bi bi-heart"></i>
+						</button>
+						<div class="product_img">
+							<a href="#"><img src="image/11.png"></a>
+						</div>
+						<div class="sellr">
+							<a href="#">판매자명</a>
+						</div>
+						<div class="product_name">
+							<a href="#">제품명</a>
+						</div>
+						<div class="price">
+							<div>가격</div>
+						</div>
+					</div>
+					<div class="only-box">
+						<button>
+							<i class="bi bi-heart"></i>
+						</button>
+						<div class="product_img">
+							<a href="#"><img src="image/11.png"></a>
+						</div>
+						<div class="sellr">판매자명</div>
+						<div class="product_name">제품명</div>
+						<div class="price">
+							<div>가격</div>
+						</div>
+					</div>
+					<div class="only-box">
+						<button>
+							<i class="bi bi-heart"></i>
+						</button>
+						<div class="product_img">
+							<a href="#"><img src="image/11.png"></a>
+						</div>
+						<div class="sellr">
+							<a href="#">판매자명</a>
+						</div>
+						<div class="product_name">
+							<a href="#">제품명</a>
+						</div>
+						<div class="price">
+							<div>가격</div>
+						</div>
+					</div>
+				</div>
+				<div class="product_box">
+					<div class="only-box">
+						<button>
+							<i class="bi bi-heart"></i>
+						</button>
+						<div class="product_img">
+							<a href="#"><img src="image/11.png"></a>
+						</div>
+						<div class="sellr">
+							<a href="#">판매자명</a>
+						</div>
+						<div class="product_name">
+							<a href="#">제품명</a>
+						</div>
+						<div class="price">
+							<div>가격</div>
+						</div>
+					</div>
+					<div class="only-box">
+						<button>
+							<i class="bi bi-heart"></i>
+						</button>
+						<div class="product_img">
+							<a href="#"><img src="image/11.png"></a>
+						</div>
+						<div class="sellr">
+							<a href="#">판매자명</a>
+						</div>
+						<div class="product_name">
+							<a href="#">제품명</a>
+						</div>
+						<div class="price">
+							<div>가격</div>
+						</div>
+					</div>
+					<div class="only-box">
+						<button>
+							<i class="bi bi-heart"></i>
+						</button>
+						<div class="product_img">
+							<a href="#"><img src="image/11.png"></a>
+						</div>
+						<div class="sellr">
+							<a href="#">판매자명</a>
+						</div>
+						<div class="product_name">
+							<a href="#">제품명</a>
+						</div>
+						<div class="price">
+							<div>가격</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="title">
+			<span>NEW&nbsp;</span> 최신작품
+		</div>
+		<div class="box_area2">
+			<div class="product_box">
+				<c:forEach var="latesItem" items="${latestList}" end="8">
+					<div class="new-box">
+						<button><i class="bi bi-heart"></i></button>
+							<c:forEach var="image" items="${latesItem.productImageList}" end="0">
+								<div class="product_img">
+									<a href="product/view/${latesItem.productCode}"><img src="/upload/productimage/${latesItem.sellerId}/${latesItem.productCode}_${latesItem.productName}/${image.productImageUuid}"></a>
+								</div>
+							</c:forEach>
+						<div class="sellr"><a href="#">${latesItem.sellerId}</a></div>
+						<div class="product_name"><a href="#">${latesItem.productName}</a></div>
+	 					<div class="price"><div><fmt:formatNumber value="${latesItem.productPrice}"/>원</div></div>
+					</div>
+				</c:forEach>
+			</div>
+		</div>
+
+	<div class="title"><span>BEST PICK&nbsp;</span> 인기작품</div>
         <div class="box_area2">
             <div class="product_box">
                   <div class="new-box">

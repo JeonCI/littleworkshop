@@ -18,4 +18,6 @@ public interface AccountDao {
 
 	void update(Account account);
 
+	int checkId(Account account);
+
 }

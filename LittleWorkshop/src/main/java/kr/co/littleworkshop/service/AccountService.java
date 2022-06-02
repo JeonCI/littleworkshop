@@ -18,4 +18,8 @@ public interface AccountService {
 
 	void update(Account account);
 
+	boolean checkId(Account account);
+
+
+
 }

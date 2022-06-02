@@ -63,4 +63,12 @@ public class AccountServiceImpl implements AccountService {
 		dao.update(account);
 	}
 
+	@Override
+	public boolean checkId(Account account) {
+		if(dao.checkId(account) == 0)
+			return true;
+		else
+			return false;
+	}
+
 }

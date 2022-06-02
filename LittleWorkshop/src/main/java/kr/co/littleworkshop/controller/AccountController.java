@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.littleworkshop.model.Account;
@@ -19,12 +20,16 @@ public class AccountController {
 	@Autowired
 	AccountService service;
 	
-	@GetMapping("/myPage")
-	public String myPage(Model model, HttpSession session) {
+	@GetMapping("/myPage/{classify}")
+	public String myPage(@PathVariable int classify, Model model, HttpSession session) {
 		Account account = (Account) session.getAttribute("account");
 		
 		model.addAttribute("account", account);
 		
 		return path + "myPage";
 	}
+	
+	
+	
+	
 }

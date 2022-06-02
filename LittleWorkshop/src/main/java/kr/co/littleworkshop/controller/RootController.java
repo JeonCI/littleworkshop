@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.littleworkshop.model.Account;
 import kr.co.littleworkshop.model.Product;
@@ -83,4 +85,17 @@ public class RootController {
 		
 		return "redirect:.";
 	}
+	
+	
+	@ResponseBody
+	@PostMapping("/checkId")
+	public String checkId(@RequestBody Account account){
+		
+		if(accountService.checkId(account))
+			return "OK";
+		else
+			return "FALSE";
+	}
+	
+	
 }

@@ -44,4 +44,9 @@ public class AccountDaoImpl implements AccountDao {
 		sql.update("account.update", account);
 	}
 
+	@Override
+		public int checkId(Account account) {
+			return sql.selectOne("account.checkId", account);
+	}
+
 }

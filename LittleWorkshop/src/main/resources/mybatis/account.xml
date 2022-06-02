@@ -33,4 +33,9 @@
 		WHERE id = #{id}
 	</update>
 	
+	<select id="checkId" resultType="Integer">
+		SELECT COUNT(id) FROM account
+		WHERE id=#{id}
+	</select>
+	
 </mapper>

@@ -23,9 +23,12 @@
 		<typeAlias type="kr.co.littleworkshop.model.FdOptionDetail" alias="FdOptionDetail"/>
 		<typeAlias type="kr.co.littleworkshop.model.FdOpinion" alias="FdOpinion"/>
 		<typeAlias type="kr.co.littleworkshop.model.FdOpinionAnswers" alias="FdOpinionAnswers"/>
+		<typeAlias type="kr.co.littleworkshop.model.Basket" alias="Basket"/>
+		<typeAlias type="kr.co.littleworkshop.model.BasketDetail" alias="BasketDetail"/>
 	</typeAliases>
 
 	<mappers>
+		<mapper resource="mybatis/basket.xml"/>
 		<mapper resource="mybatis/product.xml"/>
 		<mapper resource="mybatis/account.xml"/>
 		<mapper resource="mybatis/accountAddress.xml"/>

@@ -43,6 +43,9 @@
                 <i class="bi bi-search"></i>
            </form>
            <div class="icon">
+           <c:if test="${account == null }">
+               <a href="login"><i class="bi bi-person-circle"></i></a>
+           </c:if>	
            <c:if test="${account.classify == 1 }">
             	<a href="mypage/buyer/"><i class="bi bi-person-circle"></i></a>
             </c:if>

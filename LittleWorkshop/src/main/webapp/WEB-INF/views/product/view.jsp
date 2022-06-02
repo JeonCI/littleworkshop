@@ -47,6 +47,11 @@ height: 100px;
 
 
 		</div>
+		
+		<div>
+			<button type="button">장바구니</button>
+			<button type="button">구매하기</button>
+		</div>
 	</div>
 </body>
 </html>

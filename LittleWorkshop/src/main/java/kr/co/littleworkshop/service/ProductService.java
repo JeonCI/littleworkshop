@@ -23,4 +23,8 @@ public interface ProductService {
 
 	void imageUpload(Product product);
 
+	List<Integer> getSoldOutList(int productCode);
+
+	int getProductCategoryCode(int productCode);
+
 }

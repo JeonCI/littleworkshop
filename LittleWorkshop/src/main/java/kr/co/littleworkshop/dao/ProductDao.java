@@ -33,4 +33,8 @@ public interface ProductDao {
 
 	int total(Pager pager);
 
+	List<Integer> getSoldOutList(int productCode);
+
+	int getProductCategoryCode(int productCode);
+
 }

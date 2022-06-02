@@ -14,6 +14,46 @@ width: 100px;
 height: 100px;
 }
 </style>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+product= {};
+window.onload = function() {
+	
+};
+
+function setOption(option){
+	
+	Array.from(document.getElementsByClassName("option")).forEach(function(item,index){
+		if(Number(item.value) === 0){
+			return;
+		}
+	});
+}
+function checkOption(option){
+	
+}
+
+function basket(){
+	product = (document.getElementById("productForm"));
+	console.log("basket");
+
+// 	$.ajax({
+// 		type: "post",
+// 		url:"./add",
+// 		enctype: 'multipart/form-data',
+//         processData: false,
+//         contentType: false,
+// 		data: formData,
+// 		success: function(result){
+// 			location.href= "./list";
+// 		},error: function(){
+// 			console.log("실패");
+// 		}
+// 	});
+}
+
+
+</script>
 </head>
 <body>
 	<div>
@@ -29,9 +69,9 @@ height: 100px;
 
 			<c:if test="${item.productOptionList.size() > 0 }">
 				<c:forEach var="option" items="${item.productOptionList }">
-					<select data-option="${option.productOptionCode}"
+					<select class="option" onchange="setOption(this);" data-option="${option.productOptionCode}"
 						${option.productNecessaryOption == 1 ? 'required' : ''}>
-						<option selected="selected" disabled>${option.productOptionName}${option.productNecessaryOption == 1 ? '(필수)' : ''}</option>
+						<option selected="selected" value="0" disabled>${option.productOptionName}${option.productNecessaryOption == 1 ? '(필수)' : ''}</option>
 						<c:forEach var="detail" items="${option.productOptionDetail}">
 							<option value="${detail.productOptionDetailCode }">${detail.productOptionDetailName}</option>
 						</c:forEach>
@@ -49,7 +89,7 @@ height: 100px;
 		</div>
 		
 		<div>
-			<button type="button">장바구니</button>
+			<button type="button" onclick="basket();">장바구니</button>
 			<button type="button">구매하기</button>
 		</div>
 	</div>

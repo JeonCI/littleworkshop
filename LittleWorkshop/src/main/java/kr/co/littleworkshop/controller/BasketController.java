@@ -9,18 +9,18 @@ import kr.co.littleworkshop.util.Pager;
 import kr.co.littleworkshop.util.ProductPager;
 
 @Controller
-@RequestMapping("/cart")
-public class CartController {
-	final String path = "cart/";
-	
+@RequestMapping("/basket")
+public class BasketController {
+	final String path = "basket/";
+
+	@RequestMapping("")
 	public String list(Model model, @ModelAttribute("pager") ProductPager pager) {
+		
 		
 //		List<Product> list = service.list(pager);
 //		model.addAttribute("list", list);
 	
-		return path+"cart";
+		return "basket";
 	}
-
-	
 	
 }

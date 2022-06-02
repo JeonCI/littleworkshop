@@ -44,10 +44,10 @@
            </form>
            <div class="icon">
            <c:if test="${account.classify == 1 }">
-            	<a href="mypage/buyer"><i class="bi bi-person-circle"></i></a>
+            	<a href="mypage/buyer/"><i class="bi bi-person-circle"></i></a>
             </c:if>
             <c:if test="${account.classify == 2 }">
-            	<a href="mypage/seller"><i class="bi bi-person-circle"></i></a>
+            	<a href="mypage/seller/"><i class="bi bi-person-circle"></i></a>
             </c:if>
             <a href="cart"><i class="bi bi-cart"></i></a>
             <a href="like"><i class="bi bi-heart"></i></a>
@@ -197,7 +197,7 @@
 		</div>
 		<div class="box_area2">
 			<div class="product_box">
-				<c:forEach var="latesItem" items="${latestList}" end="8">
+				<c:forEach var="latesItem" items="${latestList}" end="7">
 					<div class="new-box">
 						<button><i class="bi bi-heart"></i></button>
 							<c:forEach var="image" items="${latesItem.productImageList}" end="0">

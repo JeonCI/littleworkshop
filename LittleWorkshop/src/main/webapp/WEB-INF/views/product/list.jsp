@@ -40,6 +40,7 @@ function setCategory(category){
 			<input type="hidden" id="search" name="search">
 			<c:if test="${categoryList.size() > 0 }">
 				<ul>
+								<li class="category ${pager.search==0?'click':''}" onclick="setCategory(this);"><a href="./list">전체</a></li>
 				<c:forEach var="category" items="${categoryList}">
 					<li class="category ${category.productCategoryCode == pager.search?'click':''}" onclick="setCategory(this);" value="${category.productCategoryCode}"><a href="./list?search=${category.productCategoryCode}">${category.productCategory}</a></li>
 				</c:forEach>

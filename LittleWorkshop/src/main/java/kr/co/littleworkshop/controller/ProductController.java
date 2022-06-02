@@ -25,7 +25,6 @@ import kr.co.littleworkshop.model.ProductOption;
 import kr.co.littleworkshop.model.ProductOptionDetail;
 import kr.co.littleworkshop.service.CategoryService;
 import kr.co.littleworkshop.service.ProductService;
-import kr.co.littleworkshop.util.Pager;
 import kr.co.littleworkshop.util.ProductPager;
 import kr.co.littleworkshop.util.Uploader;
 
@@ -87,6 +86,7 @@ public class ProductController {
 					@RequestParam("optionCount") List<Integer> optionCount,
 					@RequestParam("ProductImage") List<MultipartFile> ProductImages,
 					@RequestParam("productNecessaryOption") List<Integer> necessaryOptionValues,
+					@RequestParam("tagList") List<String> tagNameList,
 					Product product) {
 		List<Integer> soldOutValues = new ArrayList<Integer>();
 		
@@ -94,7 +94,7 @@ public class ProductController {
 			soldOutValues.add(1);
 		}
 		
-		service.add(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues, soldOutValues, product);
+		service.add(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues, soldOutValues, tagNameList, product);
 		
 		Uploader<ProductImages> uploader = new Uploader<>();
 		String root = "productimage/"+product.getSellerId()+"/"+product.getProductCode()+"_"+product.getProductName();
@@ -140,10 +140,11 @@ public class ProductController {
 						@RequestParam("optionCount") List<Integer> optionCount,
 						@RequestParam("productNecessaryOption") List<Integer> necessaryOptionValues,
 						@RequestParam("productSoldOut") List<Integer> soldOutValues,
+						@RequestParam("tagList") List<String> tagNameList,
 						Product product) {
 		product.setProductCode(productCode);
 
-		service.update(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues, soldOutValues, product);
+		service.update(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues, soldOutValues, tagNameList, product);
 
 		return "redirect:../list";
 	}

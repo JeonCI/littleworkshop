@@ -86,20 +86,21 @@ public class SellerController {
 	}
 
 	@ResponseBody
-	@PostMapping("/productMngmn/add")
+	@PostMapping("/add")
 	public String add(@RequestParam("productOptionName") List<String> productOptionNames,
 					@RequestParam("productOptionDetailName") List<String> productOptionDetailNames,
 					@RequestParam("optionCount") List<Integer> optionCount,
 					@RequestParam("ProductImage") List<MultipartFile> ProductImages,
 					@RequestParam("productNecessaryOption") List<Integer> necessaryOptionValues,
+					@RequestParam("tagList") List<String> tagNameList,
 					Product product) {
 		List<Integer> soldOutValues = new ArrayList<Integer>();
 		
 		for(int i = 0; i < productOptionDetailNames.size(); i++) {
-			soldOutValues.add(0);
+			soldOutValues.add(1);
 		}
 		
-		productService.add(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues, soldOutValues, product);
+		productService.add(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues, soldOutValues, tagNameList, product);
 		
 		Uploader<ProductImages> uploader = new Uploader<>();
 		String root = "productimage/"+product.getSellerId()+"/"+product.getProductCode()+"_"+product.getProductName();
@@ -139,10 +140,11 @@ public class SellerController {
 						@RequestParam("optionCount") List<Integer> optionCount,
 						@RequestParam("productNecessaryOption") List<Integer> necessaryOptionValues,
 						@RequestParam("productSoldOut") List<Integer> soldOutValues,
+						@RequestParam("tagList") List<String> tagNameList,
 						Product product) {
 		product.setProductCode(productCode);
 
-		productService.update(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues, soldOutValues, product);
+		productService.update(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues, soldOutValues, tagNameList, product);
 
 		return "redirect:../../productMngmn";
 	}

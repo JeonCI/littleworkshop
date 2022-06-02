@@ -17,9 +17,8 @@ public class Product {
 	
 	private List<ProductOption> productOptionList;
 	private List<ProductImages> productImageList;
+	private List<Tag> tagList;
 	
-	
-
 
 	public List<ProductImages> getProductImageList() {
 		return productImageList;
@@ -118,5 +117,13 @@ public class Product {
 
 	public void setProductSellCount(int productSellCount) {
 		this.productSellCount = productSellCount;
+	}
+
+	public List<Tag> getTagList() {
+		return tagList;
+	}
+
+	public void setTagList(List<Tag> tagList) {
+		this.tagList = tagList;
 	}
 }

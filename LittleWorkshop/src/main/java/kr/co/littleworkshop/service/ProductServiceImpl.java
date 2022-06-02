@@ -1,5 +1,6 @@
 package kr.co.littleworkshop.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,10 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.littleworkshop.dao.ProductDao;
+import kr.co.littleworkshop.dao.TagDao;
 import kr.co.littleworkshop.model.Product;
 import kr.co.littleworkshop.model.ProductImages;
 import kr.co.littleworkshop.model.ProductOption;
 import kr.co.littleworkshop.model.ProductOptionDetail;
+import kr.co.littleworkshop.model.Tag;
 import kr.co.littleworkshop.util.DeleteFile;
 import kr.co.littleworkshop.util.Pager;
 
@@ -19,6 +22,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	ProductDao dao;
+	
+	@Autowired
+	TagDao tagDao;
 
 	private void productOptionAdd(List<String> productOptionNames, List<String> productOptionDetailNames,
 			List<Integer> optionCount, List<Integer> necessaryOptionValues, List<Integer> soldOutValues, int productCode) {
@@ -43,6 +49,39 @@ public class ProductServiceImpl implements ProductService {
 
 				dao.productOptionDetailAdd(productOptionDetail);
 			}
+		}
+	}
+	
+	private void productTagAdd(int productCode, List<String> tagNameList) {
+		List<Tag> nowTagList = tagDao.nowTagList();
+		List<Tag> productTagList = new ArrayList<Tag>();
+		
+		for(int i = 0; i<tagNameList.size(); i++) {
+			for(Tag tag : nowTagList) {
+				if(tag.getTagName() == tagNameList.get(i)) {
+					productTagList.add(tag);
+					tagNameList.remove(i);
+					break;
+				}
+			}
+		}
+		
+		if(tagNameList.size() != 0) {
+			for(String tagName : tagNameList) {
+				Tag tag = new Tag();
+				
+				tag.setTagName(tagName);
+				
+				tagDao.addTag(tag);
+				
+				productTagList.add(tag);
+			}
+		}
+		
+		for(Tag productTag : productTagList) {
+			productTag.setTargetCode(productCode);
+			
+			tagDao.addProductTag(productTag);
 		}
 	}
 	
@@ -77,10 +116,12 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public void add(List<String> productOptionNames, List<String> productOptionDetailNames, List<Integer> optionCount,
-			List<Integer> necessaryOptionValues, List<Integer> soldOutValues, Product product) {
+			List<Integer> necessaryOptionValues, List<Integer> soldOutValues, List<String> tagNameList, Product product) {
 
 		dao.productAdd(product);
-
+		
+		productTagAdd(product.getProductCode(), tagNameList);
+		
 		productOptionAdd(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues, soldOutValues, product.getProductCode());
 	}
 
@@ -101,10 +142,14 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public void update(List<String> productOptionNames, List<String> productOptionDetailNames,
-			List<Integer> optionCount, List<Integer> necessaryOptionValues, List<Integer> soldOutValues, Product product) {
+			List<Integer> optionCount, List<Integer> necessaryOptionValues, List<Integer> soldOutValues, List<String> tagNameList, Product product) {
 		dao.update(product);
 
 		dao.initProductOptions(product.getProductCode());
+		
+		tagDao.initProductTag(product.getProductCode());
+		
+		productTagAdd(product.getProductCode(), tagNameList);
 
 		productOptionAdd(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues, soldOutValues, product.getProductCode());
 	}

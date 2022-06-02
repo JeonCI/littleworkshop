@@ -27,7 +27,29 @@ var fileList = {};
 		var optionList = document.getElementById("optionList");
 		let index = 0;
 		
-		//옵션 추가버튼 클릭시 Element추가하는 코드
+		//태그 추가버튼 클릭시 Element 추가
+		document.getElementById("addTag").addEventListener("click", function() {
+			let value = document.getElementById("tagName").value;
+			
+			var targetDiv = document.getElementById("tagListDiv");
+
+			var baseTagInputDiv = document.getElementById("tagInput");
+
+			var tagInputDiv = document.createElement("div");
+			tagInputDiv.innerHTML = baseTagInputDiv.innerHTML;
+
+			tagInputDiv.removeAttribute("style");
+			tagInputDiv.removeAttribute("id");
+
+			tagInputDiv.getElementsByTagName("input")[0].setAttribute("value", value);
+			tagInputDiv.getElementsByTagName("span")[0].addEventListener("click", function() {
+				this.parentElement.remove();
+			});
+
+			targetDiv.appendChild(tagInputDiv);
+		});
+
+		//옵션 추가버튼 클릭시 Element추가
 		document.getElementById("addOption").addEventListener("click", function() {
 			let optionName = document.getElementById("optionName").value;
 			var divForm = document.getElementById("divForm");
@@ -116,9 +138,6 @@ function imageChange(event){
 	}
 }
 
-
-
-
 function but(){
 	var formData = new FormData(document.getElementById("productForm"));
 	formData.delete("ProductImage");
@@ -143,10 +162,6 @@ function but(){
 		}
 	});
 }
-
-
-	
-
 </script>
 
 </head>
@@ -182,6 +197,12 @@ function but(){
 				<div>
 					<label>제품 설명 : </label>
 					<textarea name="productDescription"></textarea>
+				</div>
+				<div id="tagList">
+					<input type="text" id="tagName">
+					<button type="button" id="addTag">태그 추가</button>
+				</div>
+				<div id="tagListDiv">
 				</div>
 				<div id="optionList">
 					<input type="text" id="optionName">
@@ -219,6 +240,10 @@ function but(){
 	</div>
 	<div id="detailInput" style="display: none;">
 		<input type="text" name="productOptionDetailName" readonly value="">
+		<span>x</span>
+	</div>
+	<div id="tagInput" style="display: none;">
+		<input type="text" name="tagList" readonly value="">
 		<span>x</span>
 	</div>
 </body>

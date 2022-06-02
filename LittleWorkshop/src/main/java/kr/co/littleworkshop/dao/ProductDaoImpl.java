@@ -6,7 +6,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import kr.co.littleworkshop.model.Category;
 import kr.co.littleworkshop.model.Product;
 import kr.co.littleworkshop.model.ProductImages;
 import kr.co.littleworkshop.model.ProductOption;

@@ -129,6 +129,7 @@
 		JOIN product_category_list c ON p.product_category_code = c.product_category_code
 		LEFT JOIN PRODUCT_IMAGES pi ON pi.product_code = p.product_code
 		WHERE p.product_code = #{productCode}
+		ORDER BY pod.product_option_detail_code
 	</select>
 	
 	<select id="categories" resultType="Product">
@@ -180,5 +181,18 @@
 		INSERT INTO PRODUCT_IMAGES (PRODUCT_IMAGE_CODE,PRODUCT_CODE, PRODUCT_IMAGE_UUID, PRODUCT_IMAGE_NAME)
 		VALUES(PRODUCT_IMAGES_SEQ.nextval, #{productCode}, #{productImageUuid}, #{productImageName})
 	</insert>
+	
+	<select id="getSoldOutList" resultType="Integer">
+		SELECT pod.product_sold_out FROM product_option_detail pod
+		JOIN product_option po ON po.product_option_code = pod.product_option_code
+		JOIN product p ON p.product_code = po.product_code
+		WHERE p.product_code = #{productCode}
+		ORDER BY pod.product_option_detail_code
+	</select>
+	
+	<select id="getProductCategoryCode" resultType="Integer">
+		SELECT product_category_code FROM product
+		WHERE product_code = #{productCode}
+	</select>
 	
 </mapper>

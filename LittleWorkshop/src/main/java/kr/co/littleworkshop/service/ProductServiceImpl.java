@@ -109,4 +109,14 @@ public class ProductServiceImpl implements ProductService {
 		productOptionAdd(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues, soldOutValues, product.getProductCode());
 	}
 
+	@Override
+	public List<Integer> getSoldOutList(int productCode) {
+		return dao.getSoldOutList(productCode);
+	}
+
+	@Override
+	public int getProductCategoryCode(int productCode) {
+		return dao.getProductCategoryCode(productCode);
+	}
+
 }

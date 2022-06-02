@@ -75,5 +75,15 @@ public class ProductDaoImpl implements ProductDao {
 		return sql.selectOne("product.total", pager);
 	}
 
+	@Override
+	public List<Integer> getSoldOutList(int productCode) {
+		return sql.selectList("product.getSoldOutList", productCode);
+	}
+
+	@Override
+	public int getProductCategoryCode(int productCode) {
+		return sql.selectOne("product.getProductCategoryCode", productCode);
+	}
+
 
 }

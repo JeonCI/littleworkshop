@@ -91,7 +91,7 @@ public class ProductController {
 		List<Integer> soldOutValues = new ArrayList<Integer>();
 		
 		for(int i = 0; i < productOptionDetailNames.size(); i++) {
-			soldOutValues.add(0);
+			soldOutValues.add(1);
 		}
 		
 		service.add(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues, soldOutValues, product);
@@ -152,6 +152,22 @@ public class ProductController {
 	public String delete(@PathVariable int productCode) {
 		service.delete(productCode);
 		return "redirect:../list";
+	}
+	
+	@GetMapping("/getSoldOut")
+	@ResponseBody
+	public List<Integer> getSoldOut(@RequestParam("productCode") int productCode) {
+		List<Integer> productSoldOutList = service.getSoldOutList(productCode);
+		
+		return productSoldOutList;
+	}
+	
+	@GetMapping("/getProductCategoryCode")
+	@ResponseBody
+	public int getProductCategoryCode(@RequestParam("productCode") int productCode) {
+		int productCategoryCode = service.getProductCategoryCode(productCode);
+		
+		return productCategoryCode;
 	}
 
 }

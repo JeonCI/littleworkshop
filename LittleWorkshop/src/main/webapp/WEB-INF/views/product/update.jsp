@@ -15,118 +15,7 @@
 		padding: 5 5 5 5;
 	}
 </style>
-</head>
-<body>
-	<div>
-		<input type="number" value="${item.productOptionList.size() }" hidden="hidden" id="productOptionSize">
-		<div>
-			<form method="post">
-				<div>
-					<label>판매자 : </label>
-					<input type="text" value="${item.sellerId }" readonly="readonly" name="sellerId">
-				</div>
-				<div>
-					<label>카테고리 : </label>
-					<select name="productCategoryCode">
-						<c:forEach var="category" items="${productCategories }">
-							<option value="${category.productCategoryCode}" selected="${item.productCategoryCode == category.productCategoryCode ? 'selected':'' }">${category.productCategory}</option>
-						</c:forEach>
-					</select>
-				</div>
-				<div>
-					<label>제품 이름 : </label>
-					<input type="text" name="productName" value="${item.productName }">
-				</div>
-				<div>
-					<label>제품 가격 : </label>
-					<input type="number" name="productPrice" value="${item.productPrice }">
-				</div>
-				<div>
-					<label>제품 설명 : </label>
-					<textarea name="productDescription">${item.productDescription }</textarea>
-				</div>
-				<div id="optionList">
-					<input type="text" id="optionName">
-					<button type="button" id="addOption">옵션 추가</button>
-				</div>
-				<div id=optionListDiv>
-					<c:if test="${item.productOptionList.size() != 0 }">
-					<c:forEach items="${item.productOptionList}" var="productOption" varStatus="status">
-						<div id="optiondiv${status.index}">
-							<div>
-								<label>옵션 명 : </label>
-								<input type="text" name="productOptionName" readonly value="${productOption.productOptionName }">
-							</div>
-							<div>
-								<label>필수 사항</label>
-								<select name="productNecessaryOption">
-									<option value="0" selected="${productOption.productNecessaryOption == 0 ? 'selected':'' }">No</option>
-									<option value="1" selected="${productOption.productNecessaryOption == 1 ? 'selected':'' }">Yes</option>
-								</select>
-							</div>
-							<div>
-								<label>상세 옵션 : </label>
-								<input type="text" placeholder="상세 옵션을 입력하세요." class="detailOptionName">
-								<button type="button" id="podAddBtn${status.index }" data-order="${status.index}">추가</button>
-								<input type="number" hidden="hidden" value="${productOption.productOptionDetail.size() }" readonly name="optionCount" id="optionCount${status.index}">
-							</div>
-							<div id="detailOptionList${status.index}">
-								<c:if test="${productOption.productOptionDetail.size() != 0 }">
-									<c:forEach var="productOptionDetail" items="${productOption.productOptionDetail}">
-										<div>
-											<input type="text" name="productOptionDetailName" readonly value="${productOptionDetail.productOptionDetailName }">
-											<label>품절 여부 : </label>
-											<select name="productSoldOut">
-												<option value="0" <c:if test="${productOptionDetail.productSoldOut == 0 }"> slected="selected"</c:if>>No</option>
-												<option value="1" <c:if test="${productOptionDetail.productSoldOut == 1 }"> slected="selected"</c:if>>Yes</option>
-											</select>
-											<span data-order="${status.index}" class="podRemoveSpan${status.index }">x</span>
-										</div>
-									</c:forEach>
-								</c:if>
-							</div>
-							<button type="button" id="poRemoveBtn${status.index }">옵션 삭제</button>
-						</div>
-					</c:forEach>
-					</c:if>
-				</div>
-				<button>변경하기</button>
-			</form>
-			<a href="./list">뒤로가기</a>
-		</div>
-	</div>
 
-	<div id="divForm" style="display: none;">
-		<div>
-			<label>옵션 명 : </label>
-			<input type="text" name="productOptionName" readonly>
-		</div>
-		<div>
-			<label>필수 사항</label>
-			<select name="productNecessaryOption">
-				<option value="0" selected="selected">No</option>
-				<option value="1">Yes</option>
-			</select>
-		</div>
-		<div>
-			<label>상세 옵션 : </label>
-			<input type="text" placeholder="상세 옵션을 입력하세요." class="detailOptionName">
-			<button type="button">추가</button>
-			<input type="number" hidden value="0" readonly name="optionCount">
-		</div>
-		<div>
-		</div>
-		<button type="button">옵션 삭제</button>
-	</div>
-	<div id="detailInput" style="display: none;">
-		<input type="text" name="productOptionDetailName" readonly value="">
-		<select name="productSoldOut">
-			<option value="0" selected="selected">No</option>
-			<option value="1">Yes</option>
-		</select>
-		<span>x</span>
-	</div>
-</body>
 <script type="text/javascript">
 	window.onload = function() {
 		var optionList = document.getElementById("optionList");
@@ -191,6 +80,9 @@
 				});
 			};
 		}
+
+		setProductCategory();
+		setPOD()
 		
 		//옵션 추가버튼 클릭시 Element추가하는 코드
 		document.getElementById("addOption").addEventListener("click", function() {
@@ -258,5 +150,171 @@
 			optionListDiv.appendChild(divv);
 		});
 	};
+	
+	//카테고리 selected
+	function setProductCategory() {
+		let productCode = document.getElementById("productCode").value;
+
+		var xhr = new XMLHttpRequest();
+		
+		xhr.open('GET', `../getProductCategoryCode?productCode=${productCode}`, true);
+
+		xhr.send();
+		
+		xhr.onload = () => {
+			if (xhr.status == 200) {
+				console.log(xhr.response);
+				document.getElementById("productCategoryCode").value = xhr.response;
+			} else {xhr.statusText}
+		}
+	}
+	
+	//품절 여부 selected
+	function setPOD() {
+		let productCode = document.getElementById("productCode").value;
+
+		var xhr = new XMLHttpRequest();
+
+		xhr.open('GET', `../getSoldOut?productCode=${productCode}`, true);
+
+		xhr.send();
+
+		xhr.onload = () => {
+			if (xhr.status == 200) {
+				let response = xhr.response;
+				let productSoldOutList = [];
+
+				for(let i = 0; i < response.length; i++) {
+					if(response[i] != '[' && response[i] != ',' && response[i] != ']') {
+						productSoldOutList.push(response[i]);
+					} else {continue}
+				}
+
+				console.log(productSoldOutList);
+
+				for(let i = 0; i < document.getElementsByClassName("productSoldOut").length; i++) {
+					if(productSoldOutList[i] == 0)
+						document.getElementsByClassName("productSoldOut")[i].value = 0;
+					else
+						document.getElementsByClassName("productSoldOut")[i].value = productSoldOutList[i];
+				}
+				
+			} else {xhr.statusText}
+		}
+	}
 </script>
+
+</head>
+<body>
+	<div>
+		<input type="number" hidden="hidden" value="${item.productCode}" id="productCode">
+		<input type="number" value="${item.productOptionList.size() }" hidden="hidden" id="productOptionSize">
+		<div>
+			<form method="post">
+				<div>
+					<label>판매자 : </label>
+					<input type="text" value="${item.sellerId }" readonly="readonly" name="sellerId">
+				</div>
+				<div>
+					<label>카테고리 : </label>
+					<select name="productCategoryCode" id="productCategoryCode">
+						<c:forEach var="category" items="${productCategories }">
+							<option value="${category.productCategoryCode}">${category.productCategory}</option>
+						</c:forEach>
+					</select>
+				</div>
+				<div>
+					<label>제품 이름 : </label>
+					<input type="text" name="productName" value="${item.productName }">
+				</div>
+				<div>
+					<label>제품 가격 : </label>
+					<input type="number" name="productPrice" value="${item.productPrice }">
+				</div>
+				<div>
+					<label>제품 설명 : </label>
+					<textarea name="productDescription">${item.productDescription }</textarea>
+				</div>
+				<div id="optionList">
+					<input type="text" id="optionName">
+					<button type="button" id="addOption">옵션 추가</button>
+				</div>
+				<div id=optionListDiv>
+					<c:if test="${item.productOptionList.size() != 0 }">
+					<c:forEach items="${item.productOptionList}" var="productOption" varStatus="status">
+						<div id="optiondiv${status.index}">
+							<div>
+								<label>옵션 명 : </label>
+								<input type="text" name="productOptionName" readonly value="${productOption.productOptionName }">
+							</div>
+							<div>
+								<label>필수 사항</label>
+								<select name="productNecessaryOption">
+									<option value="0" selected="${productOption.productNecessaryOption == 0 ? 'selected':'' }">No</option>
+									<option value="1" selected="${productOption.productNecessaryOption == 1 ? 'selected':'' }">Yes</option>
+								</select>
+							</div>
+							<div>
+								<label>상세 옵션 : </label>
+								<input type="text" placeholder="상세 옵션을 입력하세요." class="detailOptionName">
+								<button type="button" id="podAddBtn${status.index }" data-order="${status.index}">추가</button>
+								<input type="number" hidden="hidden" value="${productOption.productOptionDetail.size() }" readonly name="optionCount" id="optionCount${status.index}">
+							</div>
+							<div id="detailOptionList${status.index}">
+								<c:if test="${productOption.productOptionDetail.size() != 0 }">
+									<c:forEach var="productOptionDetail" items="${productOption.productOptionDetail}">
+										<div>
+											<input type="text" name="productOptionDetailName" readonly value="${productOptionDetail.productOptionDetailName }">
+											<label>품절 여부 : </label>
+											<select name="productSoldOut" class="productSoldOut">
+												<option value="0">No</option>
+												<option value="1">Yes</option>
+											</select>
+											<span data-order="${status.index}" class="podRemoveSpan${status.index }">x</span>
+										</div>
+									</c:forEach>
+								</c:if>
+							</div>
+							<button type="button" id="poRemoveBtn${status.index }">옵션 삭제</button>
+						</div>
+					</c:forEach>
+					</c:if>
+				</div>
+				<button>변경하기</button>
+			</form>
+			<a href="../list">뒤로가기</a>
+		</div>
+	</div>
+
+	<div id="divForm" style="display: none;">
+		<div>
+			<label>옵션 명 : </label>
+			<input type="text" name="productOptionName" readonly>
+		</div>
+		<div>
+			<label>필수 사항</label>
+			<select name="productNecessaryOption">
+				<option value="0" selected="selected">No</option>
+				<option value="1">Yes</option>
+			</select>
+		</div>
+		<div>
+			<label>상세 옵션 : </label>
+			<input type="text" placeholder="상세 옵션을 입력하세요." class="detailOptionName">
+			<button type="button">추가</button>
+			<input type="number" hidden value="0" readonly name="optionCount">
+		</div>
+		<div>
+		</div>
+		<button type="button">옵션 삭제</button>
+	</div>
+	<div id="detailInput" style="display: none;">
+		<input type="text" name="productOptionDetailName" readonly value="">
+		<select name="productSoldOut">
+			<option value="0" selected="selected">No</option>
+			<option value="1">Yes</option>
+		</select>
+		<span>x</span>
+	</div>
+</body>
 </html>

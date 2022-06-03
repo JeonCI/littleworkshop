@@ -5,6 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Little Workshop</title>
+<!-- css -->
+<link rel="stylesheet" href="/css/sign_up.css">
+
 <script
   src="https://code.jquery.com/jquery-3.6.0.min.js">
  </script>
@@ -100,49 +103,69 @@ function signup() {
 </script>
 </head>
 <body>
+	<div class="logo">
+        <a href=".."><img src="image/logogo.png"></a>
+    </div>
+    <div class="login_area">
+    <div class="login"><a href="../login">로그인</a></div>
+    <div class="sign_up"><a>회원가입</a></div>
+    </div>
+    <div class="input">
 	<div>
 		<form id="signup_form" method="post">
 			<input type="hidden" name="checkId">
-			<div>
-				<label>아이디 : </label>
+			<div class="textbox">
+            <label>아이디 <span>*</span></label>
 				<input type="text" name="id" class="id">
 				<button type="button" id="checkId">중복확인</button>
 			</div>
 			
-			<div>
-				<label>비밀번호 : </label>
-				<input type="password" name="passwd">
-			</div>
+			<div class="textbox">
+				<label>비밀번호 <span>*</span></label>
+                <input type="password" name="passwd" placeholder=" 숫자,영문,특수문자 조합 8자 이상">
+            </div>
 			
-			<div>
-	            <label>비밀번호 확인:</label> 
-	            <input type="password" name="passwd_confirm">
-         	</div>
+			<div class="textbox" id="pwdbox">
+                <input type="password" name="passwd_confirm" placeholder=" 비밀번호 확인">
+            </div>
 			
-			<div>
-				<label>성명 : </label>
-				<input type="text" name="accountName">
-			</div>
-			<div>
-				<label>닉네임 : </label>
+			<div class="textbox">
+                 <label>이름 <span>*</span></label>
+            <input  type="text" name="accountName" placeholder=" 이름을 입력해주세요">
+            </div>
+			<div class="textbox">
+				<label>닉네임</label>
 				<input type="text" name="nickName">
 			</div>
-			<div>
-				<label>전화번호 : </label>
+			<div class="textbox">
+				<label>전화번호</label>
 				<input type="text" name="phone">
 			</div>
-			<div>
-				<label>이메일 : </label>
-				<input type="email" name="email">
+			<div class="textbox">
+                <label>이메일 <span>*</span></label>
+            <div class="email_box">
+            <input class="email" type="email" name="email" placeholder=" 이메일을 입력해주세요">
+            <button class="email_auth">인증요청</button>
 			</div>
+			</div>
+			<div class="check_area">
+            <div class="check_option">
+            <label><input type="checkbox" name="color" value="blue">만 14세 이상입니다.&nbsp;&nbsp;<span>(필수)</span></label>         
+            </div>
+            <div class="check_option">
+            <label><input type="checkbox" name="color" value="blue">이용약관 필수 동의&nbsp;&nbsp;<span>(필수)</span></label>
+            <div class="terms">약관 보기</div>         
+            </div>
+            <div class="check_option">
+            <label><input type="checkbox" name="color" value="blue">개인정보 수집 및 이용 동의&nbsp;&nbsp;<span>(필수)</span></label>
+            <div class="privacy">약관 보기</div>               
+            </div>
+            </div>
 			
-			<div>
-				<button type="button" onclick="signup()">회원가입</button>
+			<div class="signup">
+				<button class="button_signup" type="button" onclick="signup()">회원가입</button>
 			</div>
 		</form>
-		
-		<div>
-			<div><a href="login">뒤로가기</a></div>
 		</div>
 	</div>
 </body>	

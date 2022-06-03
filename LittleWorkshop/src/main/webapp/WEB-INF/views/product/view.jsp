@@ -142,6 +142,7 @@ function setOption(option){
  		
 		//금액 시작
 		priceSpan = document.createElement('span');
+		priceSpan.className = 'price';
  		priceSpan.innerText = document.getElementById("productPrice").getAttribute("data-price")+"원";
  		div.append(priceSpan);
  		//금액 끝
@@ -155,6 +156,7 @@ function setOption(option){
  		//삭제버튼 끝
  		
  		document.getElementById("optionContiner").append(div);
+ 		totalPrice();
 
 	}
 }
@@ -180,9 +182,9 @@ function setOptionAmount(option){
 		}
 		
 		if(option.value == '')
-			option.parentNode.parentNode.children[2].innerText = 1 * parseInt(document.getElementById("productPrice").getAttribute("data-price"))+"원";
+			mulPrice(option.parentNode.parentNode.children[2], 1);
 		else
-			option.parentNode.parentNode.children[2].innerText = parseInt(option.value) * parseInt(document.getElementById("productPrice").getAttribute("data-price"))+"원";
+			mulPrice(option.parentNode.parentNode.children[2], option.value);
 	};
 	
 	option.onchange = e => {
@@ -198,42 +200,55 @@ function addOptionAmount(option){
 	target = option.previousSibling;
 	if(target.value < 999)
 		target.value = parseInt(target.value) + 1;
-	option.parentNode.parentNode.children[2].innerText = parseInt(target.value) * parseInt(document.getElementById("productPrice").getAttribute("data-price"))+"원";
+	mulPrice(option.parentNode.parentNode.children[2], target.value);
 }
 //수량빼기
 function removeOptionAmount(option){
 	target = option.nextSibling;
 	if(target.value > 1)
  		target.value = parseInt(target.value) - 1;
-	option.parentNode.parentNode.children[2].innerText = parseInt(target.value) * parseInt(document.getElementById("productPrice").getAttribute("data-price"))+"원";
+	mulPrice(option.parentNode.parentNode.children[2], target.value);
+	//option.parentNode.parentNode.children[2].innerText = parseInt(target.value) * parseInt(document.getElementById("productPrice").getAttribute("data-price"))+"원";
+}
+
+function mulPrice(loc, count){
+	loc.innerText = parseInt(count) * parseInt(document.getElementById("productPrice").getAttribute("data-price"))+"원";
+	totalPrice();
+}
+
+function totalPrice(){
+	let total = 0;
+	Array.from(document.getElementById("optionContiner").childNodes).forEach(function(item,index){
+		total +=  parseInt(item.childNodes[2].innerText);
+	});
+	
+	document.getElementById("totalPrice").childNodes[1].innerText = total;
 }
 
 function basket(){
-
+	let code =  location.href.split('/');
+	code = code[code.length-1] 
 	
 	Array.from(document.getElementById("optionContiner").childNodes).forEach(function(item,index){
 		productList.push({
 			"productAmount" : item.childNodes[1].childNodes[1].value,
- 			"orderInfo" : item.getElementsByClassName("orderInfo")[0].innerText
+ 			"orderInfo" : item.getElementsByClassName("orderInfo")[0].innerText,
+     		"productCode" : parseInt(code)
 		});
 	});
-	console.log(productList);
 
-	//console.log(productList);
-
-// 	$.ajax({
-// 		type: "post",
-// 		url:"./add",
-// 		enctype: 'multipart/form-data',
-//         processData: false,
-//         contentType: false,
-// 		data: formData,
-// 		success: function(result){
-// 			location.href= "./list";
-// 		},error: function(){
-// 			console.log("실패");
-// 		}
-// 	});
+	$.ajax({
+		type: "POST",
+		url:"/basket/add",
+        contentType: "application/json; utf-8",
+		data: JSON.stringify(productList),
+		success: function(result){
+			alert("장바구니에 담았습니다");
+			location.href= location.href;
+		},error: function(){
+			console.log("실패");
+		}
+	});
 }
 
 function order(){
@@ -290,6 +305,7 @@ function order(){
 
 		</div>
 		<div id="optionContiner"></div>
+		<div id="totalPrice">총 결제금액<span>0</span>원</div>
 		<div>
 			<button type="button" onclick="basket();">장바구니</button>
 			<button type="button"  onclick="order();">구매하기</button>

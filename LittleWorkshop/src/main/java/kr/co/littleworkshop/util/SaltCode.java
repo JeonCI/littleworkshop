@@ -2,6 +2,7 @@ package kr.co.littleworkshop.util;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.util.UUID;
 
 import kr.co.littleworkshop.model.Account;
 
@@ -9,6 +10,7 @@ public class SaltCode {
 	public void accountSaltCode(Account account) {
 		String password = account.getPasswd();
 		String SaltCode = account.getId();
+		
 		
 	    for(int i = 0; i < 3; i++) {
 	       MessageDigest md = null;
@@ -27,9 +29,8 @@ public class SaltCode {
 	     
 	    }
 	    account.setPasswd(password);
-	    System.out.println(password);
   }
-	
+
 		
 }
 

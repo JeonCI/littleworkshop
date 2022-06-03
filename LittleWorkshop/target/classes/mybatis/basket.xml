@@ -3,4 +3,8 @@
 
 <mapper namespace="basket">
 
+	<insert id="add">
+		INSERT INTO BASKET VALUES (BASKET_SEQ.nextval, #{id}, #{productCode}, #{productAmount}, sysdate, #{orderInfo})
+	</insert>
+
 </mapper>

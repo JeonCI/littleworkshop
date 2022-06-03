@@ -10,13 +10,14 @@ public class Basket {
 	int productAmount;
 	Date basketRegDate;
 	String orderInfo;
-	int totalAmount;
 	
-	public int getTotalAmount() {
-		return totalAmount;
+	int totalPrice;
+	
+	public int getTotalPrice() {
+		return totalPrice;
 	}
-	public void setTotalAmount(int totalAmount) {
-		this.totalAmount = totalAmount;
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 	public int getBasketCode() {
 		return basketCode;

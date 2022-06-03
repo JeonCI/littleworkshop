@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="category">
+	
+	<insert id="addKeyword">
+		INSERT INTO search_keyword_list
+		VALUES(SEARCH_KEYWORD_SEQ.nextval, sysdate, #{keyword})
+	</insert>
+	
+	<select id="getKeywordCode" resultType="Integer">
+		SELECT search_keyword_code FROM search_keyword_list
+		WHERE search_date = (SELECT max(search_date) FROM search_keyword_list WHERE search_keyword = #{keyword})
+	</select>
+	
+	<insert id="addAttentionKeyword">
+		INSERT INTO attention_keyword
+		VALUES(ATTENTION_KEYWORD_SEQ.nextval, #{id}, #{searchKeywordCode})
+	</insert>
+	
+</mapper>

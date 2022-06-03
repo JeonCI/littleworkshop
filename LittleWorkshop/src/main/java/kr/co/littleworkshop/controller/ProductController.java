@@ -24,6 +24,7 @@ import kr.co.littleworkshop.model.ProductImages;
 import kr.co.littleworkshop.model.ProductOption;
 import kr.co.littleworkshop.model.ProductOptionDetail;
 import kr.co.littleworkshop.service.CategoryService;
+import kr.co.littleworkshop.service.KeywordService;
 import kr.co.littleworkshop.service.ProductService;
 import kr.co.littleworkshop.util.ProductPager;
 import kr.co.littleworkshop.util.Uploader;
@@ -39,8 +40,23 @@ public class ProductController {
 	@Autowired
 	CategoryService categoryService;
 	
+	@Autowired
+	KeywordService keywordService;
+	
 	@RequestMapping({"/list", "/search"})
-	public String list(Model model, @ModelAttribute("pager") ProductPager pager) {
+	public String list(Model model, @ModelAttribute("pager") ProductPager pager, HttpSession session) {
+		Account account = (Account) session.getAttribute("account");
+		
+		if(pager.getKeyword() != null) {
+			keywordService.addKeyword(pager.getKeyword());
+			
+			if(account != null) {
+				String id = account.getId();
+				String keyword = pager.getKeyword();
+				
+				keywordService.addAttentionKeyword(id, keyword);
+			}
+		}
 		
 		System.out.println(pager.getSearch());
 		

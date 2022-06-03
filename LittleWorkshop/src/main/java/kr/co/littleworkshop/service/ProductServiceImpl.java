@@ -56,12 +56,20 @@ public class ProductServiceImpl implements ProductService {
 		List<Tag> nowTagList = tagDao.nowTagList();
 		List<Tag> productTagList = new ArrayList<Tag>();
 		
-		for(int i = 0; i<tagNameList.size(); i++) {
-			for(Tag tag : nowTagList) {
-				if(tag.getTagName() == tagNameList.get(i)) {
-					productTagList.add(tag);
-					tagNameList.remove(i);
+		int index = 0;
+		
+		for(int i = 0; i < tagNameList.size(); i++) {
+			for(int k = 0; k < nowTagList.size(); k++) {
+				if(tagNameList.get(index).equals(nowTagList.get(k).getTagName())) {
+					productTagList.add(nowTagList.get(k));
+					System.out.println(tagNameList.get(index));
+					tagNameList.remove(index);
 					break;
+				}
+				
+				if(k == nowTagList.size()-1) {
+					index++;
+					i++;
 				}
 			}
 		}

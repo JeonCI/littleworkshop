@@ -47,6 +47,7 @@ var fileList = {};
 			});
 
 			targetDiv.appendChild(tagInputDiv);
+			document.getElementById("tagName").value = "";
 		});
 
 		//옵션 추가버튼 클릭시 Element추가
@@ -243,7 +244,7 @@ function but(){
 		<span>x</span>
 	</div>
 	<div id="tagInput" style="display: none;">
-		<input type="text" name="tagList" readonly value="">
+		<input type="text" name="tagNameList" readonly value="">
 		<span>x</span>
 	</div>
 </body>

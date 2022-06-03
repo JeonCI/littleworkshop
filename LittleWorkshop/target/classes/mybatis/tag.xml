@@ -19,7 +19,7 @@
 	<insert id="addProductTag">
 		INSERT INTO product_tag_list
 		(product_tag_list_code, tag_code, product_code)
-		VALUES(PRODUCT_TAG_LIST.nextval, #{tagCode}, #{targetCode})
+		VALUES(PRODUCT_TAG_LIST_SEQ.nextval, #{tagCode}, #{targetCode})
 	</insert>
 	
 	<delete id="initProductTag">

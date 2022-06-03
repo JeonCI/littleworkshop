@@ -86,12 +86,12 @@ public class ProductController {
 					@RequestParam("optionCount") List<Integer> optionCount,
 					@RequestParam("ProductImage") List<MultipartFile> ProductImages,
 					@RequestParam("productNecessaryOption") List<Integer> necessaryOptionValues,
-					@RequestParam("tagList") List<String> tagNameList,
+					@RequestParam("tagNameList") List<String> tagNameList,
 					Product product) {
 		List<Integer> soldOutValues = new ArrayList<Integer>();
 		
 		for(int i = 0; i < productOptionDetailNames.size(); i++) {
-			soldOutValues.add(1);
+			soldOutValues.add(0);
 		}
 		
 		service.add(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues, soldOutValues, tagNameList, product);

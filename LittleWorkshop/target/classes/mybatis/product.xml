@@ -84,7 +84,7 @@
 		<collection property="tagList" column="tg_product_code" ofType="Tag" javaType="ArrayList">
 			<id column="tag_code" property="tagCode"/>
 			<result column="tag_name" property="tagName"/>
-			<result column="tg_product_code" property="targetCode"/>
+			<result column="ptl_product_code" property="targetCode"/>
 		</collection>
 	</resultMap>
 	
@@ -136,13 +136,17 @@
 		pi.product_code pi_product_code,
 		pi.product_image_code product_image_code,
 		pi.product_image_uuid product_image_uuid,
-		pi.product_image_name product_image_name
+		pi.product_image_name product_image_name,
+		tl.tag_code tag_code,
+		tl.tag_name tag_name,
+		ptl.product_code ptl_product_code
 		FROM product p
 		JOIN product_option po ON p.product_code = po.product_code
 		JOIN product_option_detail pod ON po.PRODUCT_OPTION_CODE = pod.PRODUCT_OPTION_CODE
 		JOIN product_category_list c ON p.product_category_code = c.product_category_code
 		LEFT JOIN product_images pi ON pi.product_code = p.product_code
 		LEFT JOIN product_tag_list ptl ON p.product_code = ptl.product_code
+		LEFT JOIN tag_list tl ON ptl.tag_code = tl.tag_code
 		WHERE p.product_code = #{productCode}
 		ORDER BY pod.product_option_detail_code
 	</select>

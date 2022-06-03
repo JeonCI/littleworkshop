@@ -3,6 +3,47 @@
 
 <mapper namespace="fd">
 
+	<sql id="search">
+		<if test="keyword != null">
+			<where>
+				(f.fd_name LIKE CONCAT('%',CONCAT(#{keyword},'%')) OR tl.tag_name LIKE CONCAT('%',CONCAT(#{keyword},'%')))
+			</where>
+		</if>
+		
+		<if test="search != 0">
+			<!-- 검색 페이지 일때  -->
+			<if test="keyword != null">
+				AND fd.product_category_code = #{search}
+			</if>
+			<!-- 네비게이션 페이지 일때  -->
+			<if test="keyword == null">
+				<where>
+					fd.product_category_code = #{search} 
+				</where>
+			</if>
+		</if>
+	</sql>
+	
+	<sql id="order">
+		<if test="condition != null">
+			<choose>
+				<!-- 최신작품 -->
+				<when test="condition.equals('lates')">
+					order by fd_reg_date, fd_code
+				</when>
+				<!-- 인기작품 -->
+				<!-- <when test="condition == 'best'"> -->
+				<!-- </when> -->
+				<!-- 추천작품 -->
+				<!-- <when test="condition == 'rcmnd'"> -->
+				<!-- </when> -->
+				<!-- 할인작품 -->
+				<!-- <when test="condition == 'sale'"> -->
+				<!-- </when> -->
+			</choose>
+		</if>
+	</sql>
+
 	<resultMap type="Fd" id="FdMap">
 		<id column="fd_code" property="fdCode"/>
 		<result column="fd_seller_id" property="fdSellerId"/>
@@ -30,19 +71,40 @@
 				<result column="fd_sold_out" property="fdSoldOut"/>
 			</collection>
 		</collection>
+		
+		<collection property="tagList" column="tg_product_code" ofType="Tag" javaType="ArrayList">
+			<id column="tag_code" property="tagCode"/>
+			<result column="tag_name" property="tagName"/>
+			<result column="ftl_fd_code" property="targetCode"/>
+		</collection>
 	</resultMap>
 	
 	<select id="list" resultMap="FdMap">
-		SELECT
+		SELECT * FROM 
+		(SELECT
+		fd.rnum rnum,
 		fd.fd_code fd_code,
 		fd.fd_seller_id fd_seller_id,
 		c.product_category product_category,
 		fd.fd_name fd_name,
 		fd.fd_price fd_price,
 		fd.fd_reg_date fd_reg_date,
-		fd.fd_view_count fd_view_count
-		FROM fd
-		JOIN product_category_list c ON fd.product_category_code = c.product_category_code
+		fi.fd_code fi_fd_code,
+		fi.fd_image_code fd_image_code,
+		fi.fd_image_uuid fd_image_uuid,
+		fi.fd_image_name fd_image_name,
+		tl.tag_code tag_code,
+		tl.tag_name tag_name,
+		ftl.fd_code ptl_fd_code
+		FROM (SELECT ROWNUM AS RNUM, sub.* FROM
+				(SELECT * FROM fd) sub) fd
+			JOIN product_category_list c ON fd.product_category_code = c.product_category_code
+			LEFT JOIN fd_images fi ON fi.fd_code = fd.fd_code
+			LEFT JOIN fd_tag_list ftl ON fd.fd_code = ftl.fd_code
+			LEFT JOIN tag_list tl ON ftl.tag_code = tl.tag_code
+			<include refid="search"></include>)
+		<![CDATA[ WHERE RNUM > ((#{page} - 1) * #{perPage}) and RNUM <= ( #{page} * #{perPage})	]]>
+		 <include refid="order"></include>
 	</select>
 	
 	<select id="item" resultMap="FdMap">
@@ -65,12 +127,19 @@
 		fo.fd_necessary_option fd_necessary_option,
 		fod.fd_option_code fod_fd_option_code,
 		fod.fd_option_detail_name fd_option_detail_name,
-		fod.fd_option_detail_code fd_option_detail_code
+		fod.fd_option_detail_code fd_option_detail_code,
+		fod.fd_sold_out fd_sold_out,
+		tl.tag_code tag_code,
+		tl.tag_name tag_name,
+		ftl.fd_code ftl_fd_code
 		FROM fd
 		JOIN fd_option fo ON fd.fd_code = fo.fd_code
 		JOIN fd_option_detail fod ON fo.fd_option_code = fod.fd_option_code
 		JOIN product_category_list c ON fd.product_category_code = c.product_category_code
+		LEFT JOIN fd_tag_list ftl ON ftl.fd_code = fd.fd_code
+		LEFT JOIN tag_list tl ON tl.tag_code = ftl.tag_code
 		WHERE fd.fd_code = #{fdCode}
+		ORDER BY fod.fd_option_detail_code
 	</select>
 	
 	<select id="categories" resultType="Fd">

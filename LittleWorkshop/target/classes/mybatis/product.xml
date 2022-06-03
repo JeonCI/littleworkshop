@@ -3,46 +3,46 @@
 
 <mapper namespace="product">
 
-<sql id="search">
-	<if test="keyword != null">
-		<where>
-			(p.product_name LIKE CONCAT('%',CONCAT(#{keyword},'%')) OR tl.tag_name LIKE CONCAT('%',CONCAT(#{keyword},'%')))
-		</where>
-	</if>
-	
-	<if test="search != 0">
-		<!-- 검색 페이지 일때  -->
+	<sql id="search">
 		<if test="keyword != null">
-			AND p.product_category_code = #{search}
-		</if>
-		<!-- 네비게이션 페이지 일때  -->
-		<if test="keyword == null">
 			<where>
-				p.product_category_code = #{search} 
+				(p.product_name LIKE CONCAT('%',CONCAT(#{keyword},'%')) OR tl.tag_name LIKE CONCAT('%',CONCAT(#{keyword},'%')))
 			</where>
 		</if>
-	</if>
-</sql>
-
-<sql id="order">
-	<if test="condition != null">
-		<choose>
-			<!-- 최신작품 -->
-			<when test="condition.equals('lates')">
-				order by product_reg_date,product_code
-			</when>
-			<!-- 인기작품 -->
-			<!-- <when test="condition == 'best'"> -->
-			<!-- </when> -->
-			<!-- 추천작품 -->
-			<!-- <when test="condition == 'rcmnd'"> -->
-			<!-- </when> -->
-			<!-- 할인작품 -->
-			<!-- <when test="condition == 'sale'"> -->
-			<!-- </when> -->
-		</choose>
-	</if>
-</sql>
+		
+		<if test="search != 0">
+			<!-- 검색 페이지 일때  -->
+			<if test="keyword != null">
+				AND p.product_category_code = #{search}
+			</if>
+			<!-- 네비게이션 페이지 일때  -->
+			<if test="keyword == null">
+				<where>
+					p.product_category_code = #{search} 
+				</where>
+			</if>
+		</if>
+	</sql>
+	
+	<sql id="order">
+		<if test="condition != null">
+			<choose>
+				<!-- 최신작품 -->
+				<when test="condition.equals('lates')">
+					order by product_reg_date,product_code
+				</when>
+				<!-- 인기작품 -->
+				<!-- <when test="condition == 'best'"> -->
+				<!-- </when> -->
+				<!-- 추천작품 -->
+				<!-- <when test="condition == 'rcmnd'"> -->
+				<!-- </when> -->
+				<!-- 할인작품 -->
+				<!-- <when test="condition == 'sale'"> -->
+				<!-- </when> -->
+			</choose>
+		</if>
+	</sql>
 
 
 	<resultMap type="Product" id="ProductMap">
@@ -77,7 +77,7 @@
 			<result column="product_image_name" property="productImageName"/>
 		</collection>
 		
-		<collection property="tagList" column="tg_product_code" ofType="Tag" javaType="ArrayList">
+		<collection property="tagList" column="ptl_product_code" ofType="Tag" javaType="ArrayList">
 			<id column="tag_code" property="tagCode"/>
 			<result column="tag_name" property="tagName"/>
 			<result column="ptl_product_code" property="targetCode"/>
@@ -110,7 +110,6 @@
 			<include refid="search"></include>)
 		<![CDATA[ WHERE RNUM > ((#{page} - 1) * #{perPage}) and RNUM <= ( #{page} * #{perPage})	]]>
 		 <include refid="order"></include>
-		
 	</select>
 	
 	<select id="total" resultType="Integer">
@@ -132,6 +131,7 @@
 		p.product_price product_price,
 		p.product_reg_date product_reg_date,
 		p.product_description product_description,
+		p.product_view_count product_view_count,
 		po.product_code po_product_code,
 		po.product_option_name product_option_name,
 		po.product_option_code product_option_code,
@@ -201,7 +201,6 @@
 		DELETE product_option
 		WHERE product_code = #{productCode}
 	</delete>
-	
 	
 	<insert id="imageUpload">
 		INSERT INTO PRODUCT_IMAGES (PRODUCT_IMAGE_CODE,PRODUCT_CODE, PRODUCT_IMAGE_UUID, PRODUCT_IMAGE_NAME)

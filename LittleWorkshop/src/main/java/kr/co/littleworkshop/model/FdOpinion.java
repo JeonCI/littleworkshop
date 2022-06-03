@@ -11,7 +11,7 @@ public class FdOpinion {
 	private String writerId;
 	private Date fdOpinionRegDate;
 	
-	private FdOpinionAnswers fdOpinionAnswer;
+	private String fdOpinionAnswer;
 	
 	public int getFdOpinionCode() {
 		return fdOpinionCode;
@@ -53,11 +53,11 @@ public class FdOpinion {
 		this.producerSelection = producerSelection;
 	}
 
-	public FdOpinionAnswers getFdOpinionAnswer() {
+	public String getFdOpinionAnswer() {
 		return fdOpinionAnswer;
 	}
 
-	public void setFdOpinionAnswer(FdOpinionAnswers fdOpinionAnswer) {
+	public void setFdOpinionAnswer(String fdOpinionAnswer) {
 		this.fdOpinionAnswer = fdOpinionAnswer;
 	}
 

@@ -26,5 +26,16 @@
 		DELETE product_tag_list
 		WHERE product_code = #{productCode}
 	</delete>
+	
+	<insert id="addFdTag">
+		INSERT INTO fd_tag_list
+		(fd_tag_list_code, tag_code, fd_code)
+		VALUES(FD_TAG_LIST_SEQ.nextval, #{tagCode}, #{targetCode})
+	</insert>
+	
+	<delete id="initFdTag">
+		DELETE fd_tag_list
+		WHERE fd_code = #{fdCode}
+	</delete>
 
 </mapper>

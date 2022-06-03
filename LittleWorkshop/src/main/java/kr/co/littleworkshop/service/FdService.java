@@ -13,10 +13,10 @@ public interface FdService {
 	List<Fd> categories();
 
 	void add(List<String> fdOptionNames, List<String> fdOptionDetailNames, List<Integer> optionCount,
-			List<Integer> necessaryOptionValues, List<Integer> soldOutValues, Fd fd);
+			List<Integer> necessaryOptionValues, List<Integer> soldOutValues, List<String> tagNameList, Fd fd);
 
 	void update(List<String> fdOptionNames, List<String> fdOptionDetailNames, List<Integer> optionCount,
-			List<Integer> necessaryOptionValues, List<Integer> soldOutValues, Fd fd);
+			List<Integer> necessaryOptionValues, List<Integer> soldOutValues, List<String> tagNameList, Fd fd);
 
 	void delete(int fdCode);
 

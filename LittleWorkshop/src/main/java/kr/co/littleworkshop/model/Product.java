@@ -14,6 +14,7 @@ public class Product {
 	private Date productRegDate;
 	private int productLikeCount;
 	private int productSellCount;
+	private int productViewCount;
 	
 	private List<ProductOption> productOptionList;
 	private List<ProductImages> productImageList;
@@ -125,5 +126,13 @@ public class Product {
 
 	public void setTagList(List<Tag> tagList) {
 		this.tagList = tagList;
+	}
+
+	public int getProductViewCount() {
+		return productViewCount;
+	}
+
+	public void setProductViewCount(int productViewCount) {
+		this.productViewCount = productViewCount;
 	}
 }

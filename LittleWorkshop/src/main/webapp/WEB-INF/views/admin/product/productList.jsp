@@ -49,6 +49,7 @@
 				</tbody>
 			</table>
 		</div>
+		<a href="../manage">이전으로</a>
 	</div>
 </body>	
 </html>

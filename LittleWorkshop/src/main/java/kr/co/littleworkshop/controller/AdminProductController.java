@@ -14,7 +14,7 @@ import kr.co.littleworkshop.model.Product;
 import kr.co.littleworkshop.model.ProductCategory;
 import kr.co.littleworkshop.service.CategoryService;
 import kr.co.littleworkshop.service.ProductService;
-import kr.co.littleworkshop.util.Pager;
+import kr.co.littleworkshop.util.ProductPager;
 
 @Controller
 @RequestMapping("/admin/product")
@@ -28,7 +28,7 @@ public class AdminProductController {
 	CategoryService categoryService;
 	
 	@GetMapping("/productList")
-	public String productList(Model model, Pager pager) {
+	public String productList(Model model, ProductPager pager) {
 		List<Product> productList = productService.list(pager);
 		
 		model.addAttribute("productList", productList);

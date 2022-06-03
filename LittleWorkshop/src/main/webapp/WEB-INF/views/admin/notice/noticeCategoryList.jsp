@@ -48,6 +48,7 @@
 				</div>
 			</form>
 		</div>
+		<a href="../manage">이전 으로</a>
 	</div>
 </body>	
 </html>

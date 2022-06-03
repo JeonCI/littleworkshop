@@ -47,7 +47,7 @@
 		<div>
 			<ul>
 				<li><a href="noticeAdd">공지 등록</a></li>
-				<li><a href="../">이전 으로</a></li>
+				<li><a href="../manage">이전 으로</a></li>
 			</ul>
 		</div>
 	</div>

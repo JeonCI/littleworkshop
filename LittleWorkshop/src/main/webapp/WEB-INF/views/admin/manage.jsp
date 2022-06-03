@@ -9,6 +9,7 @@
 </head>
 <body>
 	<div>관리자 페이지</div>
+	<a href="adminLogout">로그아웃</a>
 	<ul>
 		<li><a href="notice/noticeList">공지 목록</a></li>
 		<li><a href="product/productList">상품 목록</a></li>

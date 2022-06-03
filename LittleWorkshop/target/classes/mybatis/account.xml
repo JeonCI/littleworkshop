@@ -8,6 +8,11 @@
 		WHERE id = #{id} AND passwd = #{passwd}
 	</select>
 	
+	<select id="adminLogin" resultType="Account">
+		SELECT * FROM admin_account
+		WHERE id = #{id} AND passwd = #{passwd}
+	</select>
+	
 	<insert id="signup">
 		INSERT INTO account
 		VALUES (#{id}, #{passwd}, #{accountName}, #{nickName}, #{phone}, #{email}, 1, sysdate)

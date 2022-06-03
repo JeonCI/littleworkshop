@@ -67,6 +67,7 @@ public class FdController {
 					@RequestParam("fdOptionDetailName") List<String> fdOptionDetailNames,
 					@RequestParam("optionCount") List<Integer> optionCount,
 					@RequestParam("fdtNecessaryOption") List<Integer> necessaryOptionValues,
+					@RequestParam("tagNameList") List<String> tagNameList,
 					Fd fd) {
 		List<Integer> soldOutValues = new ArrayList<Integer>();
 		
@@ -74,7 +75,7 @@ public class FdController {
 			soldOutValues.add(0);
 		}
 		
-		service.add(fdOptionNames, fdOptionDetailNames, optionCount, necessaryOptionValues, soldOutValues, fd);
+		service.add(fdOptionNames, fdOptionDetailNames, optionCount, necessaryOptionValues, soldOutValues, tagNameList, fd);
 		
 		return "redirect:list";
 	}
@@ -98,10 +99,11 @@ public class FdController {
 						@RequestParam("optionCount") List<Integer> optionCount,
 						@RequestParam("fdNecessaryOption") List<Integer> necessaryOptionValues,
 						@RequestParam("fdSoldOut") List<Integer> soldOutValues,
+						@RequestParam("tagList") List<String> tagNameList,
 						Fd fd) {
 		fd.setFdCode(fdCode);
 		
-		service.update(fdOptionNames, fdOptionDetailNames, optionCount, necessaryOptionValues, soldOutValues, fd);
+		service.update(fdOptionNames, fdOptionDetailNames, optionCount, necessaryOptionValues, soldOutValues, tagNameList, fd);
 		
 		return "redirect:../list";
 	}

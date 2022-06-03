@@ -19,6 +19,7 @@ public class Fd {
 	
 	private List<FdOption> fdOptionList;
 	private List<FdImages> fdImagesList;
+	private List<Tag> tagList;
 	
 	public String getFdState() {
 		if(fdProgressState == 0) {
@@ -145,5 +146,13 @@ public class Fd {
 
 	public void setFdRecruitmentPeriod(Date fdRecruitmentPeriod) {
 		this.fdRecruitmentPeriod = fdRecruitmentPeriod;
+	}
+
+	public List<Tag> getTagList() {
+		return tagList;
+	}
+
+	public void setTagList(List<Tag> tagList) {
+		this.tagList = tagList;
 	}
 }

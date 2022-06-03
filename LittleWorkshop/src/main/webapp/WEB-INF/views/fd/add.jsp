@@ -27,6 +27,29 @@
 		var optionList = document.getElementById("optionList");
 		let index = 0;
 		
+		//태그 추가버튼 클릭시 Element 추가
+		document.getElementById("addTag").addEventListener("click", function() {
+			let value = document.getElementById("tagName").value;
+			
+			var targetDiv = document.getElementById("tagListDiv");
+
+			var baseTagInputDiv = document.getElementById("tagInput");
+
+			var tagInputDiv = document.createElement("div");
+			tagInputDiv.innerHTML = baseTagInputDiv.innerHTML;
+
+			tagInputDiv.removeAttribute("style");
+			tagInputDiv.removeAttribute("id");
+
+			tagInputDiv.getElementsByTagName("input")[0].setAttribute("value", value);
+			tagInputDiv.getElementsByTagName("span")[0].addEventListener("click", function() {
+				this.parentElement.remove();
+			});
+
+			targetDiv.appendChild(tagInputDiv);
+			document.getElementById("tagName").value = "";
+		});
+		
 		//옵션 추가버튼 클릭시 Element추가하는 코드
 		document.getElementById("addOption").addEventListener("click", function() {
 			let optionName = document.getElementById("optionName").value;
@@ -96,37 +119,52 @@
 	};
 	
 	
-function imageChange(event){
-	
-    let i = event.target.files.length-1;
-    for(let image of event.target.files){
-        let img = document.createElement("img");
-	  	const reader = new FileReader();
-		reader.onload = function(event){
-			img.setAttribute("src", event.target.result);
+	function imageChange(event){
+		
+		//파일 등록 부분
+		let formData = new FormData(document.getElementById("fdForm"));
+		let item = document.getElementById("fdImage");
+		
+		for(let i = 0; i < item.files.length; i++)
+			fileList[item.files[i].name] = item.files[i];
+
+		// 미리보기 부분
+	    let i = event.target.files.length-1;
+	    for(let image of event.target.files){
+	        let img = document.createElement("img");
+		  	const reader = new FileReader();
+			reader.onload = function(event){
+				img.setAttribute("src", event.target.result);
+			}
+			reader.readAsDataURL(event.target.files[i--]);	
+			document.querySelector("#imageContainer").appendChild(img);
 		}
-		reader.readAsDataURL(event.target.files[i--]);	
-		document.querySelector("#imageContainer").appendChild(img);
 	}
-}
 
-
-
-
-function btu(){
-	var formData = new FormData(document.getElementById("productForm"));
+function but(){
+	var formData = new FormData(document.getElementById("fdForm"));
+	formData.delete("fdImage");
+	let name = Object.keys(fileList);
 	
-// 	for (let key of formData.keys()) {
-// 		console.log(key, ":", formData.get(key));
-// 	}
-for (let value of formData.values()) {
-      console.log(value);
-}
-}
-
-
+	for(let i =0; i < name.length; i++){
+		formData.append("fdImage", fileList[name[i]]);
+	}
 	
 
+	$.ajax({
+		type: "post",
+		url:"./add",
+		enctype: 'multipart/form-data',
+        processData: false,
+        contentType: false,
+		data: formData,
+		success: function(result){
+			location.href= "./list";
+		},error: function(){
+			console.log("실패");
+		}
+	});
+}
 </script>
 
 </head>
@@ -149,7 +187,7 @@ for (let value of formData.values()) {
 				</div>
 				<div id="imageContainer">
 					<label>펀딩 사진 : </label>
-					<input type="file" name="fdImage" accept="image/*" multiple onchange="imageChange(event);">
+					<input type="file" name="fdImage" accept="image/*" accept="image/*" multiple onchange="imageChange(event);">
 				</div>
 				<div>
 					<label>펀딩 이름 : </label>
@@ -162,6 +200,12 @@ for (let value of formData.values()) {
 				<div>
 					<label>펀딩 설명 : </label>
 					<textarea name="fdDescription"></textarea>
+				</div>
+				<div id="tagList">
+					<input type="text" id="tagName">
+					<button type="button" id="addTag">태그 추가</button>
+				</div>
+				<div id="tagListDiv">
 				</div>
 				<div id="optionList">
 					<input type="text" id="optionName">
@@ -199,6 +243,10 @@ for (let value of formData.values()) {
 	</div>
 	<div id="detailInput" style="display: none;">
 		<input type="text" name="fdOptionDetailName" readonly value="">
+		<span>x</span>
+	</div>
+	<div id="tagInput" style="display: none;">
+		<input type="text" name="tagNameList" readonly value="">
 		<span>x</span>
 	</div>
 </body>

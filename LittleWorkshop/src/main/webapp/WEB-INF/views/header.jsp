@@ -65,7 +65,7 @@
             <div id="shopmenu">
                 <ul><a href="#">쇼핑샵</a></ul>
                 <ul>｜</ul>
-                <ul><a href="#">후원샵</a></ul>
+                <ul><a href="fd/fdMain">후원샵</a></ul>
             </div>
         </div>
     </header>

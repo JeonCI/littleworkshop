@@ -14,4 +14,8 @@ public interface TagDao {
 
 	void initProductTag(int productCode);
 
+	void initFdTag(int fdCode);
+
+	void addFdTag(Tag fdTag);
+
 }

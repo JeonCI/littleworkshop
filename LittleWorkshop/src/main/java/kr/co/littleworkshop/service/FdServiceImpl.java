@@ -1,14 +1,17 @@
 package kr.co.littleworkshop.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.littleworkshop.dao.FdDao;
+import kr.co.littleworkshop.dao.TagDao;
 import kr.co.littleworkshop.model.Fd;
 import kr.co.littleworkshop.model.FdOption;
 import kr.co.littleworkshop.model.FdOptionDetail;
+import kr.co.littleworkshop.model.Tag;
 
 @Service
 public class FdServiceImpl implements FdService {
@@ -16,8 +19,10 @@ public class FdServiceImpl implements FdService {
 	@Autowired
 	FdDao dao;
 	
-	private void FdOptionAdd(List<String> fdOptionNames,
-							List<String> fdOptionDetailNames, List<Integer> optionCount,
+	@Autowired
+	TagDao tagDao;
+	
+	private void FdOptionAdd(List<String> fdOptionNames, List<String> fdOptionDetailNames, List<Integer> optionCount,
 							List<Integer> necessaryOptionValues, List<Integer> fdSoldOutValues, int fdCode) {
 		
 		for(int i = 0; i < fdOptionNames.size(); i++) {
@@ -43,6 +48,47 @@ public class FdServiceImpl implements FdService {
 		}
 	}
 	
+	private void addFdTag(int fdCode, List<String> tagNameList) {
+		List<Tag> nowTagList = tagDao.nowTagList();
+		List<Tag> fdTagList = new ArrayList<Tag>();
+		
+		int index = 0;
+		
+		for(int i = 0; i < tagNameList.size(); i++) {
+			for(int k = 0; k < nowTagList.size(); k++) {
+				if(tagNameList.get(index).equals(nowTagList.get(k).getTagName())) {
+					fdTagList.add(nowTagList.get(k));
+					System.out.println(tagNameList.get(index));
+					tagNameList.remove(index);
+					break;
+				}
+				
+				if(k == nowTagList.size()-1) {
+					index++;
+					i++;
+				}
+			}
+		}
+		
+		if(tagNameList.size() != 0) {
+			for(String tagName : tagNameList) {
+				Tag tag = new Tag();
+				
+				tag.setTagName(tagName);
+				
+				tagDao.addTag(tag);
+				
+				fdTagList.add(tag);
+			}
+		}
+		
+		for(Tag fdTag : fdTagList) {
+			fdTag.setTargetCode(fdCode);
+			
+			tagDao.addFdTag(fdTag);
+		}
+	}
+	
 	@Override
 	public List<Fd> list() {
 		return dao.list();
@@ -60,18 +106,26 @@ public class FdServiceImpl implements FdService {
 
 	@Override
 	public void add(List<String> fdOptionNames, List<String> fdOptionDetailNames, List<Integer> optionCount,
-			List<Integer> necessaryOptionValues, List<Integer> fdSoldOutValues, Fd fd) {
+			List<Integer> necessaryOptionValues, List<Integer> fdSoldOutValues, List<String> tagNameList, Fd fd) {
 		dao.add(fd);
+		
+		addFdTag(fd.getFdCode(), tagNameList);
 		
 		FdOptionAdd(fdOptionNames, fdOptionDetailNames, optionCount, necessaryOptionValues, fdSoldOutValues, fd.getFdCode());
 	}
 
 	@Override
 	public void update(List<String> fdOptionNames, List<String> fdOptionDetailNames, List<Integer> optionCount,
-			List<Integer> necessaryOptionValues, List<Integer> fdSoldOutValues, Fd fd) {
+			List<Integer> necessaryOptionValues, List<Integer> fdSoldOutValues, List<String> tagNameList, Fd fd) {
 		dao.update(fd);
 		
-		dao.initFdOption(fd.getFdCode());
+		int fdCode = fd.getFdCode();
+		
+		dao.initFdOption(fdCode);
+		
+		tagDao.initFdTag(fdCode);
+		
+		addFdTag(fd.getFdCode(), tagNameList);
 		
 		FdOptionAdd(fdOptionNames, fdOptionDetailNames, optionCount, necessaryOptionValues, fdSoldOutValues, fd.getFdCode());
 	}

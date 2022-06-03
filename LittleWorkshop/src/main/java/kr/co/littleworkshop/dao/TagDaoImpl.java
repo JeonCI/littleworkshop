@@ -33,5 +33,15 @@ public class TagDaoImpl implements TagDao {
 	public void initProductTag(int productCode) {
 		sql.delete("tag.initProductTag", productCode);
 	}
+	
+	@Override
+	public void addFdTag(Tag fdTag) {
+		sql.insert("tag.addFdTag", fdTag);
+	}
+
+	@Override
+	public void initFdTag(int fdCode) {
+		sql.delete("tag.initFdTag", fdCode);
+	}
 
 }

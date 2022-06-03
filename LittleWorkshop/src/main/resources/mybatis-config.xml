@@ -24,7 +24,6 @@
 		<typeAlias type="kr.co.littleworkshop.model.FdOpinion" alias="FdOpinion"/>
 		<typeAlias type="kr.co.littleworkshop.model.FdOpinionAnswers" alias="FdOpinionAnswers"/>
 		<typeAlias type="kr.co.littleworkshop.model.Basket" alias="Basket"/>
-		<typeAlias type="kr.co.littleworkshop.model.BasketDetail" alias="BasketDetail"/>
 		<typeAlias type="kr.co.littleworkshop.model.Tag" alias="Tag"/>
 	</typeAliases>
 

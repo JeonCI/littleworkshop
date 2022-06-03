@@ -24,7 +24,10 @@ window.onload = function() {
 function setOption(option){
 	
 	Array.from(document.getElementsByClassName("option")).forEach(function(item,index){
-		if(Number(item.value) === 0){
+		console.log(item);
+		console.log(item.innerText);
+		if(Number(item.value) !== 0){
+			//product[item.value]
 			return;
 		}
 	});

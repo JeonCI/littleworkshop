@@ -11,18 +11,19 @@
 
 
 <script>
-	let checkId = true;	
+	let checkId = false;	
 	$(function() {
-		//success와 error사이에 먼가없음
+		
 		$('#checkId').click(function(){
 			$.ajax('/checkId', {
 				method : "POST",
 				contentType : "application/json",
 				data : JSON.stringify({"id" : $(".id").val()}),
 				success : (result)=> {
-					if (result  === "OK")
+					if (result  === "OK"){
 						alert("사용 가능한 아이디 입니다");
-					else
+						checkId = true;
+					}else
 						alert("사용중인 아이디 입니다");
 				},
 				error: xhr => {
@@ -32,45 +33,11 @@
 			})		
 		})
 	});
-
-	/*function check_id_Async() {	
-		
-			
-	console.log("왜 안돼");
-		
-		const form = document.getElementById("signup_form");
-		const xhr = new XMLHttpRequest();
-		
-		console.log(xhr.readyState);
-		
-		
-		xhr.onreadystatechange = function() {
-			console.log(xhr.readyState);
-			if(xhr.readyState == XMLHttpRequest.DONE) {
-				if(xhr.status == 200) {
-					const result = xhr.responseText;
-				
-					if(result == "OK"){
-						alert(`\${form.id.value}는 사용 가능한 아이디 입니다`);
-						form.checkId.value = form.id.value;
-					}
-					else
-						alert(`${form.id.value}는 이미 사용중인 아이디 입니다`);
-				}
-			}
-		}
-		
-		xhr.open("GET",`checkId?id=\${form.id.value}`,true);
-		
-		xhr.send();	*/
-		
-		
-// }
 function signup() {
 	const form = document.getElementById("signup_form");
 	//const regex = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
 	
-	if(form.checkId.value != form.id.value) {
+	if(!checkId) {
 		alert("아이디를 중복 검사를 해 주세요");
 		return;
 	}
@@ -87,8 +54,6 @@ function signup() {
 		form.passwd.focus();
 		return;
 	}
-	
-
 
 	if(form.passwd_confirm.value == "") {
 		alert("비밀번호를 확인 해 주세요");

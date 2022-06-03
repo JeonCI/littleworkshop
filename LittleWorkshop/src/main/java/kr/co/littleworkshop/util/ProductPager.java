@@ -11,7 +11,6 @@ public class ProductPager extends Pager {
 
 		return query;
 	}
-	
 
 	public String getType() {
 		String type = "";
@@ -21,7 +20,6 @@ public class ProductPager extends Pager {
 
 		return type;
 	}
-
 
 	public String getCondition() {
 		return condition;

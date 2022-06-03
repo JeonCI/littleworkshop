@@ -42,7 +42,7 @@ function setCategory(category){
 				<ul>
 				<li class="category ${pager.search==0?'click':''}" onclick="setCategory(this);"><a href="./list?${pager.type}">전체</a></li>
 				<c:forEach var="category" items="${categoryList}">
-					<li class="category ${category.productCategoryCode == pager.search?'click':''}" onclick="setCategory(this);" value="${category.productCategoryCode}"><a href="./list?search=${category.productCategoryCode}${pager.type}">${category.productCategory}</a></li>
+					<li class="category ${category.productCategoryCode == pager.search?'click':''}" onclick="setCategory(this);" value="${category.productCategoryCode}"><a href="./list?search=${category.productCategoryCode}${pager.type}${pager.query}">${category.productCategory}</a></li>
 				</c:forEach>
 				</ul>
 			</c:if>

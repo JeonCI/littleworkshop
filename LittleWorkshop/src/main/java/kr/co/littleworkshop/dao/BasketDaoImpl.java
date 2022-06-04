@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.littleworkshop.model.Basket;
+import kr.co.littleworkshop.model.Product;
 
 @Repository
 public class BasketDaoImpl implements BasketDao {
@@ -20,7 +21,7 @@ public class BasketDaoImpl implements BasketDao {
 	}
 
 	@Override
-	public List<Basket> list(String id) {
+	public List<Product> list(String id) {
 		return sql.selectList("basket.list",id);
 	}
 	

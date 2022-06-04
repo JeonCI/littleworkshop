@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import kr.co.littleworkshop.dao.BasketDao;
 import kr.co.littleworkshop.model.Account;
 import kr.co.littleworkshop.model.Basket;
+import kr.co.littleworkshop.model.Product;
 
 @Service
 public class BasketServiceImpl implements BasketService {
@@ -26,7 +27,7 @@ public class BasketServiceImpl implements BasketService {
 	}
 
 	@Override
-	public List<Basket> list(String id) {
+	public List<Product> list(String id) {
 		return dao.list(id);
 	}
 	

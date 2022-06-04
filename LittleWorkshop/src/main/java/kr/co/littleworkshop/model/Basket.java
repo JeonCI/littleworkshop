@@ -2,6 +2,7 @@ package kr.co.littleworkshop.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class Basket {
 	
@@ -12,34 +13,15 @@ public class Basket {
 	Date basketRegDate;
 	String orderInfo;
 	
-	
-	
-	String sellerId;
-	String productName;
-	List<ProductImages> productImageList;
-	
-	
-	public String getProductName() {
-		return productName;
-	}
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
-	public String getSellerId() {
-		return sellerId;
-	}
-	public void setSellerId(String sellerId) {
-		this.sellerId = sellerId;
-	}
-	public List<ProductImages> getProductImageList() {
-		return productImageList;
-	}
-	public void setProductImageList(List<ProductImages> productImageList) {
-		this.productImageList = productImageList;
-	}
 
 	public int getBasketCode() {
 		return basketCode;
+	}
+	public String getOrderInfo() {
+		return orderInfo;
+	}
+	public void setOrderInfo(String orderInfo) {
+		this.orderInfo = orderInfo;
 	}
 	public void setBasketCode(int basketCode) {
 		this.basketCode = basketCode;
@@ -68,14 +50,6 @@ public class Basket {
 	public void setBasketRegDate(Date basketRegDate) {
 		this.basketRegDate = basketRegDate;
 	}
-	public String getOrderInfo() {
-		return orderInfo;
-	}
-	public void setOrderInfo(String orderInfo) {
-		this.orderInfo = orderInfo;
-	}
-	
-	
-	
+
 
 }

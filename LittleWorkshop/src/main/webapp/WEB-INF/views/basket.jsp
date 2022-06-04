@@ -11,7 +11,7 @@
 <title>Little Workshop</title>
 
 <style>
-.productImage {
+.productImage >a>img{
 	width: 100px;
 	height: 100px;
 }
@@ -30,16 +30,28 @@
 			</c:if>
 
 			<c:if test="${list.size() > 0 }">
-			
-				<c:forEach var="item" items="${list}">
-					<div>
-						<span>${item.productName}</span>
-						<span>${item.sellerId}</span>
-						<span>${item.orderInfo}</span>
-						<span>${item.productAmount}</span>
-					</div>
+				<c:forEach var="seller" items="${sellerList}">
+					<span>${seller}</span>
+					<c:forEach var="item" items="${list}">
+						<c:if test="${seller == item.sellerId}">
+							<div>
+								<c:forEach var="image" items="${item.productImageList}" end="0">
+									<div class="productImage">
+										<a href="product/view/${item.productCode}"><img src="/upload/productimage/${item.sellerId}/${item.productCode}_${item.productName}/${image.productImageUuid}"></a>
+									</div>
+								</c:forEach>
+
+								<span>${item.productName}</span>
+								<c:forEach var="info" items="${item.basketList}">
+									<span>${info.orderInfo}</span>
+									<span>${info.productAmount}</span>
+								</c:forEach>
+							</div>
+						</c:if>
+					</c:forEach>
 				</c:forEach>
 			</c:if>
+
 		</div>
 	</div>
 </body>

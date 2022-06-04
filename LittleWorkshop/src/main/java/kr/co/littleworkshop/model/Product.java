@@ -18,8 +18,20 @@ public class Product {
 	
 	private List<ProductOption> productOptionList;
 	private List<ProductImages> productImageList;
+	private List<Basket> basketList;
 	private List<Tag> tagList;
 	
+	
+	
+
+
+	public List<Basket> getBasketList() {
+		return basketList;
+	}
+
+	public void setBasketList(List<Basket> basketList) {
+		this.basketList = basketList;
+	}
 
 	public List<ProductImages> getProductImageList() {
 		return productImageList;

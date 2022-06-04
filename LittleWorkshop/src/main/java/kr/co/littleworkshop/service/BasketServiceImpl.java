@@ -30,5 +30,18 @@ public class BasketServiceImpl implements BasketService {
 	public List<Product> list(String id) {
 		return dao.list(id);
 	}
+
+	@Override
+	public void delete(int code, String id) {
+		dao.delete(code,id);
+		
+	}
+
+	@Override
+	public void update(int code, String id,int amount) {
+		dao.update(code,id, amount);
+		
+	}
+
 	
 }

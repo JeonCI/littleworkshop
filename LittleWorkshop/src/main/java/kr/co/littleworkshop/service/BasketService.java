@@ -12,4 +12,8 @@ public interface BasketService {
 
 	List<Product> list(String id);
 
+	void delete(int code, String id);
+
+	void update(int code, String id, int amount);
+
 }

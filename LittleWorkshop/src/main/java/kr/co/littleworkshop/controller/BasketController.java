@@ -12,9 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.SystemPropertyUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.littleworkshop.model.Account;
@@ -70,4 +73,25 @@ public class BasketController {
 		
 		return "sesscse";
 	}
+	
+	@ResponseBody
+	@GetMapping("/delete/{code}")
+	public String delete(@PathVariable int code, HttpSession session) {
+		Account account = (Account) session.getAttribute("account");
+		
+		service.delete(code, account.getId());
+		
+		return "success";
+	}
+	
+	@ResponseBody
+	@GetMapping("/update/{code}")
+	public String update(@PathVariable int code, HttpSession session, @RequestParam(value="amount") int amount) {
+		Account account = (Account) session.getAttribute("account");
+
+		service.update(code, account.getId(), amount);
+		
+		return "success";
+	}
+	
 }

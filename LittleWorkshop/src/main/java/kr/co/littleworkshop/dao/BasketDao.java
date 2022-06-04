@@ -11,4 +11,8 @@ public interface BasketDao {
 
 	List<Product> list(String id);
 
+	void delete(int code, String id);
+
+	void update(int code, String id, int amount);
+
 }

@@ -57,10 +57,20 @@
 	</insert>
 	
 	<select id="list" resultMap="BasketMap">
-	SELECT  b.*, p.product_name, p.seller_id, pi.product_image_uuid FROM
+	SELECT  b.*, p.product_name,p.product_price, p.seller_id, pi.product_image_uuid FROM
 	(SELECT ROWNUM AS RNUM, sub.* from (SELECT * FROM BASKET WHERE id = #{id}) sub) b
     LEFT JOIN PRODUCT p ON p.product_code = B.product_code
 	LEFT JOIN PRODUCT_IMAGES pi ON pi.product_code = p.product_code
 	</select>
-
+	
+	<delete id="delete">
+		DELETE FROM BASKET WHERE BASKET_CODE = #{code} AND ID = #{id}
+	</delete>
+	
+	<update id="update">
+		UPDATE BASKET SET 
+		PRODUCT_AMOUNT = #{amount}
+		WHERE BASKET_CODE = #{code} AND ID = #{id}
+	</update>
+	
 </mapper>

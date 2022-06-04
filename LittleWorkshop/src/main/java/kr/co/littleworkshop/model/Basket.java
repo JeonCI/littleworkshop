@@ -1,6 +1,7 @@
 package kr.co.littleworkshop.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Basket {
 	
@@ -11,14 +12,32 @@ public class Basket {
 	Date basketRegDate;
 	String orderInfo;
 	
-	int totalPrice;
 	
-	public int getTotalPrice() {
-		return totalPrice;
+	
+	String sellerId;
+	String productName;
+	List<ProductImages> productImageList;
+	
+	
+	public String getProductName() {
+		return productName;
 	}
-	public void setTotalPrice(int totalPrice) {
-		this.totalPrice = totalPrice;
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
+	public String getSellerId() {
+		return sellerId;
+	}
+	public void setSellerId(String sellerId) {
+		this.sellerId = sellerId;
+	}
+	public List<ProductImages> getProductImageList() {
+		return productImageList;
+	}
+	public void setProductImageList(List<ProductImages> productImageList) {
+		this.productImageList = productImageList;
+	}
+
 	public int getBasketCode() {
 		return basketCode;
 	}

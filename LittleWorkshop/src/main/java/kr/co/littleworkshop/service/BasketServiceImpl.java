@@ -24,5 +24,10 @@ public class BasketServiceImpl implements BasketService {
 		}
 
 	}
+
+	@Override
+	public List<Basket> list(String id) {
+		return dao.list(id);
+	}
 	
 }

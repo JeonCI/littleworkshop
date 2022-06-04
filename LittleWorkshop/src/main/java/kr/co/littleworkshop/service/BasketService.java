@@ -9,4 +9,6 @@ public interface BasketService {
 
 	void add(List<Basket> basket, Account account);
 
+	List<Basket> list(String id);
+
 }

@@ -30,10 +30,12 @@ public class BasketController {
 	BasketService service;
 	
 	@RequestMapping("")
-	public String list(Model model) {
+	public String list(Model model, HttpSession session) {
 		
-		//List<Basket> list = service.list();
-		model.addAttribute("list", null);
+		Account account = (Account) session.getAttribute("account");
+		
+		List<Basket> list = service.list(account.getId());
+		model.addAttribute("list", list);
 	
 		return "basket";
 	}

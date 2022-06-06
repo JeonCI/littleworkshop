@@ -32,12 +32,15 @@
       'opsz' 12,
     }  
 
-
+#wrap{
+display: flex;}
 .optionBoxList{
 }
 .sellerBox{
 margin-bottom: 80px;
 width: 1200px;
+border: 1px solid #dddddd;
+padding: 20px 30px;
 }
 .productImage>a>img {
 	width: 100px;
@@ -68,7 +71,7 @@ border-bottom : 1px solid #dddddd;
 	font-size: 18px;
 }
 .productBox > div >.optionBoxList > .optionBox  > span{
-	width: 400px;
+	width: 500px;
 	line-height: 26px;
 } 
 
@@ -110,9 +113,62 @@ border-bottom : 1px solid #dddddd;
 border:none;
 }
 
+#price{
+display: flex;
+width:900px;
+margin-left: 120px;
+}
+
+
+#price > div:nth-child(1){
+text-align: left;
+margin: auto;
+margin-left: 0px;
+margin-right: 80px; 
+
+}
+#price > div{
+text-align: left;
+margin: auto;
+margin-left: 80px;
+margin-right: 80px; 
+
+}
+
+#price > div:last-child{
+text-align: right;
+margin: auto;
+margin-left: 235px;
+margin-right: 0px; 
+}
+
+
+#price > div > span{
+font-size:14px;
+color: #888888;
+display: block;
+}
+
+#price > div:nth-child(2),#price > div:nth-child(4){
+margin: auto;
+margin-left: 20px;
+margin-right: 20px; 
+}
+
+#price > div > span:last-child{
+color: #222222;
+font-size:16px;
+font-weight: 600;
+}
+
 </style>
 
 <script>
+let paymentList
+window.onload = function() {
+	totalPrice();
+	
+};
 function deleteOption(option){
 	let code = option.parentNode.getAttribute("data-code");
 	
@@ -125,12 +181,18 @@ function deleteOption(option){
  		option.parentNode.remove();
  	
  	
- 	
+ 	if(document.querySelectorAll(".sellerBox")){
+ 		document.querySelector("#paymentInfo").remove();
+ 		document.querySelector("#spanDiv").remove();
+ 		document.querySelector("#guideText").innerHTML = "<div>장바구니가 비어있습니다</div>";
+ 	}
+ 		
 	$.ajax({
 		type: "GET",
 		url:"/basket/delete/"+code,
         contentType: "application/json; utf-8",
 		success: function(result){
+			totalPrice();
 		},error: function(){
 			console.log("실패");
 		}
@@ -232,35 +294,180 @@ function removeOptionAmount(option){
 
 function mulPrice(loc, count){
 	loc.innerText = (parseInt(count) * parseInt(loc.getAttribute("data-price"))).toLocaleString() +" 원";
-// 	totalPrice();
+	totalPrice();
 }
 
-// function totalPrice(){
-// 	let total = 0;
-// 	console.log();
-// 	Array.from(document.getElementById("optionContiner").childNodes).forEach(function(item,index){
-// 		total +=  parseInt(item.childNodes[2].innerText);
-// 	});
+
+function totalPrice(){
+
+	Array.from(document.querySelectorAll(".sellerBox")).forEach(function(item,index){
+		let total = 0;
+		
+		for(let i =0; i < item.querySelectorAll(".productCheck:checked").length; i++)
+			for(let j =0; j < item.querySelectorAll(".productCheck:checked")[i].closest(".productBox").getElementsByClassName("productPrice").length; j++)
+ 				total += parseInt(item.querySelectorAll(".productCheck:checked")[i].closest(".productBox").getElementsByClassName("productPrice")[j].innerHTML.replace(",",""));
+		
+		
+		item.querySelector("#productTotalPrice").innerText = total.toLocaleString() + " 원";
+		item.querySelector("#orderPrice").innerText = (parseInt(item.querySelector("#deliveryPrice").innerText) + total).toLocaleString() + " 원";
+	});
 	
-// 	document.getElementById("totalPrice").childNodes[1].innerText = total;
-// }
+	totalPayment();
+	
+}
+
+
+
+function totalPayment(){
+	paymentList = [];
+	totalPaymentPrice = 0;
+	Array.from(document.querySelectorAll('.productCheck')).forEach(function(item,index){
+		if(item.checked){ 
+			Array.from(item.closest(".productBox").querySelectorAll(".optionBox")).forEach(function(item,index){
+	 			paymentList.push({
+				"basketCode": item.getAttribute("data-code")
+				});
+	 			totalPaymentPrice += parseInt(item.querySelector(".productPrice").innerHTML.replace(",",""));
+			});
+		}
+	});
+
+	if(document.querySelector("#paymentDelivery")){
+		document.querySelector("#paymentDelivery").innerHTML = 0;
+		document.querySelector("#paymentAmount").innerHTML = paymentList.length;
+		document.querySelector("#paymentPrice").innerHTML = totalPaymentPrice;
+		document.querySelector("#totalPayment").innerHTML = totalPaymentPrice+ 0;
+	}
+
+}
+
+
+function sellerCheck(seleter){
+	
+	if(seleter.checked){ 
+		Array.from(seleter.closest(".sellerBox").querySelectorAll(".productCheck")).forEach(function(item,index){
+			$(item).prop("checked","true"); 
+			
+		});
+	}else {
+		Array.from(seleter.closest(".sellerBox").querySelectorAll(".productCheck")).forEach(function(item,index){
+			$(item).removeProp("checked");
+		});
+	}
+	
+	totalPrice();
+}
+
+function productCheck(seleter){
+	checkAll = seleter.closest(".sellerBox").querySelector('.sellerCheck');
+	
+	if(!seleter.checked)
+		$(checkAll).removeProp("checked");
+	else
+		if(seleter.closest(".sellerBox").querySelectorAll(".productCheck").length === seleter.closest(".sellerBox").querySelectorAll(".productCheck:checked").length)
+			$(checkAll).prop("checked","true");
+	
+	
+	totalPrice();
+}
+
+function selectAll(){
+	select = true;
+	Array.from(document.querySelectorAll('.checkbox')).forEach(function(item,index){
+		if(!item.checked)
+			select = false;
+	});
+	
+	if(select === true){
+		Array.from(document.querySelectorAll('.checkbox')).forEach(function(item,index){
+			$(item).removeProp("checked");
+		});
+	}else{
+		Array.from(document.querySelectorAll('.checkbox')).forEach(function(item,index){
+			$(item).prop("checked","true"); 
+
+		});
+	}
+	
+	totalPrice();
+}
+
+
+function partialDeletion(){
+	deleteList = [];
+	Array.from(document.querySelectorAll('.productCheck')).forEach(function(item,index){
+		if(item.checked){
+			deleteList.push(parseInt(item.value));
+			if(item.closest(".sellerBox").querySelectorAll(".productCheck").length <=1){  // 같은 작가의 상품 갯수가 1개 아래라면?
+				item.closest(".sellerBox").remove();
+
+			}else{  // 같은 작가의 상품 갯수가 1개 이상이라면?  
+				item.closest(".productBox").remove();
+			}
+		}
+
+	});
+	
+	if(document.querySelectorAll(".sellerBox")){
+ 		document.querySelector("#paymentInfo").remove();
+ 		document.querySelector("#spanDiv").remove();
+ 		document.querySelector("#guideText").innerHTML = "<div>장바구니가 비어있습니다</div>";
+ 		
+ 	}
+	
+	$.ajax({
+		type: "POST",
+		url:"/basket/partialDeletion",
+        contentType: "application/json; utf-8",
+        data : JSON.stringify(deleteList),
+		success: function(result){
+			totalPrice();
+		},error: function(){
+			console.log("실패");
+		}
+	});
+	
+
+}
+
+function paymentBtn(){
+	
+	$.ajax({
+		type: "POST",
+		url:"/basket/cartOrder",
+        contentType: "application/json; utf-8",
+        data : JSON.stringify(paymentList),
+		success: function(result){
+			
+		},error: function(){
+			console.log("실패");
+		}
+	});
+	
+	
+}
+
+
 </script>
 </head>
 <body>
 	<div>
 		<h1>장바구니</h1>
-		<div>
+		<div id="guideText">
 			<c:if test="${list.size() < 1 }">
 				<div>장바구니가 비어있습니다</div>
 			</c:if>
 
 			<c:if test="${list.size() > 0 }">
+				<div id="spanDiv"><span onclick="selectAll();">전체선택</span> ｜ <span onclick="partialDeletion();">선택삭제</span></div>
 				<c:forEach var="seller" items="${sellerList}">
 					<div class="sellerBox">
+						<input type="checkbox" class="sellerCheck checkbox" onclick="sellerCheck(this);" checked>
 						<span>${seller}</span>
 						<c:forEach var="item" items="${list}">
 							<c:if test="${seller == item.sellerId}">
 								<div class="productBox">
+									<input type="checkbox" value="${item.productCode}" class="productCheck checkbox" onclick="productCheck(this);" checked>
 									<c:forEach var="image" items="${item.productImageList}" end="0">
 										<div class="productImage">
 											<a href="product/view/${item.productCode}">
@@ -285,8 +492,40 @@ function mulPrice(loc, count){
 								</div>
 							</c:if>
 						</c:forEach>
+						<div id = "price">
+							<div>
+								<span>상품금액</span>
+								<span id="productTotalPrice"></span>
+							</div>
+							<div>
+								<span>+</span>
+							</div>
+							<div>
+								<span>배송비</span>
+								<span id="deliveryPrice">0 원</span>
+							</div>
+							<div>
+								<span>=</span>
+							</div>
+							<div>
+								<span>주문 금액</span>
+								<span id="orderPrice"></span>
+							</div>
+						</div>
 					</div>
 				</c:forEach>
+				<div id="paymentInfo">
+					<span>결제정보</span>
+					<div>
+						<div><span>상품수</span><span id="paymentAmount"></span></div>
+						<div><span>상품금액</span><span id="paymentPrice"></span></div>
+						<div><span>배송비</span><span id="paymentDelivery"></span></div>
+					</div>
+					<div>
+						<span>총 결제금액</span><span id="totalPayment"></span>
+					</div>
+					<button type="button" onclick="paymentBtn();">구매하기</button>
+				</div>
 			</c:if>
 
 		</div>

@@ -67,6 +67,11 @@
 		DELETE FROM BASKET WHERE BASKET_CODE = #{code} AND ID = #{id}
 	</delete>
 	
+	<delete id="partialDeletion">
+		DELETE FROM BASKET WHERE PRODUCT_CODE = #{productCode} AND ID = #{id}
+	</delete>
+	
+	
 	<update id="update">
 		UPDATE BASKET SET 
 		PRODUCT_AMOUNT = #{amount}

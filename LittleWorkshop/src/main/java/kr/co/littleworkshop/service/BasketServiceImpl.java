@@ -15,6 +15,9 @@ public class BasketServiceImpl implements BasketService {
 
 	@Autowired
 	BasketDao dao;
+	
+//	@Autowired
+//	OrderDao orderDao;
 
 	@Override
 	public void add(List<Basket> basket, Account account) {
@@ -41,6 +44,19 @@ public class BasketServiceImpl implements BasketService {
 	public void update(int code, String id,int amount) {
 		dao.update(code,id, amount);
 		
+	}
+
+	@Override
+	public void partialDeletion(List<Integer> deleteList, String id) {
+	
+		for(int code  : deleteList) {
+			dao.partialDeletion(code, id);	
+		}
+	}
+
+	@Override
+	public void cartOrder(List<Integer> orderList, String id) {
+	
 	}
 
 	

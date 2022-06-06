@@ -84,6 +84,18 @@ public class BasketController {
 		return "success";
 	}
 	
+	
+	@ResponseBody
+	@PostMapping("/partialDeletion")
+	public String partialDeletion(HttpSession session, @RequestBody List<Integer> deleteList) {
+		Account account = (Account) session.getAttribute("account");
+
+		service.partialDeletion(deleteList, account.getId());
+		
+		return "success";
+	}
+	
+	
 	@ResponseBody
 	@GetMapping("/update/{code}")
 	public String update(@PathVariable int code, HttpSession session, @RequestParam(value="amount") int amount) {
@@ -94,4 +106,14 @@ public class BasketController {
 		return "success";
 	}
 	
+	
+	@ResponseBody
+	@PostMapping("/cartOrder")
+	public String cartOrder(HttpSession session, @RequestBody List<Integer> orderList) {
+		Account account = (Account) session.getAttribute("account");
+
+		service.cartOrder(orderList, account.getId());
+		
+		return "success";
+	}
 }

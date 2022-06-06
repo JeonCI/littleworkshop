@@ -46,5 +46,13 @@ public class BasketDaoImpl implements BasketDao {
 		
 	}
 
-	
+	@Override
+	public void partialDeletion(int code, String id) {
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("id", id);
+		map.put("productCode", code);
+		sql.delete("basket.partialDeletion",map);
+		
+	}
+
 }

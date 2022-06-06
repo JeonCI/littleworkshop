@@ -15,4 +15,6 @@ public interface BasketDao {
 
 	void update(int code, String id, int amount);
 
+	void partialDeletion(int code, String id);
+
 }

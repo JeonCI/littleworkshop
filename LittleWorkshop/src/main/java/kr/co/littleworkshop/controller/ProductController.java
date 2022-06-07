@@ -77,6 +77,7 @@ public class ProductController {
 	@GetMapping("/view/{productCode}")
 	public String view(@PathVariable int productCode, Model model) {
 		Product item = service.item(productCode);
+		service.viewCount(productCode);
 
 		model.addAttribute("item", item);
 

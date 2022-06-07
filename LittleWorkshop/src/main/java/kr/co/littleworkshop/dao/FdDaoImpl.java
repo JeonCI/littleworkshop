@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import kr.co.littleworkshop.model.Fd;
 import kr.co.littleworkshop.model.FdOption;
 import kr.co.littleworkshop.model.FdOptionDetail;
+import kr.co.littleworkshop.util.FdPager;
 
 @Repository
 public class FdDaoImpl implements FdDao {
@@ -18,8 +19,8 @@ public class FdDaoImpl implements FdDao {
 	SqlSession sql;
 	
 	@Override
-	public List<Fd> list() {
-		return sql.selectList("fd.list");
+	public List<Fd> list(FdPager pager) {
+		return sql.selectList("fd.list", pager);
 	}
 
 	@Override

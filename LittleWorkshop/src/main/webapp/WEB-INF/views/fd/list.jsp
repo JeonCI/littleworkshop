@@ -9,10 +9,47 @@
 <head>
 <meta charset="UTF-8">
 <title>Little Workshop</title>
+
+<style>
+
+a {
+  text-decoration: none;
+}
+
+.click{
+	color : blue;
+}
+</style>
+
+<script>
+
+window.onload = function(){
+
+
+}
+
+function setCategory(category){
+	
+	category.classList.toggle("click");
+
+}
+</script>
+
 </head>
 <body>
 	<div>
 		<h1>펀딩 목록</h1>
+		<form method="get" id="searchForm">
+			<input type="hidden" id="search" name="search">
+			<c:if test="${categoryList.size() > 0 }">
+				<ul>
+				<li class="category ${pager.search==0?'click':''}" onclick="setCategory(this);"><a href="./list?${pager.type}">전체</a></li>
+				<c:forEach var="category" items="${categoryList}">
+					<li class="category ${category.productCategoryCode == pager.search?'click':''}" onclick="setCategory(this);" value="${category.productCategoryCode}"><a href="./list?search=${category.productCategoryCode}${pager.query}">${category.productCategory}</a></li>
+				</c:forEach>
+				</ul>
+			</c:if>
+		</form>
 		<div>
 			<table border="1">
 				<thead>

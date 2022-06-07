@@ -16,7 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.littleworkshop.model.Account;
 import kr.co.littleworkshop.model.Fd;
+import kr.co.littleworkshop.model.ProductCategory;
+import kr.co.littleworkshop.service.CategoryService;
 import kr.co.littleworkshop.service.FdService;
+import kr.co.littleworkshop.service.KeywordService;
+import kr.co.littleworkshop.util.FdPager;
 
 @Controller
 @RequestMapping("/fd")
@@ -26,16 +30,42 @@ public class FdController {
 	@Autowired
 	FdService service;
 	
+	@Autowired
+	KeywordService keywordService;
+	
+	@Autowired
+	CategoryService categoryService;
+	
 	@GetMapping("/fdMain")
 	public String fdMain(Model model) {
 		return path + "fdMain";
 	}
 	
 	@GetMapping("/list")
-	public String list(Model model) {
-		List<Fd> list = service.list();
+	public String list(Model model, FdPager pager, HttpSession session) {
+		Account account = (Account) session.getAttribute("account");
+		
+		if(pager.getKeyword() != null) {
+			keywordService.addKeyword(pager.getKeyword());
+			
+			if(account != null) {
+				String id = account.getId();
+				String keyword = pager.getKeyword();
+				
+				keywordService.addAttentionKeyword(id, keyword);
+			}
+		}
+		
+		System.out.println(pager.getSearch());	
+		List<Fd> list = service.list(pager);
+		List<ProductCategory> categoryList = categoryService.productCategoryList();
+		
+		for(ProductCategory item : categoryList) {
+			System.out.println( item.getProductCategoryCode()+":"+item.getProductCategory());
+		}
 		
 		model.addAttribute("list", list);
+		model.addAttribute("categoryList",categoryList);
 		
 		return path + "list";
 	}

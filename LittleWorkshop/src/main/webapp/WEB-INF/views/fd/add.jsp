@@ -165,6 +165,10 @@ function but(){
 		}
 	});
 }
+
+function asdf() {
+	console.log(document.getElementById("asdf").value);
+}
 </script>
 
 </head>
@@ -198,6 +202,14 @@ function but(){
 					<input type="number" name="fdPrice">
 				</div>
 				<div>
+					<label>펀딩 최소 인원 : </label>
+					<input type="number" name="fdMinimumUser">
+				</div>
+				<div>
+					<label>펀딩 모집 기간 : </label>
+					<input type="Date" name="htmlFdRecruitmentPeriod" id="asdf">
+				</div>
+				<div>
 					<label>펀딩 설명 : </label>
 					<textarea name="fdDescription"></textarea>
 				</div>
@@ -213,10 +225,11 @@ function but(){
 				</div>
 				<div id=optionListDiv>
 				</div>
-				<button>등록하기</button>
+				<button onclick="but()">등록하기</button>
 			</form>
 			<a href="./list">뒤로가기</a>
 		</div>
+		<button onclick="asdf()">check</button>
 	</div>
 
 	<div id="divForm" style="display: none;">

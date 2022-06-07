@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.littleworkshop.dao.FdOpinionDao;
 import kr.co.littleworkshop.model.FdOpinion;
+import kr.co.littleworkshop.util.FdPager;
 
 @Service
 public class FdOpinionServiceImpl implements FdOpinionService {
@@ -15,8 +16,12 @@ public class FdOpinionServiceImpl implements FdOpinionService {
 	FdOpinionDao dao;
 	
 	@Override
-	public List<FdOpinion> fdOpinionList(int fdCode) {
-		return dao.fdOpinionList(fdCode);
+	public List<FdOpinion> fdOpinionList(FdPager pager) {
+		int total = dao.total(pager);
+		
+		pager.setTotal(total);
+		
+		return dao.fdOpinionList(pager);
 	}
 
 	@Override

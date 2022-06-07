@@ -14,4 +14,9 @@
 		VALUES(FD_OPINION_SEQ.nextval, #{fdCode}, #{fdOpinion}, #{writerId}, sysdate)
 	</insert>
 	
+	<select id="total" resultType="Integer">
+		SELECT count(*) FROM fd_opinion
+		WHERE fd_code = #{fdCode}
+	</select>
+	
 </mapper>

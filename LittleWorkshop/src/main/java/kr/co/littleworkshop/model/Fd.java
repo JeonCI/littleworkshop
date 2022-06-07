@@ -17,6 +17,8 @@ public class Fd {
 	private int fdMinimumUser;
 	private Date fdRecruitmentPeriod;
 	
+	private String htmlFdRecruitmentPeriod;
+	
 	private List<FdOption> fdOptionList;
 	private List<FdImages> fdImagesList;
 	private List<Tag> tagList;
@@ -154,5 +156,13 @@ public class Fd {
 
 	public void setTagList(List<Tag> tagList) {
 		this.tagList = tagList;
+	}
+
+	public String getHtmlFdRecruitmentPeriod() {
+		return htmlFdRecruitmentPeriod;
+	}
+
+	public void setHtmlFdRecruitmentPeriod(String htmlFdRecruitmentPeriod) {
+		this.htmlFdRecruitmentPeriod = htmlFdRecruitmentPeriod;
 	}
 }

@@ -9,42 +9,52 @@
 <head>
 <meta charset="UTF-8">
 <title>Little Workshop</title>
+
+<script>
+	function opUpdate() {
+		console.log(this.dataset.code());
+	}
+</script>
+
 </head>
 <body>
 	<div>
 		<h1>펀딩 목록</h1>
 		<div>
+			<form method="post" action="add">
+				<label>펀딩 의견</label>
+				<textarea name="fdOpinion"></textarea>
+				<button>게시하기</button>
+			</form>
 			<table border="1">
 				<thead>
 					<tr>
-						<td>펀딩 번호</td>
-						<td>판매자</td>
-						<td>카테고리</td>
-						<td>펀딩 명</td>
-						<td>펀딩 가격</td>
-						<td>펀딩 진행 상태</td>
-						<td>펀딩 등록일</td>
+						<td>아이디</td>
+						<td>내용</td>
+						<td>추천 수</td>
+						<td>등록일</td>
+						<td>작가 채택 여부</td>
+						<td>작가 의견</td>
 						<td>관리</td>
 					</tr>
 				</thead>
 				<tbody>
 					<c:if test="${list.size() < 1 }">
 						<tr>
-							<td colspan="8">등록된 펀딩이 없습니다.</td>
+							<td colspan="7">등록된 의견이 없습니다.</td>
 						</tr>
 					</c:if>
 					
 					<c:if test="${list.size() > 0 }">
 					<c:forEach var="item" items="${list }">
 						<tr>
-							<td>${item.fdCode}</td>
-							<td>${item.fdSellerId}</td>
-							<td>${item.fdCategory}</td>
-							<td><a href="view/${item.fdCode}">${item.fdName}</a></td>
-							<td>${item.fdPrice}</td>
-							<td>${item.fdState}</td>
-							<td><fmt:formatDate value="${item.fdRegDate }" pattern="yyyy/MM/dd"/></td>
-							<td><a href="update/${item.fdCode }">수정</a> / <a href="delete/${item.fdCode }">삭제</a></td>
+							<td>${item.writerId}</td>
+							<td><textarea readonly="readonly" id="fdOpinion${item.fdOpinionCode}">${item.fdOpinion}</textarea> </td>
+							<td>${item.goodCount}</td>
+							<td><fmt:formatDate value="${item.fdOpinionRegDate }" pattern="yyyy/MM/dd"/></td>
+							<td>${item.selection}</td>
+							<td>${item.fdOpinionAnswer != null ? 'item.fdOpinionAnswer':'' }</td>
+							<td><button type="button" data-code="${item.fdOpinionCode}">수정하기</button> / <a href="delete/${item.fdOpinionCode }">삭제</a></td>
 						</tr>
 					</c:forEach>
 					</c:if>

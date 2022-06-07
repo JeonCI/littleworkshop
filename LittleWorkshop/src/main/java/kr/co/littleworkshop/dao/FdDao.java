@@ -33,4 +33,6 @@ public interface FdDao {
 
 	void participateFd(int participationPrice, int fdCode, String id);
 
+	int total(FdPager pager);
+
 }

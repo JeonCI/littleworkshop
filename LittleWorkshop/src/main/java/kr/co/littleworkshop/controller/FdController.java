@@ -96,7 +96,7 @@ public class FdController {
 	public String add(@RequestParam("fdOptionName") List<String> fdOptionNames,
 					@RequestParam("fdOptionDetailName") List<String> fdOptionDetailNames,
 					@RequestParam("optionCount") List<Integer> optionCount,
-					@RequestParam("fdtNecessaryOption") List<Integer> necessaryOptionValues,
+					@RequestParam("fdNecessaryOption") List<Integer> necessaryOptionValues,
 					@RequestParam("tagNameList") List<String> tagNameList,
 					Fd fd) {
 		List<Integer> soldOutValues = new ArrayList<Integer>();

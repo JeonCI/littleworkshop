@@ -17,8 +17,11 @@
 			<p>${item.productCategory }</p>
 			<p>${item.fdName }</p>
 			<p>${item.fdPrice }</p>
+			<p>${item.fdMinimumUser }</p>
+			<p>${item.fdState }</p>
 			<p>${item.fdDescription }</p>
-			<fmt:formatDate value="${item.fdRegDate }" pattern="YYYY/MM/dd"/>
+			<p>등록일 : <fmt:formatDate value="${item.fdRegDate }" pattern="YYYY/MM/dd"/></p>
+			<p>모집 마감일 : <fmt:formatDate value="${item.fdRecruitmentPeriod }" pattern="YYYY/MM/dd"/></p>
 			<p>${item.fdViewCount }</p>
 			
 			<c:if test="${item.fdOptionList.size() > 0 }">
@@ -41,6 +44,9 @@
 				<button>참여하기</button>
 			</form>
 		</div>
+		<ul>
+			<li><a href="../fdConferencHall/fdOpinionList/${item.fdCode}">펀딩 상품 회의장</a></li>
+		</ul>
 	</div>
 </body>
 </html>

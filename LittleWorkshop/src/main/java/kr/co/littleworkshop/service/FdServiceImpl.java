@@ -1,6 +1,9 @@
 package kr.co.littleworkshop.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,6 +95,10 @@ public class FdServiceImpl implements FdService {
 	
 	@Override
 	public List<Fd> list(FdPager pager) {
+		int total = dao.total(pager);
+		
+		pager.setTotal(total);
+		
 		return dao.list(pager);
 	}
 
@@ -108,6 +115,7 @@ public class FdServiceImpl implements FdService {
 	@Override
 	public void add(List<String> fdOptionNames, List<String> fdOptionDetailNames, List<Integer> optionCount,
 			List<Integer> necessaryOptionValues, List<Integer> fdSoldOutValues, List<String> tagNameList, Fd fd) {
+		
 		dao.add(fd);
 		
 		addFdTag(fd.getFdCode(), tagNameList);

@@ -2,6 +2,7 @@ package kr.co.littleworkshop.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import kr.co.littleworkshop.model.Account;
 import kr.co.littleworkshop.model.FdOpinion;
 import kr.co.littleworkshop.service.FdOpinionService;
+import kr.co.littleworkshop.util.FdPager;
 
 @Controller
-@RequestMapping("/fd/fdOpinion")
+@RequestMapping("/fd/fdConferencHall")
 public class FdOpinionController {
 	final String path = "fd/fdOpinion/";
 	
@@ -25,8 +27,10 @@ public class FdOpinionController {
 	FdOpinionService service;
 	
 	@GetMapping("/fdOpinionList/{fdCode}")
-	public String fdOpinionList(Model model, @PathVariable int fdCode) {
-		List<FdOpinion> list = service.fdOpinionList(fdCode);
+	public String fdOpinionList(Model model, @PathVariable int fdCode, FdPager pager) {
+		pager.setFdCode(fdCode);
+		
+		List<FdOpinion> list = service.fdOpinionList(pager);
 		
 		model.addAttribute("list", list);
 		
@@ -34,13 +38,15 @@ public class FdOpinionController {
 	}
 	
 	@PostMapping("/fdOpinionAdd")
-	public String fdOpinionAdd(FdOpinion fdOpinion, HttpSession session) {
+	public String fdOpinionAdd(FdOpinion fdOpinion, HttpSession session, HttpServletRequest request) {
+		String url = request.getHeader("REFERER");
+		
 		Account account = (Account) session.getAttribute("session");
 		
 		fdOpinion.setWriterId(account.getId());
 		
 		service.fdOpinionAdd(fdOpinion);
 		
-		return "redirect:fdOpinionList" + fdOpinion.getFdCode();
+		return "redirect:" + url;
 	}
 }

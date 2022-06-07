@@ -76,7 +76,7 @@ function setCategory(category){
 						<tr>
 							<td>${item.fdCode}</td>
 							<td>${item.fdSellerId}</td>
-							<td>${item.fdCategory}</td>
+							<td>${item.productCategory}</td>
 							<td><a href="view/${item.fdCode}">${item.fdName}</a></td>
 							<td>${item.fdPrice}</td>
 							<td>${item.fdState}</td>

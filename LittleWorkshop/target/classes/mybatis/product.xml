@@ -119,8 +119,6 @@
 		<include refid="search"></include>
 	</select>
 	
-	
-	
 	<select id="item" resultMap="ProductMap">
 		SELECT
 		p.product_code product_code,

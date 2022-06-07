@@ -8,7 +8,7 @@ public class FdOption {
 	private String fdOptionName;
 	private int fdNecessaryOption;
 	
-	private List<FdOptionDetail> fdOptionDeatil;
+	private List<FdOptionDetail> fdOptionDetail;
 
 	public int getFdOptionCode() {
 		return fdOptionCode;
@@ -42,11 +42,11 @@ public class FdOption {
 		this.fdNecessaryOption = fdNecessaryOption;
 	}
 
-	public List<FdOptionDetail> getFdOptionDeatil() {
-		return fdOptionDeatil;
+	public List<FdOptionDetail> getFdOptionDetail() {
+		return fdOptionDetail;
 	}
 
-	public void setFdOptionDeatil(List<FdOptionDetail> fdOptionDeatil) {
-		this.fdOptionDeatil = fdOptionDeatil;
+	public void setFdOptionDetail(List<FdOptionDetail> fdOptionDetail) {
+		this.fdOptionDetail = fdOptionDetail;
 	}
 }

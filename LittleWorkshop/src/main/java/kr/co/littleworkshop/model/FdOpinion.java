@@ -13,6 +13,13 @@ public class FdOpinion {
 	
 	private String fdOpinionAnswer;
 	
+	public String getSelection() {
+		if(producerSelection == 0) {
+			return "채택!!";
+		} else
+			return "";
+	}
+	
 	public int getFdOpinionCode() {
 		return fdOpinionCode;
 	}

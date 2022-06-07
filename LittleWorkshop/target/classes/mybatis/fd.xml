@@ -149,7 +149,7 @@
 	<insert id="add">
 		INSERT INTO fd
 		(fd_code, fd_seller_id, product_category_code, fd_name, fd_price, fd_description, fd_reg_date, fd_minimum_user, fd_recruitment_period)
-		VALUES(FD_SEQ.nextval, #{fdSellerId}, #{productCategoryCode}, #{fdName}, #{fdPrice}, #{fdDescription}, sysdate, #{fdMinimumUser}, to_date(#{fdRecruitmentPeriod}, 'YYYY-MM-DD'))
+		VALUES(FD_SEQ.nextval, #{fdSellerId}, #{productCategoryCode}, #{fdName}, #{fdPrice}, #{fdDescription}, sysdate, #{fdMinimumUser}, to_date(#{htmlFdRecruitmentPeriod}, 'YYYY-MM-DD'))
 		<selectKey keyColumn="fd_code" resultType="Integer" keyProperty="fdCode" order="AFTER">
 			SELECT FD_SEQ.currval fd_code FROM dual
 		</selectKey>
@@ -205,5 +205,12 @@
 		INSERT INTO participate_fd_list
 		VALUES(PARTICIPATE_FD_LIST_SEQ.nextval, #{id}, #{fdCode}, #{participationPrice})
 	</insert>
+	
+	<select id="total" resultType="Integer">
+		SELECT count(distinct fd.fd_code) FROM fd
+		LEFT JOIN fd_tag_list ftl ON fd.fd_code = ftl.fd_code
+		LEFT JOIN tag_list tl ON ftl.tag_code = tl.tag_code
+		<include refid="search"></include>
+	</select>
 	
 </mapper>

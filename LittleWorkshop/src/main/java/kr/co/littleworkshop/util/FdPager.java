@@ -2,6 +2,7 @@ package kr.co.littleworkshop.util;
 
 public class FdPager extends Pager {
 	private String condition;
+	private int fdCode;
 	
 	public String getQuery() {
 		String query = super.getQuery();
@@ -27,5 +28,13 @@ public class FdPager extends Pager {
 
 	public void setCondition(String condition) {
 		this.condition = condition;
+	}
+
+	public int getFdCode() {
+		return fdCode;
+	}
+
+	public void setFdCode(int fdCode) {
+		this.fdCode = fdCode;
 	}
 }

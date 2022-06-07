@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.littleworkshop.model.FdOpinion;
+import kr.co.littleworkshop.util.FdPager;
 
 @Repository
 public class FdOpinionDaoImpl implements FdOpinionDao {
@@ -15,13 +16,18 @@ public class FdOpinionDaoImpl implements FdOpinionDao {
 	SqlSession sql;
 	
 	@Override
-	public List<FdOpinion> fdOpinionList(int fdCode) {
-		return sql.selectList("fdOpinion.list", fdCode);
+	public List<FdOpinion> fdOpinionList(FdPager pager) {
+		return sql.selectList("fdOpinion.list", pager);
 	}
 
 	@Override
 	public void fdOpinionAdd(FdOpinion fdOpinion) {
 		sql.insert("fdOpinion.add", fdOpinion);
+	}
+
+	@Override
+	public int total(FdPager pager) {
+		return sql.selectOne("fdOpinion.total", pager);
 	}
 
 }

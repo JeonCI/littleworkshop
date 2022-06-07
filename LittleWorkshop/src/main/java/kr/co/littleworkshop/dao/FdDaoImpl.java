@@ -84,4 +84,9 @@ public class FdDaoImpl implements FdDao {
 		sql.insert("fd.participateFd", map);
 	}
 
+	@Override
+	public int total(FdPager pager) {
+		return sql.selectOne("fd.total", pager);
+	}
+
 }

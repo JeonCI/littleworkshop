@@ -66,7 +66,6 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public void imageUpload(ProductImages image) {
 		sql.insert("product.imageUpload", image);
-		
 	}
 
 	@Override

@@ -17,7 +17,4 @@ public interface BasketService {
 	void update(int code, String id, int amount);
 
 	void partialDeletion(List<Integer> deleteList, String id);
-
-	void cartOrder(List<Integer> orderList, String id);
-
 }

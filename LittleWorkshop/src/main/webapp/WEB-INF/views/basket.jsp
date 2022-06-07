@@ -164,7 +164,7 @@ font-weight: 600;
 </style>
 
 <script>
-let paymentList
+let paymentList;
 window.onload = function() {
 	totalPrice();
 	
@@ -180,8 +180,7 @@ function deleteOption(option){
  	}else
  		option.parentNode.remove();
  	
- 	
- 	if(document.querySelectorAll(".sellerBox")){
+ 	if(document.querySelectorAll(".sellerBox").length === 0){
  		document.querySelector("#paymentInfo").remove();
  		document.querySelector("#spanDiv").remove();
  		document.querySelector("#guideText").innerHTML = "<div>장바구니가 비어있습니다</div>";
@@ -324,20 +323,17 @@ function totalPayment(){
 	Array.from(document.querySelectorAll('.productCheck')).forEach(function(item,index){
 		if(item.checked){ 
 			Array.from(item.closest(".productBox").querySelectorAll(".optionBox")).forEach(function(item,index){
-	 			paymentList.push({
-				"basketCode": item.getAttribute("data-code")
-				});
+	 			paymentList.push(parseInt(item.getAttribute("data-code")));
 	 			totalPaymentPrice += parseInt(item.querySelector(".productPrice").innerHTML.replace(",",""));
 			});
 		}
 	});
 
-	if(document.querySelector("#paymentDelivery")){
-		document.querySelector("#paymentDelivery").innerHTML = 0;
-		document.querySelector("#paymentAmount").innerHTML = paymentList.length;
-		document.querySelector("#paymentPrice").innerHTML = totalPaymentPrice;
-		document.querySelector("#totalPayment").innerHTML = totalPaymentPrice+ 0;
-	}
+	document.querySelector("#paymentDelivery").innerHTML = 0;
+	document.querySelector("#paymentAmount").innerHTML = paymentList.length;
+	document.querySelector("#paymentPrice").innerHTML = totalPaymentPrice;
+	document.querySelector("#totalPayment").innerHTML = totalPaymentPrice+ 0;
+
 
 }
 
@@ -396,19 +392,18 @@ function selectAll(){
 function partialDeletion(){
 	deleteList = [];
 	Array.from(document.querySelectorAll('.productCheck')).forEach(function(item,index){
+
 		if(item.checked){
 			deleteList.push(parseInt(item.value));
-			if(item.closest(".sellerBox").querySelectorAll(".productCheck").length <=1){  // 같은 작가의 상품 갯수가 1개 아래라면?
-				item.closest(".sellerBox").remove();
-
-			}else{  // 같은 작가의 상품 갯수가 1개 이상이라면?  
+			if(item.closest(".sellerBox").querySelectorAll(".productCheck").length <=1)  // 같은 작가의 상품 갯수가 1개 아래라면?
+					item.closest(".sellerBox").remove();
+			else  // 같은 작가의 상품 갯수가 1개 이상이라면?  
 				item.closest(".productBox").remove();
-			}
 		}
 
 	});
 	
-	if(document.querySelectorAll(".sellerBox")){
+	if(document.querySelectorAll(".sellerBox").length === 0){
  		document.querySelector("#paymentInfo").remove();
  		document.querySelector("#spanDiv").remove();
  		document.querySelector("#guideText").innerHTML = "<div>장바구니가 비어있습니다</div>";
@@ -426,25 +421,13 @@ function partialDeletion(){
 			console.log("실패");
 		}
 	});
-	
-
 }
 
 function paymentBtn(){
 	
-	$.ajax({
-		type: "POST",
-		url:"/basket/cartOrder",
-        contentType: "application/json; utf-8",
-        data : JSON.stringify(paymentList),
-		success: function(result){
-			
-		},error: function(){
-			console.log("실패");
-		}
-	});
+	let form = document.getElementById("paymentForm");
 	
-	
+	form.submit();
 }
 
 
@@ -460,6 +443,7 @@ function paymentBtn(){
 
 			<c:if test="${list.size() > 0 }">
 				<div id="spanDiv"><span onclick="selectAll();">전체선택</span> ｜ <span onclick="partialDeletion();">선택삭제</span></div>
+				<form id="paymentForm" action="payment" method="get" onsubmit="return false">
 				<c:forEach var="seller" items="${sellerList}">
 					<div class="sellerBox">
 						<input type="checkbox" class="sellerCheck checkbox" onclick="sellerCheck(this);" checked>
@@ -467,7 +451,7 @@ function paymentBtn(){
 						<c:forEach var="item" items="${list}">
 							<c:if test="${seller == item.sellerId}">
 								<div class="productBox">
-									<input type="checkbox" value="${item.productCode}" class="productCheck checkbox" onclick="productCheck(this);" checked>
+									<input type="checkbox" value="${item.productCode}" name="productCode" class="productCheck checkbox" onclick="productCheck(this);" checked>
 									<c:forEach var="image" items="${item.productImageList}" end="0">
 										<div class="productImage">
 											<a href="product/view/${item.productCode}">
@@ -481,7 +465,7 @@ function paymentBtn(){
 											<div class="optionBox" data-code="${info.basketCode}">
 												<span>${info.orderInfo}</span>
 												<div>
-													<button class="material-symbols-outlined" onclick="removeOptionAmount(this);">remove</button><input value="${info.productAmount}" onselect="setOptionAmount(this)" onclick="setOptionAmount(this);"><button class="material-symbols-outlined" onclick="addOptionAmount(this);">add</button>
+													<button type="button" class="material-symbols-outlined" onclick="removeOptionAmount(this);">remove</button><input value="${info.productAmount}" onselect="setOptionAmount(this)" onclick="setOptionAmount(this);"><button  type="button" class="material-symbols-outlined" onclick="addOptionAmount(this);">add</button>
 												</div>
 												<span class="productPrice" data-price="${item.productPrice}"><fmt:formatNumber value="${info.productAmount * item.productPrice}"></fmt:formatNumber> 원</span>
 												<span class="deleteOption" onclick="deleteOption(this);">x</span>
@@ -526,6 +510,7 @@ function paymentBtn(){
 					</div>
 					<button type="button" onclick="paymentBtn();">구매하기</button>
 				</div>
+				</form>
 			</c:if>
 
 		</div>

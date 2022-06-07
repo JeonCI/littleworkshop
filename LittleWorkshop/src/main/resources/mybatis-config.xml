@@ -28,6 +28,7 @@
 	</typeAliases>
 
 	<mappers>
+		<mapper resource="mybatis/order.xml"/>
 		<mapper resource="mybatis/basket.xml"/>
 		<mapper resource="mybatis/product.xml"/>
 		<mapper resource="mybatis/account.xml"/>

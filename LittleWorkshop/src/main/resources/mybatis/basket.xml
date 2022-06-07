@@ -62,6 +62,7 @@
     LEFT JOIN PRODUCT p ON p.product_code = B.product_code
 	LEFT JOIN PRODUCT_IMAGES pi ON pi.product_code = p.product_code
 	</select>
+
 	
 	<delete id="delete">
 		DELETE FROM BASKET WHERE BASKET_CODE = #{code} AND ID = #{id}

@@ -6,9 +6,30 @@ public class AccountAddress {
 	private int postcode;
 	private String address;
 	private String recipient;
-	private int receiveWay;
+	private int requestCode ;
 	private String addressName;
+	private String requestText;
 	
+	private String requestDetails;
+	
+	
+	
+	public String getRequestText() {
+		return requestText;
+	}
+
+	public void setRequestText(String requestText) {
+		this.requestText = requestText;
+	}
+
+	public String getRequestDetails() {
+		return requestDetails;
+	}
+
+	public void setRequestDetails(String requestDetails) {
+		this.requestDetails = requestDetails;
+	}
+
 	public int getAddressCode() {
 		return addressCode;
 	}
@@ -48,15 +69,15 @@ public class AccountAddress {
 	public void setRecipient(String recipient) {
 		this.recipient = recipient;
 	}
-	
-	public int getReceiveWay() {
-		return receiveWay;
+
+	public int getRequestCode() {
+		return requestCode;
 	}
-	
-	public void setReceiveWay(int receiveWay) {
-		this.receiveWay = receiveWay;
+
+	public void setRequestCode(int requestCode) {
+		this.requestCode = requestCode;
 	}
-	
+
 	public String getAddressName() {
 		return addressName;
 	}

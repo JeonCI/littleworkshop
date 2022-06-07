@@ -25,7 +25,12 @@
 <!-- 		<typeAlias type="kr.co.littleworkshop.model.FdOpinionAnswers" alias="FdOpinionAnswers"/> -->
 		<typeAlias type="kr.co.littleworkshop.model.Basket" alias="Basket"/>
 		<typeAlias type="kr.co.littleworkshop.model.Tag" alias="Tag"/>
+		<typeAlias type="kr.co.littleworkshop.model.ReceiveRequest" alias="ReceiveRequest"/>
+		<typeAlias type="kr.co.littleworkshop.model.Order" alias="Order"/>
+		<typeAlias type="kr.co.littleworkshop.model.ProductOrderDetail" alias="ProductOrderDetail"/>
 	</typeAliases>
+
+
 
 	<mappers>
 		<mapper resource="mybatis/order.xml"/>

@@ -3,6 +3,38 @@
 
 <mapper namespace="accountAddress">
 
+<select id="list" resultType="AccountAddress">
+	SELECT * FROM ACCOUNT_ADDRESS JOIN RECEIVE_REQUEST ON ACCOUNT_ADDRESS.REQUEST_CODE = RECEIVE_REQUEST.REQUEST_CODE 
+	WHERE ID = #{id}
+</select>
+
+<select id="requestList" resultType="ReceiveRequest">
+	SELECT * FROM RECEIVE_REQUEST
+</select>
+
+<select id="item" resultType="AccountAddress">
+	SELECT * FROM ACCOUNT_ADDRESS JOIN RECEIVE_REQUEST ON ACCOUNT_ADDRESS.REQUEST_CODE = RECEIVE_REQUEST.REQUEST_CODE 
+	WHERE ID = #{id} AND ADDRESS_CODE = #{code}
+</select>
+
+<insert id="add">
+	INSERT INTO ACCOUNT_ADDRESS VALUES(ADDRESS_SEQ.nextval, #{id}, #{requestCode}, #{postcode}, #{address}, #{recipient}, #{addressName}, #{requestText, jdbcType=VARCHAR})
+</insert>
+
+<update id="update">
+	UPDATE ACCOUNT_ADDRESS SET 
+	REQUEST_CODE = #{requestCode},
+	POSTCODE = #{postcode},
+	ADDRESS = #{address},
+	RECIPIENT = #{recipient},
+	ADDRESS_NAME = #{addressName},
+	REQUEST_TEXT = #{requestText, jdbcType=VARCHAR}	
+	WHERE ID = #{id} AND ADDRESS_CODE = #{addressCode}
+</update>
+
+<delete id="delete">
+	DELETE FROM ACCOUNT_ADDRESS WHERE ID = #{id} AND ADDRESS_CODE = #{code}
+</delete>
 
 	
 </mapper>

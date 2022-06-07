@@ -11,13 +11,19 @@
 span{
 	font-weight: bold; 
 }
+#buyerContent >div {
+border-bottom : 1px solid #dddddd;
+margin-bottom: 10px;
+padding-bottom: 10px;
+width: 300px;
+}
 </style>
 </head>
 <body>
 	<div id="buyerContent">
 		<div>
 			<span>주문배송</span>
-			<div><a>주문내역</a></div>
+			<div><a href="./orderList">주문내역</a></div>
 			<div><a>취소/환불내역</a></div>
 		</div>
 
@@ -37,8 +43,8 @@ span{
 		</div>
 		<div>
 			<span>내 정보</span>
-			<div><a>회원정보 관리</a></div>
-			<div><a>배송지 관리</a></div>
+			<div><a href="./accountInfo_Edit">회원정보 관리</a></div>
+			<div><a href="./address">배송지 관리</a></div>
 		</div>
 	</div>
 

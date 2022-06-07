@@ -329,10 +329,10 @@ function totalPayment(){
 		}
 	});
 
-	document.querySelector("#paymentDelivery").innerHTML = 0;
-	document.querySelector("#paymentAmount").innerHTML = paymentList.length;
-	document.querySelector("#paymentPrice").innerHTML = totalPaymentPrice;
-	document.querySelector("#totalPayment").innerHTML = totalPaymentPrice+ 0;
+	document.querySelector("#paymentDelivery").innerHTML = 0+"원";
+	document.querySelector("#paymentAmount").innerHTML = paymentList.length+"개";
+	document.querySelector("#paymentPrice").innerHTML = totalPaymentPrice.toLocaleString() + "원";
+	document.querySelector("#totalPayment").innerHTML = (totalPaymentPrice + 0).toLocaleString() + "원";
 
 
 }

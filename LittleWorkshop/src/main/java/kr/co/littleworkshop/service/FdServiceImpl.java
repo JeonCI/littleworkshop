@@ -12,6 +12,7 @@ import kr.co.littleworkshop.model.Fd;
 import kr.co.littleworkshop.model.FdOption;
 import kr.co.littleworkshop.model.FdOptionDetail;
 import kr.co.littleworkshop.model.Tag;
+import kr.co.littleworkshop.util.FdPager;
 
 @Service
 public class FdServiceImpl implements FdService {
@@ -90,8 +91,8 @@ public class FdServiceImpl implements FdService {
 	}
 	
 	@Override
-	public List<Fd> list() {
-		return dao.list();
+	public List<Fd> list(FdPager pager) {
+		return dao.list(pager);
 	}
 
 	@Override
@@ -139,6 +140,8 @@ public class FdServiceImpl implements FdService {
 	public void viewCount(int fdCode) {
 		Fd fd = new Fd();
 		int nowCount = dao.nowCount(fdCode);
+		
+		nowCount++;
 		
 		fd.setFdCode(fdCode);
 		fd.setFdViewCount(nowCount);

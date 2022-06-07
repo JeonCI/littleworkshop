@@ -172,4 +172,17 @@ public class ProductServiceImpl implements ProductService {
 		return dao.getProductCategoryCode(productCode);
 	}
 
+	@Override
+	public void viewCount(int productCode) {
+		Product product = new Product();
+		int nowCount = dao.nowCount(productCode);
+		
+		nowCount++;
+		
+		product.setProductCode(productCode);
+		product.setProductViewCount(nowCount);
+		
+		dao.viewCount(product);
+	}
+
 }

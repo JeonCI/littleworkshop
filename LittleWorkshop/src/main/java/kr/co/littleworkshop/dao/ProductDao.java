@@ -37,4 +37,8 @@ public interface ProductDao {
 
 	int getProductCategoryCode(int productCode);
 
+	int nowCount(int productCode);
+
+	void viewCount(Product product);
+
 }

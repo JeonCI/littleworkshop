@@ -27,4 +27,6 @@ public interface ProductService {
 			List<Integer> necessaryOptionValues, List<Integer> soldOutValues, List<String> tagNameList,
 			Product product);
 
+	void viewCount(int productCode);
+
 }

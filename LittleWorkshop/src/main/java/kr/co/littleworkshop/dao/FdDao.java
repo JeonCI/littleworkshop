@@ -5,10 +5,11 @@ import java.util.List;
 import kr.co.littleworkshop.model.Fd;
 import kr.co.littleworkshop.model.FdOption;
 import kr.co.littleworkshop.model.FdOptionDetail;
+import kr.co.littleworkshop.util.FdPager;
 
 public interface FdDao {
 
-	List<Fd> list();
+	List<Fd> list(FdPager pager);
 
 	Fd item(int fdCode);
 

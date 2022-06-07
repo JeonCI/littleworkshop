@@ -8,10 +8,10 @@
 		WHERE fd_code = #{fdCode}
 	</select>
 	
-	<insert id="add">
+	<insert id="fdOpinionAdd">
 		INSERT INTO fd_opinion
-		(fd_opinion_code, fd_code, fd_opinion, writer_id, fd_opinion_reg_date)
-		VALUES(FD_OPINION_SEQ.nextval, #{fdCode}, #{fdOpinion}, #{writerId}, sysdate)
+		(fd_opinion_code, fd_code, fd_opinion, writer_id, fd_opinion_reg_date, fd_opinion_answer)
+		VALUES(FD_OPINION_SEQ.nextval, #{fdCode}, #{fdOpinion}, #{writerId}, sysdate, null)
 	</insert>
 	
 	<select id="total" resultType="Integer">

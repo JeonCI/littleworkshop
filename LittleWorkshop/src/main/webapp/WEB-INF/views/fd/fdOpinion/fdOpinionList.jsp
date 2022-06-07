@@ -14,6 +14,12 @@
 	function opUpdate() {
 		console.log(this.dataset.code());
 	}
+	
+	function formSub() {
+		var form = document.getElementById("fdOpinion");
+		
+		form.submit();
+	}
 </script>
 
 </head>
@@ -21,10 +27,10 @@
 	<div>
 		<h1>펀딩 목록</h1>
 		<div>
-			<form method="post" action="add">
+			<form method="POST" action="../fdOpinionAdd" id="fdOpinion">
 				<label>펀딩 의견</label>
 				<textarea name="fdOpinion"></textarea>
-				<button>게시하기</button>
+				<button type="button" onclick="formSub()">게시하기</button>
 			</form>
 			<table border="1">
 				<thead>

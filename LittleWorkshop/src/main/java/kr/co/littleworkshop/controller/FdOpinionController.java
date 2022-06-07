@@ -41,9 +41,16 @@ public class FdOpinionController {
 	public String fdOpinionAdd(FdOpinion fdOpinion, HttpSession session, HttpServletRequest request) {
 		String url = request.getHeader("REFERER");
 		
+		String[] urlSplit = url.split("/");
+		
+		int fdCode = Integer.parseInt(urlSplit[(urlSplit.length)-1]);
+		
+		System.out.println(fdCode);
+		
 		Account account = (Account) session.getAttribute("session");
 		
 		fdOpinion.setWriterId(account.getId());
+		fdOpinion.setFdCode(fdCode);
 		
 		service.fdOpinionAdd(fdOpinion);
 		

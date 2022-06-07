@@ -22,7 +22,7 @@ public class FdOpinionDaoImpl implements FdOpinionDao {
 
 	@Override
 	public void fdOpinionAdd(FdOpinion fdOpinion) {
-		sql.insert("fdOpinion.add", fdOpinion);
+		sql.insert("fdOpinion.fdOpinionAdd", fdOpinion);
 	}
 
 	@Override

@@ -12,13 +12,35 @@
 
 <script>
 	function opUpdate() {
-		console.log(this.dataset.code());
+		console.log(this.dataset.code);
 	}
 	
 	function formSub() {
 		var form = document.getElementById("fdOpinion");
 		
 		form.submit();
+	}
+	
+	function confirm() {
+		let fdCode = this.dataset.fdcode;
+		let foc = this.dataset.foc;
+		
+		var xhr = new XMLHttpRequest();
+		
+		xhr.open('GET', `../confirm?fdCode=${fdCode}&fdOpinionCode=${item.foc}`, true);
+
+		xhr.send();
+		
+		xhr.onload = () => {
+			if (xhr.status == 200) {
+				var td = document.createElement("td");
+
+				td.innerText = "채택!!";
+
+				this.parrent.appendChild(td);
+				this.remove;
+			} else {xhr.statusText}
+		}
 	}
 </script>
 
@@ -28,6 +50,7 @@
 		<h1>펀딩 목록</h1>
 		<div>
 			<form method="POST" action="../fdOpinionAdd" id="fdOpinion">
+				<input type="number" hidden="hidden" value="${fdCode}" name="fdCode">
 				<label>펀딩 의견</label>
 				<textarea name="fdOpinion"></textarea>
 				<button type="button" onclick="formSub()">게시하기</button>
@@ -58,9 +81,12 @@
 							<td><textarea readonly="readonly" id="fdOpinion${item.fdOpinionCode}">${item.fdOpinion}</textarea> </td>
 							<td>${item.goodCount}</td>
 							<td><fmt:formatDate value="${item.fdOpinionRegDate }" pattern="yyyy/MM/dd"/></td>
+							<c:if test="${account.classify == 2 && item.selection == '' && item.fdSellerId == account.id}">
+								<td><button type="button" onclick="confirm()" data-fdCode="${fdCode}" data-foc="${item.fdOpinionCode}">채택하기</button></td>
+							</c:if>
 							<td>${item.selection}</td>
-							<td>${item.fdOpinionAnswer != null ? 'item.fdOpinionAnswer':'' }</td>
-							<td><button type="button" data-code="${item.fdOpinionCode}">수정하기</button> / <a href="delete/${item.fdOpinionCode }">삭제</a></td>
+							<td>${item.producerAnswer != null ? 'item.producerAnswer':'' }</td>
+							<td><button type="button" onclick="opUpdate()" data-code="${item.fdOpinionCode}">수정하기</button> / <a href="delete/${item.fdOpinionCode }">삭제</a></td>
 						</tr>
 					</c:forEach>
 					</c:if>

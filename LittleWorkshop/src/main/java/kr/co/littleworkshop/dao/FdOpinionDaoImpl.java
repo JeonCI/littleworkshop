@@ -30,4 +30,9 @@ public class FdOpinionDaoImpl implements FdOpinionDao {
 		return sql.selectOne("fdOpinion.total", pager);
 	}
 
+	@Override
+	public void confirm(FdOpinion fdOpinion) {
+		sql.update("fdOpinion.confirm", fdOpinion);
+	}
+
 }

@@ -29,4 +29,9 @@ public class FdOpinionServiceImpl implements FdOpinionService {
 		dao.fdOpinionAdd(fdOpinion);
 	}
 
+	@Override
+	public void confirm(FdOpinion fdOpinion) {
+		dao.confirm(fdOpinion);
+	}
+
 }

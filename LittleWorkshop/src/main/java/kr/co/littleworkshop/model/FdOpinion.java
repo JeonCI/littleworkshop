@@ -11,10 +11,11 @@ public class FdOpinion {
 	private String writerId;
 	private Date fdOpinionRegDate;
 	
-	private String fdOpinionAnswer;
+	private String producerAnswer;
+	private String fdSellerId;
 	
 	public String getSelection() {
-		if(producerSelection == 0) {
+		if(producerSelection != 0) {
 			return "채택!!";
 		} else
 			return "";
@@ -60,14 +61,6 @@ public class FdOpinion {
 		this.producerSelection = producerSelection;
 	}
 
-	public String getFdOpinionAnswer() {
-		return fdOpinionAnswer;
-	}
-
-	public void setFdOpinionAnswer(String fdOpinionAnswer) {
-		this.fdOpinionAnswer = fdOpinionAnswer;
-	}
-
 	public String getWriterId() {
 		return writerId;
 	}
@@ -82,5 +75,21 @@ public class FdOpinion {
 
 	public void setFdOpinionRegDate(Date fdOpinionRegDate) {
 		this.fdOpinionRegDate = fdOpinionRegDate;
+	}
+
+	public String getProducerAnswer() {
+		return producerAnswer;
+	}
+
+	public void setProducerAnswer(String producerAnswer) {
+		this.producerAnswer = producerAnswer;
+	}
+
+	public String getFdSellerId() {
+		return fdSellerId;
+	}
+
+	public void setFdSellerId(String fdSellerId) {
+		this.fdSellerId = fdSellerId;
 	}
 }

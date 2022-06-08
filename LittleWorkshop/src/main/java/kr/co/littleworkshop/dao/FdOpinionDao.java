@@ -13,4 +13,6 @@ public interface FdOpinionDao {
 
 	int total(FdPager pager);
 
+	void confirm(FdOpinion fdOpinion);
+
 }

@@ -4,13 +4,24 @@
 <mapper namespace="fdOpinion">
 
 	<select id="list" resultType="FdOpinion">
-		SELECT * FROM fd_opinion
+		SELECT
+		fop.fd_opinion_code fd_opinion_code,
+		fd_code,
+		fop.writer_id writer_id,
+		fop.fd_opinion fd_opinion,
+		fop.good_count good_count,
+		fop.producer_selection producer_selection,
+		fop.fd_opinion_reg_date fd_opinion_reg_date,
+		fop.producer_answer producer_answer,
+		fd.fd_seller_id fd_seller_id
+		FROM fd_opinion fop
+		JOIN fd USING (fd_code)
 		WHERE fd_code = #{fdCode}
 	</select>
 	
 	<insert id="fdOpinionAdd">
 		INSERT INTO fd_opinion
-		(fd_opinion_code, fd_code, fd_opinion, writer_id, fd_opinion_reg_date, fd_opinion_answer)
+		(fd_opinion_code, fd_code, fd_opinion, writer_id, fd_opinion_reg_date, producer_answer)
 		VALUES(FD_OPINION_SEQ.nextval, #{fdCode}, #{fdOpinion}, #{writerId}, sysdate, null)
 	</insert>
 	
@@ -18,5 +29,11 @@
 		SELECT count(*) FROM fd_opinion
 		WHERE fd_code = #{fdCode}
 	</select>
+	
+	<update id="confirm">
+		UPDATE fd_opinion
+		SET product_selection = 1
+		WHERE fd_opinion_code = #{fdOpinionCode}
+	</update>
 	
 </mapper>

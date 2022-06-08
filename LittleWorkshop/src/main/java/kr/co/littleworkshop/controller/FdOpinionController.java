@@ -27,33 +27,36 @@ public class FdOpinionController {
 	FdOpinionService service;
 	
 	@GetMapping("/fdOpinionList/{fdCode}")
-	public String fdOpinionList(Model model, @PathVariable int fdCode, FdPager pager) {
+	public String fdOpinionList(Model model, @PathVariable int fdCode, FdPager pager, HttpSession session) {
+		Account account = (Account) session.getAttribute("account");
+		
 		pager.setFdCode(fdCode);
 		
 		List<FdOpinion> list = service.fdOpinionList(pager);
 		
 		model.addAttribute("list", list);
+		model.addAttribute("fdCode", fdCode);
+		model.addAttribute("account", account);
 		
 		return path + "fdOpinionList";
 	}
 	
 	@PostMapping("/fdOpinionAdd")
-	public String fdOpinionAdd(FdOpinion fdOpinion, HttpSession session, HttpServletRequest request) {
-		String url = request.getHeader("REFERER");
+	public String fdOpinionAdd(FdOpinion fdOpinion, HttpSession session) {
 		
-		String[] urlSplit = url.split("/");
-		
-		int fdCode = Integer.parseInt(urlSplit[(urlSplit.length)-1]);
-		
-		System.out.println(fdCode);
-		
-		Account account = (Account) session.getAttribute("session");
+		Account account = (Account) session.getAttribute("account");
 		
 		fdOpinion.setWriterId(account.getId());
-		fdOpinion.setFdCode(fdCode);
 		
 		service.fdOpinionAdd(fdOpinion);
 		
-		return "redirect:" + url;
+		return "redirect:fdOpinionList/" + fdOpinion.getFdCode();
+	}
+	
+	@GetMapping("/confirm")
+	public String confirm(FdOpinion fdOpinion) {
+		service.confirm(fdOpinion);
+		
+		return "redirect:fdOpinionList/" + fdOpinion.getFdCode();
 	}
 }

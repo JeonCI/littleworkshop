@@ -12,4 +12,6 @@ public interface FdOpinionService {
 
 	void fdOpinionAdd(FdOpinion fdOpinion);
 
+	void confirm(FdOpinion fdOpinion);
+
 }

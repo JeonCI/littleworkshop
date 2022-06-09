@@ -108,8 +108,7 @@ function setOption(option){
  		code = location.href.split("view/")[1];
  		
  		//JS로 옮기면 수정하기!	
-// // // //		html = `<input name="productCode" type="hidden" value="${code}">`;
-// 	  	html = "<input name='productCode' type='text'  hidden='hidden' value="+code+">";
+//		html = `<input name="productCode" type="hidden" value="${code}">`;
 	  	html = "<input name='items[" + count + "].productCode' type='text'  hidden='hidden' value="+code+">";
  		div.innerHTML += html;
  		
@@ -125,9 +124,7 @@ function setOption(option){
  		div.append(optionSpan);
  		
 
-// 		html = `<input name="orderInfo" type="hidden" vlaue="${info.substr(0, info.length-1)}">`;
  		html = "<input name='items[" + count + "].orderInfo' type='text' hidden='hidden' value="+info.substr(0, info.length-1)+">";
-//  		html = "<input name='orderInfo' type='text' hidden='hidden' value="+info.substr(0, info.length-1)+">";
  		div.innerHTML += html;
  		//옵션이름 끝
  		
@@ -148,7 +145,6 @@ function setOption(option){
 		countInput.setAttribute("value","1");
 		countInput.setAttribute("type","text");
 		countInput.setAttribute("name","items[" + count++ + "].productAmount");
-// 		countInput.setAttribute("name","productAmount");
 		countInput.setAttribute("onclick","setOptionAmount(this);");
  		countDiv.append(removeBtn);
  		countDiv.append(countInput)
@@ -179,7 +175,32 @@ function setOption(option){
 }
 //삭제
 function deleteOption(option){
-	option.parentNode.remove();
+
+	let deleteName = option.parentNode.querySelector("input").getAttribute("name").split(".")[0];
+ 	let deleteNameCount = parseInt(deleteName.substr(6,1));
+
+ 	Array.from(document.getElementById("optionContiner").childNodes).forEach(function(item,index){ // index =  각각 div , 
+ 		
+ 		if(index > deleteNameCount){ // 이 div가 내가 삭제할 div 뒤에 있다면 
+ 			console.log("숫자 하나 낮춥니다!");
+ 			Array.from(item.querySelectorAll("input")).forEach(function(item,index){
+	  			item.setAttribute("name", replaceIndex(item.getAttribute("name")));
+ 			});
+ 		}
+
+ 	});
+ 	option.parentNode.remove();
+ 	count--;
+}
+
+function replaceIndex(originalStr){
+	console.log("바꿀값:"+originalStr);
+	let originalIndex = originalStr.split(".")[0];
+	let index = parseInt(originalIndex.substr(-2,1))
+	originalStr = originalStr.split(".")[1];
+	
+	console.log("바뀐값:"+originalIndex.replace(index,index-1)+originalStr);
+	return originalIndex.replace(index,index-1)+"."+originalStr;
 }
 
 //수량변경
@@ -247,8 +268,8 @@ function basket(){
 	
 	Array.from(document.getElementById("optionContiner").childNodes).forEach(function(item,index){
 		productList.push({
-			"productAmount" : item.childNodes[1].childNodes[1].value,
- 			"orderInfo" : item.getElementsByClassName("orderInfo")[0].innerText,
+			"productAmount" : item.querySelector(".productAmount").value,
+ 			"orderInfo" : item.querySelector(".orderInfo").innerText,
      		"productCode" : parseInt(code)
 		});
 	});
@@ -269,11 +290,7 @@ function basket(){
 
 function order(){
 	form = document.getElementById("paymentForm");
-	
-	
 	form.submit();
-
-
 }
 
 

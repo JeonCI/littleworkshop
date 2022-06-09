@@ -7,7 +7,8 @@ public class ProductOrderDetail {
 	private int productCode;
 	private int orderPrice;
 	private int orderDate;
-	private int orderInfo;
+	private String orderInfo;
+	private int orderAmount;
 	
 	public int getOrderCode() {
 		return orderCode;
@@ -39,12 +40,22 @@ public class ProductOrderDetail {
 	public void setOrderDate(int orderDate) {
 		this.orderDate = orderDate;
 	}
-	public int getOrderInfo() {
+	public String getOrderInfo() {
 		return orderInfo;
 	}
-	public void setOrderInfo(int orderInfo) {
+	public void setOrderInfo(String orderInfo) {
 		this.orderInfo = orderInfo;
 	}
+	public int getOrderAmount() {
+		return orderAmount;
+	}
+	public void setOrderAmount(int orderAmount) {
+		this.orderAmount = orderAmount;
+	}
+	
+
+	
+	
 	
 	
 

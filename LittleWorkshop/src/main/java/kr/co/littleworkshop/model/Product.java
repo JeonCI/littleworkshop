@@ -12,6 +12,7 @@ public class Product {
 	private int productPrice;
 	private String productDescription;
 	private Date productRegDate;
+	
 	private int productLikeCount;
 	private int productSellCount;
 	private int productViewCount;
@@ -20,10 +21,20 @@ public class Product {
 	private List<ProductImages> productImageList;
 	private List<Basket> basketList;
 	private List<Tag> tagList;
-	
-	
-	
-
+//	private List<String> orderInfo;
+//	
+//	
+//	
+//	
+//
+//
+//	public List<String> getOrderInfo() {
+//		return orderInfo;
+//	}
+//
+//	public void setOrderInfo(List<String> orderInfo) {
+//		this.orderInfo = orderInfo;
+//	}
 
 	public List<Basket> getBasketList() {
 		return basketList;

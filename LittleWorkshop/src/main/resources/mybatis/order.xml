@@ -5,7 +5,7 @@
 
 	
 	
-		<resultMap type="Product" id="BasketMap">
+	<resultMap type="Product" id="PaymentMap">
 		<id column="product_code" property="productCode"/>
 		<result column="seller_id" property="sellerId"/>
 		<result column="product_name" property="productName"/>
@@ -29,14 +29,31 @@
 		
 	</resultMap>
 
-	<select id="paymentList" resultMap="BasketMap">
-	SELECT  b.*, p.product_name,p.product_price, p.seller_id, pi.product_image_uuid FROM
-	(SELECT ROWNUM AS RNUM, sub.* from (SELECT * FROM BASKET WHERE id = #{id}
-	<foreach collection="productCode" item="list" open="and product_code in(" separator="," close=")">
-		#{list}
-	</foreach>) sub) b
-    LEFT JOIN PRODUCT p ON p.product_code = B.product_code
-	LEFT JOIN PRODUCT_IMAGES pi ON pi.product_code = p.product_code 
+	<select id="basketPaymentList" resultMap="PaymentMap">
+		SELECT  b.*, p.product_name,p.product_price, p.seller_id, pi.product_image_uuid FROM
+		(SELECT ROWNUM AS RNUM, sub.* from (SELECT * FROM BASKET WHERE id = #{id}
+		<foreach collection="productCode" item="list" open="and product_code in(" separator="," close=")">
+			#{list}
+		</foreach>) sub) b
+	    LEFT JOIN PRODUCT p ON p.product_code = B.product_code
+		LEFT JOIN PRODUCT_IMAGES pi ON pi.product_code = p.product_code 
 	</select>
+	
+	<select id="productPaymentList" resultMap="PaymentMap">
+		SELECT p.*, pi.product_image_uuid FROM
+		(SELECT ROWNUM AS RNUM, sub.* from (SELECT * FROM PRODUCT WHERE product_code = #{code}) sub) p
+		LEFT JOIN PRODUCT_IMAGES pi ON pi.product_code = p.product_code 
+	</select>
+	
+	<insert id="addOrder">
+		INSERT INTO ORDER_LIST VALUES(ORDER_SEQ.nextval, #{id}, #{addressCode}, 1, sysdate, #{orderPayment}, #{paymentPrice})
+		<selectKey keyProperty="orderListCode" resultType="int" order="AFTER">
+			SELECT ORDER_SEQ.CURRVAL FROM DUAL
+		</selectKey>
+	</insert>
+	
+	<insert id="addOrderDetail">
+		INSERT INTO product_order_detail VALUES(PRODUCT_ORDERS_DETAIL_SEQ.nextval, #{orderListCode}, #{productCode}, #{orderPrice}, #{orderInfo}, #{orderAmount})
+	</insert>
 
 </mapper>

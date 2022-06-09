@@ -304,7 +304,7 @@ function totalPrice(){
 		
 		for(let i =0; i < item.querySelectorAll(".productCheck:checked").length; i++)
 			for(let j =0; j < item.querySelectorAll(".productCheck:checked")[i].closest(".productBox").getElementsByClassName("productPrice").length; j++)
- 				total += parseInt(item.querySelectorAll(".productCheck:checked")[i].closest(".productBox").getElementsByClassName("productPrice")[j].innerHTML.replace(",",""));
+ 				total += parseInt(item.querySelectorAll(".productCheck:checked")[i].closest(".productBox").getElementsByClassName("productPrice")[j].innerHTML.replace(/,/gi, ""));
 		
 		
 		item.querySelector("#productTotalPrice").innerText = total.toLocaleString() + " 원";
@@ -324,7 +324,7 @@ function totalPayment(){
 		if(item.checked){ 
 			Array.from(item.closest(".productBox").querySelectorAll(".optionBox")).forEach(function(item,index){
 	 			paymentList.push(parseInt(item.getAttribute("data-code")));
-	 			totalPaymentPrice += parseInt(item.querySelector(".productPrice").innerHTML.replace(",",""));
+	 			totalPaymentPrice += parseInt(item.querySelector(".productPrice").innerHTML.replace(/,/gi, ""));
 			});
 		}
 	});

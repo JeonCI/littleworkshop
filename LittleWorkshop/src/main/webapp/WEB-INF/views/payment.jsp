@@ -136,7 +136,7 @@ padding: 30px;
 	cursor: pointer;
 }
 
-.productBox>div>.optionBoxList>.optionBox>.productPrice {
+.productBox>div>.optionBoxList>.optionBox>.orderPrice {
 	width: 100px;
 	text-align: right;
 }
@@ -161,8 +161,6 @@ padding: 30px;
 </style>
 
 <script>
-	let order = {};
-	let orderDetaile = {};
 	window.onload = function() {
 		totalPayment();
 
@@ -172,12 +170,9 @@ padding: 30px;
 		let paymentList = [];
 		totalPaymentPrice = 0;
 		Array.from(document.querySelectorAll('.optionBox')).forEach(function(item, index) {
-					paymentList.push(parseInt(item.getAttribute("data-code")));
-					totalPaymentPrice += parseInt(item
-							.querySelector(".productPrice").innerHTML.replace(
-							",", ""));
-
-				});
+			paymentList.push(parseInt(item.getAttribute("data-code")));
+			totalPaymentPrice += parseInt(item.querySelector(".orderPrice").innerHTML.replace(/,/gi, ""));
+		});
 
 		document.querySelector("#paymentDelivery").innerHTML = 0 + "원";
 		document.querySelector("#paymentAmount").innerHTML = paymentList.length + "개";
@@ -187,28 +182,58 @@ padding: 30px;
 	}
 
 	function paymentBtn() {
-		orderDetaile = {};
-		productDetaile = {};
-		// 주소랑 결제정보 시작
+		order = {};  
+		orderDetaile = []; 
+		basketList = [];
 		
-		console.log(document.querySelectorAll(".productBox"));
-		Array.from(document.querySelectorAll(".productBox")).forEach(function(item, index) {
-			console.log(item)
-		});
-		
+		// [주문 객체] 주소
+		order['addressCode'] = parseInt(document.querySelector("#addressList").value);
+
+		// [주문 객체] 결제정보
 		Array.from(document.querySelectorAll("input[name='pay_chk']")).forEach(function(item, index) {
-			if(item.checked){
+			if(item.checked)
 				order['orderPayment'] = item.value;
+		});
+		// [주문 객체] 결제금액
+		order['paymentPrice'] = parseInt(document.querySelector("#totalPayment").innerHTML.replace(/,/gi, ""));
+
+		// [주문 객체] 주문 유형 (바로구매, 장바구니구매 유형)
+		Array.from(document.querySelectorAll('.optionBox')).forEach(function(item, index) {
+			if(parseInt(item.getAttribute("data-code")) != 0)
+				basketList.push(item.getAttribute("data-code"));
+		});
+
+		
+		
+		// [주문 디테일 객체] 상품번호, 주문정보, 주문가격, 주문개수
+		Array.from(document.querySelectorAll(".productBox")).forEach(function(item, index) {
+			let productCode = item.getAttribute("data-productcode");
+			Array.from(item.querySelectorAll(".optionBox")).forEach(function(item, index) {
+				orderDetaile.push({
+					"productCode" : productCode,
+					"orderPrice" : item.querySelector(".orderPrice").getAttribute("data-price"),
+					"orderInfo" : item.querySelector(".orderInfo").innerHTML,
+					"orderAmount" : item.querySelector(".orderAmount").innerHTML
+				});
+			});
+		});
+		order['orderDetailList'] = orderDetaile;
+		order['basketList'] = basketList;
+		
+		$.ajax({
+			type: "POST",
+			url:"/payment/orderRequest",
+	        contentType: "application/json; utf-8",
+	        data : JSON.stringify(order),
+			success: function(result){
+				location.href = "/";
+			},error: function(){
+				console.log("실패");
 			}
 		});
-		
-		order['addressCode'] = document.querySelector("#addressList").value;
-		// 주소랑 결제정보 끝
-			
-		
-		
-		console.log(order);
+
 	}
+	
 </script>
 </head>
 <body>
@@ -226,7 +251,7 @@ padding: 30px;
 					<span>배송지</span>
 					<span><span class="material-symbols-rounded">add_circle</span>배송지 추가</span>
 				</div>
-				<c:if test="${addressList.size() > 0 }">
+				<c:if test="${addressList.size() > 0}">
 					<select id="addressList">
 						<c:forEach items="${addressList}" var="item">
 							<option value="${item.addressCode}">[${item.addressName}] ${item.postcode} ${item.address} </option>
@@ -238,11 +263,11 @@ padding: 30px;
 				</c:if>
 			</div>
 			<div>
-		<c:if test="${paymentList.size() > 0 }">
+		<c:if test="${paymentItems.size() > 0}">
 			<span>작품 정보</span>
 			<div id="paymentList">
-				<c:forEach var="item" items="${paymentList}">
-					<div class="productBox">
+				<c:forEach var="item" items="${paymentItems}">
+					<div class="productBox" data-productcode="${item.productCode}">
 						<c:forEach var="image" items="${item.productImageList}" end="0">
 							<div class="productImage">
 								<a href="product/view/${item.productCode}"><img
@@ -254,8 +279,9 @@ padding: 30px;
 							<div class="optionBoxList">
 								<c:forEach var="info" items="${item.basketList}">
 									<div class="optionBox" data-code="${info.basketCode}">
-										<span>${info.orderInfo}</span> <span>${info.productAmount}</span>
-										<span class="productPrice" data-price="${item.productPrice}"><fmt:formatNumber
+										<span  class= "orderInfo">${info.orderInfo}</span>
+										<span class= "orderAmount">${info.productAmount}</span>
+										<span class="orderPrice" data-price="${item.productPrice}"><fmt:formatNumber
 												value="${info.productAmount * item.productPrice}"></fmt:formatNumber>원</span>
 									</div>
 								</c:forEach>

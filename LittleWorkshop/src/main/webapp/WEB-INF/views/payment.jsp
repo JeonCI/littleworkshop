@@ -188,18 +188,24 @@ padding: 30px;
 
 	function paymentBtn() {
 		orderDetaile = {};
-		
+		productDetaile = {};
 		// 주소랑 결제정보 시작
+		
+		console.log(document.querySelectorAll(".productBox"));
+		Array.from(document.querySelectorAll(".productBox")).forEach(function(item, index) {
+			console.log(item)
+		});
+		
 		Array.from(document.querySelectorAll("input[name='pay_chk']")).forEach(function(item, index) {
 			if(item.checked){
 				order['orderPayment'] = item.value;
-
 			}
 		});
 		
 		order['addressCode'] = document.querySelector("#addressList").value;
 		// 주소랑 결제정보 끝
-
+			
+		
 		
 		console.log(order);
 	}
@@ -232,10 +238,10 @@ padding: 30px;
 				</c:if>
 			</div>
 			<div>
-		<c:if test="${productList.size() > 0 }">
+		<c:if test="${paymentList.size() > 0 }">
 			<span>작품 정보</span>
 			<div id="paymentList">
-				<c:forEach var="item" items="${productList}">
+				<c:forEach var="item" items="${paymentList}">
 					<div class="productBox">
 						<c:forEach var="image" items="${item.productImageList}" end="0">
 							<div class="productImage">

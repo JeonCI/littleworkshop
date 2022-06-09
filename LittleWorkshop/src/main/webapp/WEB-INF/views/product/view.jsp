@@ -3,6 +3,7 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -79,6 +80,7 @@ window.onload = function() {
 	
 };
 
+let count=0;
 function setOption(option){
 	let optionClear = true;
 	let optionList;
@@ -96,25 +98,37 @@ function setOption(option){
 	
 	//모든 옵션이 선택됐다면
 	if(optionClear){
-// 		if()
-		
+		let html ="";
 		Array.from(document.getElementsByClassName("option")).forEach(function(item,index){
 			item.value = "0";
 		});
-		
-		
-		
+
  		div = document.createElement('div');
-		
+ 		
+ 		code = location.href.split("view/")[1];
+ 		
+ 		//JS로 옮기면 수정하기!	
+// // // //		html = `<input name="productCode" type="hidden" value="${code}">`;
+// 	  	html = "<input name='productCode' type='text'  hidden='hidden' value="+code+">";
+	  	html = "<input name='items[" + count + "].productCode' type='text'  hidden='hidden' value="+code+">";
+ 		div.innerHTML += html;
+ 		
 		//옵션이름 시작
 		optionSpan = document.createElement('span');
 		let info = '';
  		for(optionName of pickOption){
  			info += optionName + "/";
  		}
+		
  		optionSpan.className = "orderInfo";
  		optionSpan.append(info.substr(0, info.length-1));
  		div.append(optionSpan);
+ 		
+
+// 		html = `<input name="orderInfo" type="hidden" vlaue="${info.substr(0, info.length-1)}">`;
+ 		html = "<input name='items[" + count + "].orderInfo' type='text' hidden='hidden' value="+info.substr(0, info.length-1)+">";
+//  		html = "<input name='orderInfo' type='text' hidden='hidden' value="+info.substr(0, info.length-1)+">";
+ 		div.innerHTML += html;
  		//옵션이름 끝
  		
 		//수량바 시작
@@ -132,6 +146,9 @@ function setOption(option){
 		
 		countInput.className = "productAmount";
 		countInput.setAttribute("value","1");
+		countInput.setAttribute("type","text");
+		countInput.setAttribute("name","items[" + count++ + "].productAmount");
+// 		countInput.setAttribute("name","productAmount");
 		countInput.setAttribute("onclick","setOptionAmount(this);");
  		countDiv.append(removeBtn);
  		countDiv.append(countInput)
@@ -200,15 +217,14 @@ function addOptionAmount(option){
 	target = option.previousSibling;
 	if(target.value < 999)
 		target.value = parseInt(target.value) + 1;
-	mulPrice(option.parentNode.parentNode.children[2], target.value);
+	mulPrice(option.parentNode.parentNode.querySelector(".price"), target.value);
 }
 //수량빼기
 function removeOptionAmount(option){
 	target = option.nextSibling;
 	if(target.value > 1)
  		target.value = parseInt(target.value) - 1;
-	mulPrice(option.parentNode.parentNode.children[2], target.value);
-	//option.parentNode.parentNode.children[2].innerText = parseInt(target.value) * parseInt(document.getElementById("productPrice").getAttribute("data-price"))+"원";
+	mulPrice(option.parentNode.parentNode.querySelector(".price"), target.value);
 }
 
 function mulPrice(loc, count){
@@ -219,7 +235,7 @@ function mulPrice(loc, count){
 function totalPrice(){
 	let total = 0;
 	Array.from(document.getElementById("optionContiner").childNodes).forEach(function(item,index){
-		total +=  parseInt(item.childNodes[2].innerText);
+		total +=  parseInt(item.querySelector(".price").innerText);
 	});
 	
 	document.getElementById("totalPrice").childNodes[1].innerText = total;
@@ -252,22 +268,12 @@ function basket(){
 }
 
 function order(){
-	product = (document.getElementById("productForm"));
-	console.log("basket");
+	form = document.getElementById("paymentForm");
+	
+	
+	form.submit();
 
-// 	$.ajax({
-// 		type: "post",
-// 		url:"./add",
-// 		enctype: 'multipart/form-data',
-//         processData: false,
-//         contentType: false,
-// 		data: formData,
-// 		success: function(result){
-// 			location.href= "./list";
-// 		},error: function(){
-// 			console.log("실패");
-// 		}
-// 	});
+
 }
 
 
@@ -275,6 +281,8 @@ function order(){
 </head>
 <body>
 	<div>
+	<form name="items" id="paymentForm" action="/payment" method="post" onsubmit="return false">
+
 		<div>
 			<p>${item.sellerId }</p>
 			<p>${item.productCategory }</p>
@@ -304,12 +312,13 @@ function order(){
 
 
 		</div>
-		<div id="optionContiner"></div>
+		<div id="optionContiner" name="items"></div>
 		<div id="totalPrice">총 결제금액<span>0</span>원</div>
 		<div>
 			<button type="button" onclick="basket();">장바구니</button>
 			<button type="button"  onclick="order();">구매하기</button>
 		</div>
+		</form>
 	</div>
 </body>
 </html>

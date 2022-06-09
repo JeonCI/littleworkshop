@@ -13,7 +13,16 @@ public class Basket {
 	Date basketRegDate;
 	String orderInfo;
 	
-
+	List<Basket> items = null;
+	
+	
+	
+	public List<Basket> getItems() {
+		return items;
+	}
+	public void setItems(List<Basket> items) {
+		this.items = items;
+	}
 	public int getBasketCode() {
 		return basketCode;
 	}

@@ -424,9 +424,7 @@ function partialDeletion(){
 }
 
 function paymentBtn(){
-	
 	let form = document.getElementById("paymentForm");
-	
 	form.submit();
 }
 
@@ -443,7 +441,7 @@ function paymentBtn(){
 
 			<c:if test="${list.size() > 0 }">
 				<div id="spanDiv"><span onclick="selectAll();">전체선택</span> ｜ <span onclick="partialDeletion();">선택삭제</span></div>
-				<form id="paymentForm" action="payment" method="get" onsubmit="return false">
+				<form id="paymentForm" action="/payment" method="post" onsubmit="return false">
 				<c:forEach var="seller" items="${sellerList}">
 					<div class="sellerBox">
 						<input type="checkbox" class="sellerCheck checkbox" onclick="sellerCheck(this);" checked>

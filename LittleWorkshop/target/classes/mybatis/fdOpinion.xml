@@ -32,7 +32,13 @@
 	
 	<update id="confirm">
 		UPDATE fd_opinion
-		SET product_selection = 1
+		SET producer_selection = 1
+		WHERE fd_opinion_code = #{fdOpinionCode}
+	</update>
+	
+	<update id="removeConfirm">
+		UPDATE fd_opinion
+		SET producer_selection = 0
 		WHERE fd_opinion_code = #{fdOpinionCode}
 	</update>
 	

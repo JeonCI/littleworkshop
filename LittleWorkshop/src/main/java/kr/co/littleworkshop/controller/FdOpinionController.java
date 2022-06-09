@@ -8,10 +8,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.littleworkshop.model.Account;
 import kr.co.littleworkshop.model.FdOpinion;
@@ -53,10 +55,28 @@ public class FdOpinionController {
 		return "redirect:fdOpinionList/" + fdOpinion.getFdCode();
 	}
 	
-	@GetMapping("/confirm")
-	public String confirm(FdOpinion fdOpinion) {
+	@GetMapping("/confirm/{fdCode}/{fdOpinionCode}")
+	@ResponseBody
+	public String confirm(@PathVariable int fdCode, @PathVariable int fdOpinionCode) {
+		FdOpinion fdOpinion = new FdOpinion();
+		
+		fdOpinion.setFdCode(fdCode);
+		fdOpinion.setFdOpinionCode(fdOpinionCode);
+		
 		service.confirm(fdOpinion);
 		
-		return "redirect:fdOpinionList/" + fdOpinion.getFdCode();
+		return "";
+	}
+	
+	@GetMapping("/removeConfirm/{fdCode}/{fdOpinionCode}")
+	@ResponseBody
+	public String removeConfirm(@PathVariable int fdCode, @PathVariable int fdOpinionCode) {
+		FdOpinion fdOpinion = new FdOpinion();
+		
+		fdOpinion.setFdCode(fdCode);
+		fdOpinion.setFdOpinionCode(fdOpinionCode);
+		
+		service.removeConfirm(fdOpinion);
+		return "";
 	}
 }

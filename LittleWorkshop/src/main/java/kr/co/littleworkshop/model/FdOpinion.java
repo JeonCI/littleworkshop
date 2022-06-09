@@ -14,13 +14,6 @@ public class FdOpinion {
 	private String producerAnswer;
 	private String fdSellerId;
 	
-	public String getSelection() {
-		if(producerSelection != 0) {
-			return "채택!!";
-		} else
-			return "";
-	}
-	
 	public int getFdOpinionCode() {
 		return fdOpinionCode;
 	}

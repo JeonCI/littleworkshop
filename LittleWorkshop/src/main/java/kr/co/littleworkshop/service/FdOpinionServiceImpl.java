@@ -34,4 +34,9 @@ public class FdOpinionServiceImpl implements FdOpinionService {
 		dao.confirm(fdOpinion);
 	}
 
+	@Override
+	public void removeConfirm(FdOpinion fdOpinion) {
+		dao.removeConfirm(fdOpinion);
+	}
+
 }

@@ -11,36 +11,145 @@
 <title>Little Workshop</title>
 
 <script>
-	function opUpdate() {
-		console.log(this.dataset.code);
+	window.onload = function() {
+		document.getElementById("addConfirmBtnForm").addEventListener("click", function() {
+			let fdCode = this.dataset.code;
+			let fdOpCode = this.dataset.foc;
+
+			var target = this;
+
+			addConfirm(fdCode, fdOpCode, target);
+		});
+		document.getElementById("removeConfirmBtnForm").addEventListener("click", function() {
+			let fdCode = this.dataset.code;
+			let fdOpCode = this.dataset.foc;
+
+			var target = this;
+
+			removeConfirm(fdCode, fdOpCode, target);
+		});
+
+		for (let i = 0; i < document.getElementsByClassName("fdOpUpdateBtn").length; i++) {
+			document.getElementsByClassName("fdOpUpdateBtn")[i].addEventListener("click", function() {
+				let fdOpinionCode = this.dataset.code;
+
+				console.log(fdOpinionCode);
+			});
+		};
+
+		for (let i = 0; i < document.getElementsByClassName("addConfirmBtn").length; i++) {
+			document.getElementsByClassName("addConfirmBtn")[i].addEventListener("click", function() {
+				let fdCode = this.dataset.code;
+				let fdOpCode = this.dataset.foc;
+
+				var target = this;
+
+				addConfirm(fdCode, fdOpCode, target);
+			});
+		};
+
+		for (let i = 0; i < document.getElementsByClassName("removeConfirmBtn").length; i++) {
+			document.getElementsByClassName("removeConfirmBtn")[i].addEventListener("click", function() {
+				let fdCode = this.dataset.code;
+				let fdOpCode = this.dataset.foc;
+
+				var target = this;
+
+				removeConfirm(fdCode, fdOpCode, target);
+			});
+		}
+	}
+
+	function addConfirm(fdCode, fdOpCode, target) {
+		var targetParent = target.parentNode;
+
+		let url = "../confirm/" + fdCode + "/" + fdOpCode;
+
+		console.log(fdCode, fdOpCode);
+		console.log(url);
+
+		var xhr = new XMLHttpRequest();
+
+		xhr.open('GET', url, true);
+
+		xhr.send();
+
+		xhr.onload = () => {
+			if (xhr.status == 200) {
+				target.parentNode.innerText = "채택!!";
+				target.remove;
+
+				var removeBtnForm = document.getElementById("removeConfirmBtnForm");
+
+				var removeBtn = document.createElement("button");
+
+				removeBtn.innerHTML = removeBtnForm.innerHTML;
+
+				removeBtn.removeAttribute("style");
+				removeBtn.classList = "removeConfirmBtn";
+				removeBtn.setAttribute("data-code", fdCode);
+				removeBtn.setAttribute("data-foc", fdOpCode);
+				removeBtn.addEventListener("click", function() {
+					let fdCode = this.dataset.code;
+					let fdOpCode = this.dataset.foc;
+
+					var target = this;
+
+					removeConfirm(fdCode, fdOpCode, target);
+				});
+
+				targetParent.append(removeBtn);
+			} else {xhr.statusText}
+		};
+	}
+
+	function removeConfirm(fdCode, fdOpCode, target) {
+		var targetParent = target.parentNode;
+		
+		let url = "../removeConfirm/" + fdCode + "/" + fdOpCode;
+		
+		console.log(fdCode, fdOpCode);
+		console.log(url);
+		
+		var xhr = new XMLHttpRequest();
+		
+		xhr.open('GET', url, true);
+
+		xhr.send();
+
+		xhr.onload = () => {
+			if (xhr.status == 200) {
+				target.parentNode.innerText = "";
+				target.remove;
+
+				var addBtnForm = document.getElementById("addConfirmBtnForm");
+
+				var addBtn = document.createElement("button");
+
+				addBtn.innerHTML = addBtnForm.innerHTML;
+
+				addBtn.removeAttribute("style");
+				addBtn.classList = "addConfirmBtn";
+				addBtn.setAttribute("data-code", fdCode);
+				addBtn.setAttribute("data-foc", fdOpCode);
+				addBtn.addEventListener("click", function() {
+					let fdCode = this.dataset.code;
+					let fdOpCode = this.dataset.foc;
+
+					var target = this;
+
+					addConfirm(fdCode, fdOpCode, target);
+				});
+
+				targetParent.append(addBtn);
+			} else {xhr.statusText}
+		};
 	}
 	
 	function formSub() {
 		var form = document.getElementById("fdOpinion");
 		
 		form.submit();
-	}
-	
-	function confirm() {
-		let fdCode = this.dataset.fdcode;
-		let foc = this.dataset.foc;
-		
-		var xhr = new XMLHttpRequest();
-		
-		xhr.open('GET', `../confirm?fdCode=${fdCode}&fdOpinionCode=${item.foc}`, true);
-
-		xhr.send();
-		
-		xhr.onload = () => {
-			if (xhr.status == 200) {
-				var td = document.createElement("td");
-
-				td.innerText = "채택!!";
-
-				this.parrent.appendChild(td);
-				this.remove;
-			} else {xhr.statusText}
-		}
 	}
 </script>
 
@@ -58,6 +167,7 @@
 			<table border="1">
 				<thead>
 					<tr>
+						<td>의견 번호</td>
 						<td>아이디</td>
 						<td>내용</td>
 						<td>추천 수</td>
@@ -68,25 +178,38 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:if test="${list.size() < 1 }">
+					<c:if test="${list.size() < 1}">
 						<tr>
-							<td colspan="7">등록된 의견이 없습니다.</td>
+							<td colspan="8">등록된 의견이 없습니다.</td>
 						</tr>
 					</c:if>
 					
 					<c:if test="${list.size() > 0 }">
-					<c:forEach var="item" items="${list }">
+					<c:forEach var="item" items="${list}" varStatus="status">
 						<tr>
+							<td>${item.fdOpinionCode}</td>
 							<td>${item.writerId}</td>
 							<td><textarea readonly="readonly" id="fdOpinion${item.fdOpinionCode}">${item.fdOpinion}</textarea> </td>
 							<td>${item.goodCount}</td>
 							<td><fmt:formatDate value="${item.fdOpinionRegDate }" pattern="yyyy/MM/dd"/></td>
-							<c:if test="${account.classify == 2 && item.selection == '' && item.fdSellerId == account.id}">
-								<td><button type="button" onclick="confirm()" data-fdCode="${fdCode}" data-foc="${item.fdOpinionCode}">채택하기</button></td>
+							<c:if test="${account.classify == 2 && item.fdSellerId == account.id}">
+								<c:if test="${item.producerSelection == 0 }">
+									<td><button type="button" class="addConfirmBtn" data-code="${fdCode}" data-foc="${item.fdOpinionCode}">채택하기</button></td>
+								</c:if>
+								<c:if test="${item.producerSelection == 1 }">
+									<td>채택!! <button type="button" class="removeConfirmBtn" data-code="${fdCode}" data-foc="${item.fdOpinionCode}">채택취소</button></td>
+								</c:if>
 							</c:if>
-							<td>${item.selection}</td>
-							<td>${item.producerAnswer != null ? 'item.producerAnswer':'' }</td>
-							<td><button type="button" onclick="opUpdate()" data-code="${item.fdOpinionCode}">수정하기</button> / <a href="delete/${item.fdOpinionCode }">삭제</a></td>
+							<c:if test="${item.producerSelection == 1 && account.classify == 1}">
+								<td>채택!!</td>
+							</c:if>
+							<c:if test="${item.producerAnswer != null && account.classify == 1 }">
+								<td>${item.producerAnswer}</td>
+							</c:if>
+							<c:if test="${item.producerAnswer == null && account.classify == 2 && item.fdSellerId == account.id}">
+								<td></td>
+							</c:if>
+							<td><button type="button" class="fdOpUpdateBtn" data-code="${item.fdOpinionCode}">수정하기</button> / <a href="delete/${item.fdOpinionCode }">삭제</a></td>
 						</tr>
 					</c:forEach>
 					</c:if>
@@ -99,5 +222,7 @@
 			</ul>
 		</div>
 	</div>
+	<button type="button" style="display: none;" id="addConfirmBtnForm">채택하기</button>
+	<button type="button" style="display: none;" id="removeConfirmBtnForm">채택취소</button>
 </body>
 </html>

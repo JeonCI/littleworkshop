@@ -15,4 +15,6 @@ public interface FdOpinionDao {
 
 	void confirm(FdOpinion fdOpinion);
 
+	void removeConfirm(FdOpinion fdOpinion);
+
 }

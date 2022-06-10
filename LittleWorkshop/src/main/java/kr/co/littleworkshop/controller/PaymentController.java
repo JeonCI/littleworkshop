@@ -21,7 +21,6 @@ import kr.co.littleworkshop.model.AccountAddress;
 import kr.co.littleworkshop.model.Basket;
 import kr.co.littleworkshop.model.Order;
 import kr.co.littleworkshop.model.Product;
-import kr.co.littleworkshop.model.ProductOrderDetail;
 import kr.co.littleworkshop.service.AccountAddressService;
 import kr.co.littleworkshop.service.OrderService;
 
@@ -71,12 +70,7 @@ public class PaymentController {
 		return "sessecs";
 
 	}	
-	
-	
-	
-	
-	
-	
+
 	
 //	@GetMapping("")
 //	public 	String payment(int productCode[], HttpSession session,Model model) {

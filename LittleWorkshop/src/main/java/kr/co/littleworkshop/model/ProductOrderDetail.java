@@ -6,7 +6,6 @@ public class ProductOrderDetail {
 	private int orderListCode;
 	private int productCode;
 	private int orderPrice;
-	private int orderDate;
 	private String orderInfo;
 	private int orderAmount;
 	
@@ -34,12 +33,7 @@ public class ProductOrderDetail {
 	public void setOrderPrice(int orderPrice) {
 		this.orderPrice = orderPrice;
 	}
-	public int getOrderDate() {
-		return orderDate;
-	}
-	public void setOrderDate(int orderDate) {
-		this.orderDate = orderDate;
-	}
+
 	public String getOrderInfo() {
 		return orderInfo;
 	}

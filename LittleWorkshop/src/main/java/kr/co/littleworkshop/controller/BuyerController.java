@@ -14,9 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.littleworkshop.model.Account;
 import kr.co.littleworkshop.model.AccountAddress;
+import kr.co.littleworkshop.model.Order;
+import kr.co.littleworkshop.model.Product;
+import kr.co.littleworkshop.model.ProductOrderDetail;
 import kr.co.littleworkshop.model.ReceiveRequest;
 import kr.co.littleworkshop.service.AccountAddressService;
 import kr.co.littleworkshop.service.BuyerService;
+import kr.co.littleworkshop.service.OrderService;
 import kr.co.littleworkshop.util.Pager;
 
 
@@ -32,6 +36,9 @@ public class BuyerController {
 	@Autowired
 	AccountAddressService addressService;
 	
+	@Autowired
+	OrderService orderService;
+	
 	@RequestMapping("/")
 	public String list(Model model, Pager pager) {
 		
@@ -40,11 +47,23 @@ public class BuyerController {
 	
 		return path + "buyer";
 	}
+	// #주문내역
+	@RequestMapping("/orderList")
+	public String order(Model model, Pager pager, HttpSession session) {
+		Account account = (Account) session.getAttribute("account");
+		
+		List<Order> orderList = orderService.orderList(account.getId(), pager);
+
+		model.addAttribute("orderHistory", orderList);
+	
+		return path + "order/list";
+	}
 	
 	
 	
 	
-	// ###  배송주소 관리  ###
+	
+	// #배송주소 관리
 	@RequestMapping("/address")
 	public String address(Model model, HttpSession session) {
 		Account account = (Account) session.getAttribute("account");

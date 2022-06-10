@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import kr.co.littleworkshop.model.Order;
 import kr.co.littleworkshop.model.Product;
 import kr.co.littleworkshop.model.ProductOrderDetail;
+import kr.co.littleworkshop.util.Pager;
 
 @Repository
 public class OrderDaoImpl implements OrderDao {
@@ -40,5 +41,14 @@ public class OrderDaoImpl implements OrderDao {
 	public void addOrderDetail(ProductOrderDetail item) {
 		sql.insert("order.addOrderDetail", item);
 		
+	}
+
+	@Override
+	public List<Order> orderList(String id, Pager pager) {
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("id", id);
+		map.put("pager", pager);
+		
+		return sql.selectList("order.orderList", map);
 	}
 }

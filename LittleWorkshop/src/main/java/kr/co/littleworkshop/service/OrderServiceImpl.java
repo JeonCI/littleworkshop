@@ -12,6 +12,7 @@ import kr.co.littleworkshop.model.Basket;
 import kr.co.littleworkshop.model.Order;
 import kr.co.littleworkshop.model.Product;
 import kr.co.littleworkshop.model.ProductOrderDetail;
+import kr.co.littleworkshop.util.Pager;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -47,7 +48,11 @@ public class OrderServiceImpl implements OrderService {
 		if(order.getBasketList() != null)
 			for(int code : order.getBasketList()) 
 				basketDao.delete(code, order.getId());
-			
 	
+	}
+
+	@Override
+	public List<Order> orderList(String id, Pager pager) {
+		return dao.orderList(id, pager);
 	}
 }

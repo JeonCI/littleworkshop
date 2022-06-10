@@ -14,13 +14,19 @@ public class Order {
 	private int paymentPrice;
 	
 	private List<Integer> basketList;
-	
 	private List<ProductOrderDetail> orderDetailList;
-	
+	private List<Product> productList;
 	
 	
 
 
+
+	public List<Product> getProductList() {
+		return productList;
+	}
+	public void setProductList(List<Product> productList) {
+		this.productList = productList;
+	}
 	public List<Integer> getBasketList() {
 		return basketList;
 	}

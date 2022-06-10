@@ -77,6 +77,13 @@ public class FdOpinionController {
 		fdOpinion.setFdOpinionCode(fdOpinionCode);
 		
 		service.removeConfirm(fdOpinion);
-		return "";
+		return "Ok";
+	}
+	
+	@PostMapping("/updateProducerAnswer")
+	public String updateProducerAnswer(FdOpinion fdOpinion) {
+		service.updateProducerAnswer(fdOpinion);
+		
+		return "redirect:fdOpinionList/" + fdOpinion.getFdCode();
 	}
 }

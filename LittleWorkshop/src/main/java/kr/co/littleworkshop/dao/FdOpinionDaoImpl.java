@@ -40,4 +40,9 @@ public class FdOpinionDaoImpl implements FdOpinionDao {
 		sql.update("fdOpinion.removeConfirm", fdOpinion);
 	}
 
+	@Override
+	public void updateProducerAnswer(FdOpinion fdOpinion) {
+		sql.update("fdOpinion.updateProducerAnswer", fdOpinion);
+	}
+
 }

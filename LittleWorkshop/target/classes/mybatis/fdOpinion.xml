@@ -42,4 +42,10 @@
 		WHERE fd_opinion_code = #{fdOpinionCode}
 	</update>
 	
+	<update id="updateProducerAnswer">
+		UPDATE fd_opinion
+		SET producer_answer = #{producerAnswer}
+		WHERE fd_opinion_code = #{fdOpinionCode}
+	</update>
+	
 </mapper>

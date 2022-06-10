@@ -16,4 +16,6 @@ public interface FdOpinionService {
 
 	void removeConfirm(FdOpinion fdOpinion);
 
+	void updateProducerAnswer(FdOpinion fdOpinion);
+
 }

@@ -17,4 +17,6 @@ public interface FdOpinionDao {
 
 	void removeConfirm(FdOpinion fdOpinion);
 
+	void updateProducerAnswer(FdOpinion fdOpinion);
+
 }

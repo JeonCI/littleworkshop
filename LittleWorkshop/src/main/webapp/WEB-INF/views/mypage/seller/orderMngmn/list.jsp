@@ -56,12 +56,12 @@ a:hover, a:active { text-decoration: none; }
 	font-weight: 600;
 }
 
-#buyerInfo>div>span:nth-child(1) {
-	margin-bottom: 20px;
-	font-size: 18px;
-	display: inline-block;
-	font-weight: 600;
-}
+/* #buyerInfo>div>span:nth-child(1) { */
+/* 	margin-bottom: 20px; */
+/* 	font-size: 18px; */
+/* 	display: inline-block; */
+/* 	font-weight: 600; */
+/* } */
 
 #buyerInfo>div>select {
 	width: -webkit-fill-available;
@@ -218,6 +218,9 @@ margin-bottom: 20px;
 				orderCodeList.push(parseInt(item.value));
 		});
 		
+		
+		
+		
 // 		if(document.querySelectorAll(".paymentList").length === 0){
 // 	 		document.querySelector("#buyerInfo").remove();
 // 	 		document.querySelector("#spanDiv").remove();
@@ -238,19 +241,30 @@ margin-bottom: 20px;
 // 		});
 	}
 	
-	function receptionBtn(orderCode){
+	function receptionBtn(orderCode, self){
+		let addWaybillNumber = true;
 		
-		$.ajax({
-			type: "POST",
-			url:"orderMngmn/update",
-// 	        contentType: "application/json; utf-8",
-	        data : {"orderCode" : parseInt(orderCode)},
-			success: function(result){
-				console.log("성공");
-			},error: function(){
-				console.log("실패");
-			}
-		});
+//      운송장 번호 등록 미구현
+// 		if(orderCode == 3){
+// 			addWaybillNumber = false;
+// 			var ret = window.open("./orderMngmn/addWaybillNumber", "_blank", "width=500,height=600", false);
+// 		};
+		
+		if(addWaybillNumber){
+			$.ajax({
+				type: "POST",
+				url:"orderMngmn/update",
+		        data : {"orderCode" : parseInt(orderCode)},
+				success: function(result){
+					self.closest("#paymentList").remove();
+			 		if(document.querySelectorAll("#paymentList").length === 0){
+			 	 		document.querySelector("#spanDiv").remove();
+		 	 		}
+				},error: function(){
+					console.log("실패");
+				}
+			});
+		}
 
 	}
 	
@@ -270,21 +284,29 @@ margin-bottom: 20px;
 
 		
 		<div id="buyerInfo">
-			<div>
 				<c:if test="${orderHistory.size() > 0}">
-					<div id="spanDiv"><span onclick="selectAll();">전체선택</span> ｜ <span onclick="partialSelect();">선택접수</span></div>
+					<c:if test="${item.orderStatus < 5 }">
+						<div id="spanDiv"><span onclick="selectAll();">전체선택</span> ｜ <span onclick="partialSelect();">선택접수</span></div>
+					</c:if>
 					<c:forEach var="item" items="${orderHistory}" varStatus="status">
 						<div id="paymentList">
 							<div id="orderSelectDiv">
 <!-- 							<form id="orderSelectForm" onsubmit="return false"> -->
-								<input class="checkbox" type="checkbox" value="${item.orderListCode}">
+								<c:if test="${item.orderStatus < 5 }">
+									<input class="checkbox" type="checkbox" value="${item.orderListCode}">
+								</c:if>
 								<div>
 									<span>주문날짜 : <fmt:formatDate value="${item.orderDate}" pattern="yyyy-MM-dd" /></span>
 									<span data-code="${item.orderListCode}">주문번호 : ${item.orderListCode}</span>
 									<span>결제금액 : ${item.paymentPrice}</span>
 									<span><a href="orderDetail/${item.orderListCode}">상세보기>></a></span>
-									<c:if test="${item.orderStatus < 6 }">
-										<button type="button" onclick="receptionBtn(${item.orderListCode});" >${item.orderStatusName}</button>
+									<c:if test="${item.orderStatus < 5 }">
+										<button type="button" onclick="receptionBtn(${item.orderListCode}, this);">
+											<c:if test="${item.orderStatus == 1 }">주문 접수</c:if>
+											<c:if test="${item.orderStatus == 2 }">상품준비 완료</c:if>									
+											<c:if test="${item.orderStatus == 3 }">발송 접수</c:if>
+											<c:if test="${item.orderStatus == 4 }">배송완료</c:if>								
+										</button>
 									</c:if>
 								</div>
 <!-- 							</form> -->
@@ -318,7 +340,6 @@ margin-bottom: 20px;
 				</c:if>
 			</div>
 		</div>
-	</div>
 </body>
 
 </html>

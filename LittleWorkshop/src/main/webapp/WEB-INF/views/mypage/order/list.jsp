@@ -174,6 +174,7 @@
 									</c:forEach>
 									<div>
 										<span class="productName">${product.productName}</span>
+										<span>${item.orderStatusName}</span>
 										<div class="optionBoxList">
 											<c:forEach var="info" items="${item.orderDetailList}">
 												<c:if test="${info.productCode == product.productCode}">

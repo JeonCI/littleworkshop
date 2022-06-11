@@ -155,5 +155,11 @@ public class SellerController {
 	
 		return "success";
 	}
-
+	
+	
+	
+	@GetMapping("/orderMngmn/addWaybillNumber")
+	public String addWaybillNumber() {
+		return path + "orderMngmn/addWaybill";
+	}
 }

@@ -62,7 +62,7 @@
 			<result column="ORDER_DATE" property="orderDate" />
 			<result column="ORDER_PAYMENT" property="orderPayment" />
 			<result column="PAYMENT_PRICE" property="paymentPrice" />
-		
+			<result column="ORDER_STATUS_NAME" property="orderStatusName" />
 
 		<collection property="orderDetailList" column="ORDER_CODE" ofType="ProductOrderDetail" javaType="ArrayList">
 			<id column="ORDER_CODE" property="orderCode" />
@@ -116,7 +116,7 @@
 		 p.SELLER_ID SELLER_ID,
 		 p.PRODUCT_NAME PRODUCT_NAME,
          pi.product_image_uuid,
-         s.*
+         s.order_status_name
          FROM
 		(SELECT ROWNUM AS RNUM, sub.* from (SELECT * FROM order_list where id = #{id} order by order_date) sub) o
         LEFT JOIN product_order_detail d ON d.order_list_code = o.order_list_code
@@ -133,7 +133,7 @@
 		 p.SELLER_ID SELLER_ID,
 		 p.PRODUCT_NAME PRODUCT_NAME,
          pi.product_image_uuid,
-         s.*
+         s.order_status_name
          FROM
 		(SELECT ROWNUM AS RNUM, sub.* from (SELECT * FROM order_list <include refid="status"></include> order by order_date) sub) o
         LEFT JOIN product_order_detail d ON d.order_list_code = o.order_list_code

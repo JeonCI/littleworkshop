@@ -11,7 +11,7 @@
 span{
 	font-weight: bold; 
 }
-#buyerContent >div {
+#buyerContent >div, #sellerContent > div {
 border-bottom : 1px solid #dddddd;
 margin-bottom: 10px;
 padding-bottom: 10px;
@@ -47,6 +47,21 @@ width: 300px;
 			<div><a href="./address">배송지 관리</a></div>
 		</div>
 	</div>
+    <c:if test="${account.classify == 2 }">
+	    <div id="sellerContent">
+			<div>
+				<span>상품관리</span>
+				<div><a href="seller/productMngmn">상품</a></div>
+			</div>
+			<div>
+				<span>주문관리</span>
+				<div><a href="seller/orderMngmn">주문접수</a></div>
+				<div><a>취소/환불 신청</a></div>
+				<div><a>취소/환불 내역</a></div>
+			</div>
+
+		</div>
+    </c:if>
 
 </body>
 </html>

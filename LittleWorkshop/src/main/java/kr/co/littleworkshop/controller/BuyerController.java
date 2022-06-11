@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import kr.co.littleworkshop.model.Account;
 import kr.co.littleworkshop.model.AccountAddress;
 import kr.co.littleworkshop.model.Order;
-import kr.co.littleworkshop.model.Product;
-import kr.co.littleworkshop.model.ProductOrderDetail;
 import kr.co.littleworkshop.model.ReceiveRequest;
 import kr.co.littleworkshop.service.AccountAddressService;
 import kr.co.littleworkshop.service.BuyerService;
@@ -26,41 +24,35 @@ import kr.co.littleworkshop.util.Pager;
 
 
 @Controller
-@RequestMapping("/mypage/buyer")
+@RequestMapping("/mypage")
 public class BuyerController {
 	final String path = "mypage/";
 
 	@Autowired
 	BuyerService service;
-	
 	@Autowired
 	AccountAddressService addressService;
-	
 	@Autowired
 	OrderService orderService;
 	
+	
+	
 	@RequestMapping("/")
 	public String list(Model model, Pager pager) {
-		
-//		List<Product> list = service.list(pager);
-//		model.addAttribute("list", list);
-	
-		return path + "buyer";
+		return path + "mypage";
 	}
+	
 	// #주문내역
 	@RequestMapping("/orderList")
 	public String order(Model model, Pager pager, HttpSession session) {
 		Account account = (Account) session.getAttribute("account");
 		
-		List<Order> orderList = orderService.orderList(account.getId(), pager);
+		List<Order> orderList = orderService.orderHistory(account.getId(), pager);
 
 		model.addAttribute("orderHistory", orderList);
 	
 		return path + "order/list";
 	}
-	
-	
-	
 	
 	
 	// #배송주소 관리
@@ -86,8 +78,6 @@ public class BuyerController {
 		addressService.add(address);
 		return "redirect:../address";
 	}
-	
-	
 	// 수정
 	@GetMapping("/address/update/{code}")
 	public String updateAddress(Model model, @PathVariable int code, HttpSession session) {
@@ -107,7 +97,6 @@ public class BuyerController {
 		addressService.update(address);
 		return "redirect:../../address";
 	}
-	
 	// 삭제
 	@GetMapping("/address/delete/{code}")
 	public String deleteAddress(@PathVariable int code, HttpSession session) {

@@ -176,12 +176,14 @@
 										<span class="productName">${product.productName}</span>
 										<div class="optionBoxList">
 											<c:forEach var="info" items="${item.orderDetailList}">
-												<div class="optionBox">
-													<span class="orderInfo">${info.orderInfo}</span>
-													<span class="orderAmount">${info.orderAmount}</span>
-													<span class="orderPrice" data-price="${info.orderPrice}">
-													<fmt:formatNumber value="${info.orderAmount * info.orderPrice}"></fmt:formatNumber>원</span>
-												</div>
+												<c:if test="${info.productCode == product.productCode}">
+													<div class="optionBox">
+														<span class="orderInfo">${info.orderInfo}</span>
+														<span class="orderAmount">${info.orderAmount}</span>
+														<span class="orderPrice" data-price="${info.orderPrice}">
+														<fmt:formatNumber value="${info.orderAmount * info.orderPrice}"></fmt:formatNumber>원</span>
+													</div>
+												</c:if>
 											</c:forEach>
 										</div>
 									</div>
@@ -190,6 +192,7 @@
 						</div>
 					</c:forEach>
 				</c:if>
+
 			</div>
 		</div>
 	</div>

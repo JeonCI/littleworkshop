@@ -11,6 +11,7 @@ import kr.co.littleworkshop.model.Order;
 import kr.co.littleworkshop.model.Product;
 import kr.co.littleworkshop.model.ProductOrderDetail;
 import kr.co.littleworkshop.util.Pager;
+import kr.co.littleworkshop.util.orderPager;
 
 @Repository
 public class OrderDaoImpl implements OrderDao {
@@ -44,11 +45,26 @@ public class OrderDaoImpl implements OrderDao {
 	}
 
 	@Override
-	public List<Order> orderList(String id, Pager pager) {
+	public List<Order> orderHistory(String id, Pager pager) {
 		HashMap<String,Object> map = new HashMap<String,Object>();
 		map.put("id", id);
 		map.put("pager", pager);
 		
-		return sql.selectList("order.orderList", map);
+		return sql.selectList("order.orderHistory", map);
+	}
+
+	@Override
+	public List<Order> orderRequest(String id, orderPager pager) {
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("id", id);
+		map.put("pager", pager);
+		return sql.selectList("order.orderRequest", map);
+	}
+
+	@Override
+	public void setOrderStatus(int code) {
+
+		sql.update("order.setOrderStatus",code);
+		
 	}
 }

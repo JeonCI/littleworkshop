@@ -12,6 +12,7 @@ public class Order {
 	private Date orderDate;
 	private String orderPayment;
 	private int paymentPrice;
+	private String orderStatusName;
 	
 	private List<Integer> basketList;
 	private List<ProductOrderDetail> orderDetailList;
@@ -21,6 +22,12 @@ public class Order {
 
 
 
+	public String getOrderStatusName() {
+		return orderStatusName;
+	}
+	public void setOrderStatusName(String orderStatusName) {
+		this.orderStatusName = orderStatusName;
+	}
 	public List<Product> getProductList() {
 		return productList;
 	}

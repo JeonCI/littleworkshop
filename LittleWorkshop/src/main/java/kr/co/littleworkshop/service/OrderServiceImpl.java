@@ -13,6 +13,7 @@ import kr.co.littleworkshop.model.Order;
 import kr.co.littleworkshop.model.Product;
 import kr.co.littleworkshop.model.ProductOrderDetail;
 import kr.co.littleworkshop.util.Pager;
+import kr.co.littleworkshop.util.orderPager;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -52,7 +53,20 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<Order> orderList(String id, Pager pager) {
-		return dao.orderList(id, pager);
+	public List<Order> orderHistory(String id, Pager pager) {
+		return dao.orderHistory(id, pager);
+	}
+
+
+	@Override
+	public List<Order> orderRequest(String id, orderPager pager) {
+		return dao.orderRequest(id, pager);
+	}
+
+
+	@Override
+	public void setOrderStatus(int orderCode) {
+		 dao.setOrderStatus(orderCode);
+		
 	}
 }

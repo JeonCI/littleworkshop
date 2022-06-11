@@ -25,13 +25,10 @@
            <div class="icon">
            <c:if test="${account == null }">
                <a href="login"><i class="bi bi-person-circle"></i></a>
+           </c:if>
+           <c:if test="${account != null }">
+               <a href="mypage/"><i class="bi bi-person-circle"></i></a>
            </c:if>	
-           <c:if test="${account.classify == 1 }">
-            	<a href="mypage/buyer/"><i class="bi bi-person-circle"></i></a>
-            </c:if>
-            <c:if test="${account.classify == 2 }">
-            	<a href="mypage/seller/"><i class="bi bi-person-circle"></i></a>
-            </c:if>
             <a href="basket"><i class="bi bi-cart"></i></a>
             <a href="like"><i class="bi bi-heart"></i></a>
             </div>

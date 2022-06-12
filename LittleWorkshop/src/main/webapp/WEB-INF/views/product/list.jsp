@@ -42,7 +42,7 @@ function setCategory(category){
 				<ul>
 				<li class="category ${pager.search==0?'click':''}" onclick="setCategory(this);"><a href="./list?${pager.type}">전체</a></li>
 				<c:forEach var="category" items="${categoryList}">
-					<li class="category ${category.productCategoryCode == pager.search?'click':''}" onclick="setCategory(this);" value="${category.productCategoryCode}"><a href="./list?search=${category.productCategoryCode}${pager.type}${pager.query}">${category.productCategory}</a></li>
+					<li class="category ${category.productCategoryCode == pager.search?'click':''}" onclick="setCategory(this);" value="${category.productCategoryCode}"><a href="./list?search=${category.productCategoryCode}${pager.query}">${category.productCategory}</a></li>
 				</c:forEach>
 				</ul>
 			</c:if>
@@ -87,6 +87,15 @@ function setCategory(category){
 			<ul>
 				<li><a href="add">제품 등록</a></li>
 			</ul>
+		</div>
+	</div>
+	<div class="pager">
+		<div>
+			<a href="?page=${pager.prev }&${pager.query}">&lt; &nbsp;</a>
+			<c:forEach var="page" items="${pager.list }">
+				<a href="?page=${page }&${pager.query} ">${page }</a>
+			</c:forEach>
+			<a href="?page=${pager.next }&${pager.query}">&nbsp; &gt;</a>
 		</div>
 	</div>
 </body>	

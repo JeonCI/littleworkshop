@@ -63,10 +63,6 @@ public class ProductController {
 		List<Product> list = service.list(pager);
 		List<ProductCategory> categoryList = categoryService.productCategoryList();
 		
-		for(ProductCategory item : categoryList) {
-			System.out.println( item.getProductCategoryCode()+":"+item.getProductCategory());
-		}
-		
 		model.addAttribute("list", list);
 		model.addAttribute("categoryList",categoryList);
 		
@@ -137,12 +133,7 @@ public class ProductController {
 		item.setProductCode(productCode);
 
 		item = service.item(productCode);
-		
-		for(ProductOption po : item.getProductOptionList()) {
-			for(ProductOptionDetail pod : po.getProductOptionDetail()) {
-				System.out.println(pod.getProductSoldOut());
-			}
-		}
+
 
 		model.addAttribute("item", item);
 		model.addAttribute("productCategories", categories);

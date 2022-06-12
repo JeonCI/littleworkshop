@@ -17,6 +17,8 @@ public class Pager {
 
 		if (keyword != null)
 			query += "&keyword=" + keyword;
+		if (search != 0)
+			query += "&search=" + search;
 
 		return query;
 	}

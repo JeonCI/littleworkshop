@@ -127,13 +127,13 @@ public class SellerController {
 						Product product) {
 		product.setProductCode(productCode);
 		productService.update(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues, soldOutValues, tagNameList, product);
-		return "redirect:../../list";
+		return "redirect:../../productMngmn";
 	}
 	// 삭제
 	@GetMapping("/productMngmn/delete/{productCode}")
 	public String delete(@PathVariable int productCode) {
 		productService.delete(productCode);
-		return "redirect:../../list";
+		return "redirect:../../productMngmn";
 	}
 	
 	// #주문관리

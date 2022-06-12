@@ -4,25 +4,44 @@
 <mapper namespace="product">
 
 	<sql id="search">
-		<if test="keyword != null">
+		<if test="search != 0">
 			<where>
-				(p.product_name LIKE CONCAT('%',CONCAT(#{keyword},'%')) OR tl.tag_name LIKE CONCAT('%',CONCAT(#{keyword},'%')))
+				<!-- 검색 페이지 일때  -->
+				<if test="keyword != null">
+					p.product_category_code = #{search}
+				</if>
+				<!-- 네비게이션 페이지 일때  -->
+				<if test="keyword == null">
+					p.product_category_code = #{search} 
+				</if>
 			</where>
 		</if>
-		
+	</sql>
+	
+	<sql id="count">
+	
 		<if test="search != 0">
-			<!-- 검색 페이지 일때  -->
-			<if test="keyword != null">
-				AND p.product_category_code = #{search}
-			</if>
-			<!-- 네비게이션 페이지 일때  -->
-			<if test="keyword == null">
-				<where>
+			<where>
+				<!-- 검색 페이지 일때  -->
+				<if test="keyword != null">
+					p.product_category_code = #{search}
+				</if>
+				<!-- 네비게이션 페이지 일때  -->
+				<if test="keyword == null">
 					p.product_category_code = #{search} 
+				</if>
+			</where>
+		</if>
+		<if test="search == 0"> 
+			<if test="keyword != null">
+				<where>
+					p.product_category_code = #{search} AND p.product_name LIKE CONCAT('%',CONCAT(#{keyword},'%')) OR tl.tag_name LIKE CONCAT('%',CONCAT(#{keyword},'%'))
 				</where>
 			</if>
 		</if>
 	</sql>
+	
+	
 	
 	<sql id="order">
 		<if test="condition != null">
@@ -43,7 +62,14 @@
 			</choose>
 		</if>
 	</sql>
-
+	
+	<sql id="keyword">
+		<if test="keyword != null">
+			<where>
+				p.product_name LIKE CONCAT('%',CONCAT(#{keyword},'%')) OR tl.tag_name LIKE CONCAT('%',CONCAT(#{keyword},'%'))
+			</where>
+		</if>
+	</sql>
 
 	<resultMap type="Product" id="ProductMap">
 		<id column="product_code" property="productCode"/>
@@ -102,12 +128,12 @@
 		tl.tag_name tag_name,
 		ptl.product_code ptl_product_code
 		FROM (SELECT ROWNUM AS RNUM, sub.* FROM
-				(SELECT * FROM product) sub) p
+				(SELECT * FROM product p <include refid="search"></include>) sub) p
 			JOIN product_category_list c ON p.product_category_code = c.product_category_code
 			LEFT JOIN PRODUCT_IMAGES pi ON pi.product_code = p.product_code
 			LEFT JOIN product_tag_list ptl ON p.product_code = ptl.product_code
 			LEFT JOIN tag_list tl ON ptl.tag_code = tl.tag_code
-			<include refid="search"></include>)
+			<include refid="keyword"></include>)
 		<![CDATA[ WHERE RNUM > ((#{page} - 1) * #{perPage}) and RNUM <= ( #{page} * #{perPage})	]]>
 		 <include refid="order"></include>
 	</select>
@@ -116,7 +142,7 @@
 		SELECT count(distinct p.product_code) FROM product p
 		LEFT JOIN product_tag_list ptl ON p.product_code = ptl.product_code
 		LEFT JOIN tag_list tl ON ptl.tag_code = tl.tag_code
-		<include refid="search"></include>
+		<include refid="count"></include>
 	</select>
 	
 	<select id="item" resultMap="ProductMap">

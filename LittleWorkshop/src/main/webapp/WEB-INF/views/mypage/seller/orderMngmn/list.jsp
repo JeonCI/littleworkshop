@@ -291,7 +291,7 @@ margin-bottom: 20px;
 					<c:forEach var="item" items="${orderHistory}" varStatus="status">
 						<div id="paymentList">
 							<div id="orderSelectDiv">
-<!-- 							<form id="orderSelectForm" onsubmit="return false"> -->
+
 								<c:if test="${item.orderStatus < 5 }">
 									<input class="checkbox" type="checkbox" value="${item.orderListCode}">
 								</c:if>

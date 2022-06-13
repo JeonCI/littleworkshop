@@ -1,0 +1,297 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 20
+}
+form{
+    display: flex;
+}
+h1{
+    font-size: 22px;
+    font-weight: 600;
+    border-bottom: 1px solid #222222;
+    padding-bottom: 20px;
+    margin-top: 55px;
+}
+body>div{
+    width: 1200px;
+    margin: auto;
+}
+#spanDiv{
+    font-size: 14px;
+    color: #888888;
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    
+}
+.bar{
+    font-size: 12px;
+    line-height: 17px;
+}
+#wrap{
+display: flex;
+}
+.sellerBox{
+margin-bottom: 80px;
+border: 1px solid #dddddd;
+padding: 20px 30px;
+}
+input[type=checkbox] {
+    display:none;
+}
+input[type=checkbox] + label {
+    display: block;
+    cursor: pointer; 
+    padding-left: 23px; 
+    background-repeat: no-repeat;
+    background-image: url('Icon/check_circle_FILL0_wght400_GRAD0_opsz20.svg');
+}
+input[type=checkbox]:checked + label {
+    background-image: url('Icon/check_circle_FILL1_wght400_GRAD-25_opsz20.svg');
+}
+input[type=checkbox]:disabled + label {
+    background-image: url('Icon/check_circle_FILL0_wght400_GRAD0_opsz20.svg');
+}
+#sellerArea{
+    width: 829px;
+}
+#sellr{
+    font-size: 16px;
+    font-weight:bold;
+}
+
+.productImage>a>img {
+	width: 100px;
+	height: 100px;
+	margin-right: 20px;
+}
+.productBox{
+display: flex;
+margin-bottom: 30px;
+
+padding-top: 10px;
+
+border-bottom: 1px solid #dddddd;
+border-top: 1px solid #dddddd;
+}
+
+.productBox > div > .optionBoxList> .optionBox {
+display: flex;
+padding-top: 10px;
+padding-bottom: 10px;
+border-bottom : 1px solid #dddddd;
+}
+.optionBox{
+    display: flex;
+    width: 625px;
+    border-bottom : 1px solid #dddddd;
+}
+.optionBox:nth-child(2){
+    margin-top: 5px;
+    border-bottom : 1px solid #dddddd;
+}
+.optionBox:nth-child(3){
+    margin-top: 5px;
+    border-bottom : 0px solid #dddddd;
+}
+
+
+.productName{
+	font-weight:bold;
+	margin-bottom: 5px;
+	font-size: 16px;
+}
+.optionBox>#info{
+    color: #555555;
+    font-size: 14px;
+    width: 65%;
+}
+.buttons{
+    border: 1px solid #ddd;
+    height: 20px;
+}
+.buttons>input{
+    font-size: 14px;
+    width: 40px;
+    height: 20px;
+    border: 0;
+    color: #555555;
+    text-align: center;
+    background-color: #00ff0000;
+}
+.buttons>button{
+    width: 20px;
+    height: 20px;
+    background-color: #00ff0000;
+    border: 0;
+    font-size: 14px;
+    color: #dddddd;
+    line-height: 15px;
+    padding: 2px;
+}
+
+.productBox > div >.optionBoxList > .optionBox  > span{
+	width: 500px;
+	line-height: 26px;
+} 
+
+.productBox > div >.optionBoxList > .optionBox  > .deleteOption{
+	width: 100px;
+	text-align: right;
+	cursor : pointer;
+	
+}
+.productBox > div >.optionBoxList > .optionBox  > .productPrice{
+	width: 100px;
+	text-align: right;
+} 
+
+.productBox > div > .optionBoxList>.optionBox > div {
+	width: 200px;
+
+}
+.productBox > div > .optionBoxList>.optionBox > div > button{
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    background-color: white;
+    color : #888888;
+    font-size: 20px;
+    margin: auto;
+    vertical-align: middle;
+    cursor : pointer;
+}
+.productBox > div > .optionBoxList> .optionBox > div > input{
+	line-height : 24px;
+    width: 50px;
+    text-align: center;
+    color : #555555;
+    border : none;
+    font-size: 14px;
+    vertical-align: middle;
+}
+.productBox > div > .optionBoxList>.optionBox:last-child  {
+border:none;
+}
+.productPrice{
+    width: 15%;
+    text-align: right;
+}
+.deleteOption{
+    margin-left: 10px;
+}
+#price{
+display: flex;
+width:900px;
+margin-left: 120px;
+}
+
+
+#price > div:nth-child(1){
+text-align: left;
+margin: auto;
+margin-left: 0px;
+margin-right: 80px; 
+
+}
+#price > div{
+text-align: left;
+margin: auto;
+margin-left: 80px;
+margin-right: 80px; 
+
+}
+
+#price > div:last-child{
+text-align: right;
+margin-right: 0px;
+}
+
+
+#price > div > span{
+font-size:14px;
+color: #888888;
+display: block;
+}
+
+#price > div:nth-child(2),#price > div:nth-child(4){
+margin: auto;
+margin-left: 20px;
+margin-right: 20px; 
+}
+
+#price > div > span:last-child{
+color: #222222;
+font-size:16px;
+font-weight: 600;
+}
+
+#paymentInfo{
+    width:350px;
+    height: 315px;
+    border: 1px solid #888888;
+    margin-left: 20px;
+}
+.txt1{
+    font-size:18px;
+    font-weight: bold;
+    
+    border-bottom: 1px solid #888888;
+    width: 87%;
+    margin: auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.txt2{
+    font-size: 16px;
+    color: #888888;
+    border-bottom: 1px solid #888888;
+    width: 87%;
+    margin: auto;
+    margin-top: 15px;
+    padding-bottom: 15px;
+}
+.txt2>div{
+    display: flex;
+}
+.txt2>div>div:nth-child(1){
+    width: 100%;
+}
+.txt2>div>div:nth-child(2){
+    text-align: right;
+    width: 80%;
+    color: #222222;
+}
+.txt3{
+    display: flex;
+    font-weight : bold;
+}
+#paymentInfo>div:nth-child(3){
+    padding: 20px;
+    font-size: 18px;
+}
+#totalPayment{
+    width: 70%;
+    text-align: right;
+    font-size: 24px;
+}
+.purchase_btn{
+    width: 310px;
+    height: 60px;
+    border: 0;
+    background-color: #92b6f3;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 20px;
+    cursor:pointer;
+}

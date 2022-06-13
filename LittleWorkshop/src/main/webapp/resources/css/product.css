@@ -1,0 +1,267 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: #222222;
+}
+body {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.productcontent{
+    display: flex;
+    margin-left: 360px;
+}
+.main_img{
+    width: 540px;
+    height: 540px;
+}
+.main_img>img{
+    width: 540px;
+    height: 540px;
+}
+.sub_images{
+    display: flex;
+}
+.sub_img{
+    width: 126px;
+    height: 126px;
+    margin-right: 5px;
+}
+.sub_img>img{
+    width: 126px;
+    height: 126px;
+}
+
+.product_detail{
+    display: flex;
+    flex-direction: column;
+    margin-left:60px;
+}
+.product_deatil-1{
+    display: flex;
+     font-size: 14px;
+    color: #555555;
+}
+.product_deatil-1:nth-child(1){
+   
+}
+.bar{
+    font-size: 12px;
+    color: #dddddd;
+    line-height: 20px;
+}
+.product_detail-2>h2{
+    font-size: 20px;
+    width: 90%;
+    font-weight: 400
+}
+.product_detail-2{
+    display: flex;
+    margin-top: 38px;
+}
+.like{
+    font-size: 20px;
+}
+.product_price{
+    margin-top: 10px;
+    font-size: 20px;
+}
+.product_price>span{
+    color: #92b6f3;
+}
+.shipping_fee{
+    display: flex;
+    margin-top: 60px;
+    font-size: 16px;
+}
+.shipping-1{
+    width: 65px;
+    color: #888888;
+}
+.shipping-2{
+    margin-left: 40px;
+    color: #555555;
+}
+.shipping_start{
+    display: flex;
+    font-size: 16px;
+    margin-top: 5px;
+}
+.amount{
+    display: flex;
+    font-size: 16px;
+    margin-top: 5px;
+}
+select{
+    margin-top: 50px;
+    width: 600px;
+    height: 50px;
+    text-indent: 3%;
+    font-size: 16px;
+    color: #555555;
+    border: 1px solid #dddddd;
+}
+.total_price{
+    font-size: 16px;
+    color: #222222;
+    margin-left: 495px;
+    margin-top: 35px;
+}
+.total_price>span{
+    color: #92b6f3;
+}
+.buttons{
+    display: flex;
+    margin-top: 40px;
+}
+.purchase_btn{
+    width: 295px;
+    height: 60px;
+    background-color: #fec855;
+    color: #fff;
+    border: 0;
+    font-size: 18px;
+}
+.cart_btn{
+    width: 295px;
+    height: 60px;
+    background-color: #92b6f3;
+    color: #fff;
+    border: 0;
+    font-size: 18px;
+    margin-left: 10px;
+}
+.maincontent{
+    margin-left: 360px;
+    margin-top: 75px;
+}
+hr{
+    display: flex;
+    border: 0;
+    height: 1px;
+    background: #dddddd;
+    margin: 0;
+}
+.info_tab{
+    display: flex;
+    justify-content: space-around;
+    font-size: 16px;
+    width: 1200px;
+    color: 555555;
+    padding: 20px 20px;
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+}
+.product_img{
+    width: 1200px;
+    border-bottom: 1px solid #dddddd;
+    
+}
+.product_img>img{
+    margin-left: 170px;
+    margin-top: 80px;
+    margin-bottom: 100px;
+    width: 860px;
+}
+.category{
+    margin-left: 170px;
+    margin-top: 50px;
+    display: table;
+    width: 100%;
+}
+.category>div>a:link{
+    color: #555555;
+}
+.category>div>a:visited{
+    color: #555555;
+}
+.category>div{
+    width: 151px;
+    height: 43px;
+    border: 1px solid #dddddd;
+    border-radius: 30px;
+    line-height: 43px;
+    text-align: center;
+    font-size: 14px;
+    color: #555555;
+    margin-right: 10px;
+    margin-bottom: 15px;
+}
+.prd-review{
+    margin-top: 170px;
+    
+}
+.title-style{
+    width: 1200px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #dddddd;
+    display: flex;
+    
+}
+.title-style>h3{
+    font-weight: 500;
+    width: 90%
+}
+.sort{
+    display: flex;
+    font-size: 14px;
+    color: #555555;
+    line-height: 30px;
+}
+.review{
+    display: flex;
+}
+.reviewer-thumnail>img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.reviewer-thumnail{
+    margin-top: 30px;
+}
+.review-1{
+    padding: 15px;
+    margin-top: 10px;
+}
+.review-2{
+    display: flex;
+    width: 1200px;
+    overflow: hidden;
+}
+.writer{
+    font-size: 14px;
+    width: 70%;
+}
+.order_detail{
+    font-size: 14px;
+    color: #888888;
+    width: 19%;
+}
+.score{
+    width: 10%;
+}
+.date{
+    font-size: 12px;
+    color: #555555;
+}
+.comment{
+    margin-top: 5px;
+    font-size: 14px;
+    color:#555555;
+}
+nav>button{
+    width: 27px;
+    height: 26px;
+    border: 0;
+    font-size: 14px;
+    color: #888888;
+}
+nav{
+    display: flex;
+    justify-content: center;
+    position: relative;
+}

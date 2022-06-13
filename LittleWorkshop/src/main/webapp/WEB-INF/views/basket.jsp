@@ -11,157 +11,6 @@
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <title>Little Workshop</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<style>
-{
-    margin: 0px;
-    padding: 0px;
-}
-.material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 100,
-  'GRAD' -25,
-  'opsz' 12
-}
-
-.material-symbols-outlined {
-      font-variation-settings:
-      'FILL' 0,
-      'wght' 100,
-      'GRAD' 25,
-      'opsz' 12,
-    }  
-
-#wrap{
-display: flex;}
-.optionBoxList{
-}
-.sellerBox{
-margin-bottom: 80px;
-width: 1200px;
-border: 1px solid #dddddd;
-padding: 20px 30px;
-}
-.productImage>a>img {
-	width: 100px;
-	height: 100px;
-	margin-right: 20px;
-}
-.productBox{
-display: flex;
-margin-bottom: 30px;
-
-padding-top: 10px;
-
-border-bottom: 1px solid #dddddd;
-border-top: 1px solid #dddddd;
-}
-
-.productBox > div > .optionBoxList> .optionBox {
-display: flex;
-padding-top: 10px;
-padding-bottom: 10px;
-border-bottom : 1px solid #dddddd;
-}
-
-
-.productName{
-	font-weight:bold;
-	margin-bottom: 5px;
-	font-size: 18px;
-}
-.productBox > div >.optionBoxList > .optionBox  > span{
-	width: 500px;
-	line-height: 26px;
-} 
-
-.productBox > div >.optionBoxList > .optionBox  > .deleteOption{
-	width: 100px;
-	text-align: right;
-	cursor : pointer;
-	
-}
-.productBox > div >.optionBoxList > .optionBox  > .productPrice{
-	width: 100px;
-	text-align: right;
-} 
-
-.productBox > div > .optionBoxList>.optionBox > div {
-	width: 200px;
-
-}
-.productBox > div > .optionBoxList>.optionBox > div > button{
-    border: 1px solid #dddddd;
-    border-radius: 5px;
-    background-color: white;
-    color : #888888;
-    font-size: 20px;
-    margin: auto;
-    vertical-align: middle;
-    cursor : pointer;
-}
-.productBox > div > .optionBoxList> .optionBox > div > input{
-	line-height : 24px;
-    width: 50px;
-    text-align: center;
-    color : #555555;
-    border : none;
-    font-size: 14px;
-    vertical-align: middle;
-}
-.productBox > div > .optionBoxList>.optionBox:last-child  {
-border:none;
-}
-
-#price{
-display: flex;
-width:900px;
-margin-left: 120px;
-}
-
-
-#price > div:nth-child(1){
-text-align: left;
-margin: auto;
-margin-left: 0px;
-margin-right: 80px; 
-
-}
-#price > div{
-text-align: left;
-margin: auto;
-margin-left: 80px;
-margin-right: 80px; 
-
-}
-
-#price > div:last-child{
-text-align: right;
-margin: auto;
-margin-left: 235px;
-margin-right: 0px; 
-}
-
-
-#price > div > span{
-font-size:14px;
-color: #888888;
-display: block;
-}
-
-#price > div:nth-child(2),#price > div:nth-child(4){
-margin: auto;
-margin-left: 20px;
-margin-right: 20px; 
-}
-
-#price > div > span:last-child{
-color: #222222;
-font-size:16px;
-font-weight: 600;
-}
-
-</style>
 
 <script>
 let paymentList;
@@ -430,8 +279,12 @@ function paymentBtn(){
 
 
 </script>
+<link rel="stylesheet" href="/css/basket.css">
+<link rel="stylesheet" href="/css/header.css">
+<link rel="stylesheet" href="/css/footer.css">
 </head>
 <body>
+	<jsp:include page="header.jsp"></jsp:include>
 	<div>
 		<h1>장바구니</h1>
 		<div id="guideText">
@@ -513,5 +366,6 @@ function paymentBtn(){
 
 		</div>
 	</div>
+	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

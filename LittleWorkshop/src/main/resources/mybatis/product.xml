@@ -244,14 +244,9 @@
 		WHERE product_code = #{productCode}
 	</select>
 	
-	<select id="nowCount" resultType="Integer">
-		SELECT product_view_count FROM product
-		WHERE product_code = #{productCode}
-	</select>
-	
 	<update id="viewCount">
 		UPDATE product
-		SET product_view_count = #{productViewCount}
+		SET product_view_count = product_view_count + 1
 		WHERE product_code = #{productCode}
 	</update>
 	

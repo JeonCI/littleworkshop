@@ -84,13 +84,8 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public int nowCount(int productCode) {
-		return sql.selectOne("product.nowCount", productCode);
-	}
-
-	@Override
-	public void viewCount(Product product) {
-		sql.update("product.viewCount", product);
+	public void viewCount(int productCode) {
+		sql.update("product.viewCount", productCode);
 	}
 
 }

@@ -60,9 +60,9 @@
             <div><a href="#">기획/이벤트</a></div>
             <div><a href="notice/list">공지사항</a></div>
             <div id="shopmenu">
-                <ul><a href="#">쇼핑샵</a></ul>
+                <ul><a href="/">쇼핑샵</a></ul>
                 <ul>｜</ul>
-                <ul><a href="fd/fdMain">후원샵</a></ul>
+                <ul><a href="/fd/fdMain">후원샵</a></ul>
             </div>
         </div>
     </header>

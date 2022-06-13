@@ -25,7 +25,7 @@
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
     <div class="mainbanner">
-            <img src="./image/main.png">
+            <img src="/image/main.png">
         </div>
     <div class="container maincontent">
     <div class="txt">

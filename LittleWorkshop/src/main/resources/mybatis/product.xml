@@ -86,7 +86,8 @@
 		<result column="product_price" property="productPrice"/>
 		<result column="product_reg_date" property="productRegDate"/>
 		<result column="product_description" property="productDescription"/>
-		<result column="product_sell_count"/>
+		<result column="product_sell_count" property="productSellCount"/>
+		<result column="like_state" property="likeState"/>
 
 		<collection property="productOptionList" column="po_product_code" ofType="ProductOption" javaType="ArrayList">
 			<id column="product_option_code" property="productOptionCode"/>
@@ -132,13 +133,15 @@
 		pi.product_image_name product_image_name,
 		tl.tag_code tag_code,
 		tl.tag_name tag_name,
-		ptl.product_code ptl_product_code
+		ptl.product_code ptl_product_code,
+		pll.product_like_code like_state
 		FROM (SELECT ROWNUM AS RNUM, sub.* FROM
 				(SELECT * FROM product p <include refid="search"></include>) sub) p
 			JOIN product_category_list c ON p.product_category_code = c.product_category_code
 			LEFT JOIN PRODUCT_IMAGES pi ON pi.product_code = p.product_code
 			LEFT JOIN product_tag_list ptl ON p.product_code = ptl.product_code
 			LEFT JOIN tag_list tl ON ptl.tag_code = tl.tag_code
+			LEFT JOIN (SELECT * FROM product_like_list WHERE product_like_list.id = #{id}) pll ON pll.product_code = p.product_code
 			<include refid="keyword"></include>)
 		<![CDATA[ WHERE RNUM > ((#{page} - 1) * #{perPage}) and RNUM <= ( #{page} * #{perPage})	]]>
 		 <include refid="order"></include>
@@ -176,7 +179,8 @@
 		pi.product_image_name product_image_name,
 		tl.tag_code tag_code,
 		tl.tag_name tag_name,
-		ptl.product_code ptl_product_code
+		ptl.product_code ptl_product_code,
+		pll.product_like_code like_state
 		FROM product p
 		JOIN product_option po ON p.product_code = po.product_code
 		JOIN product_option_detail pod ON po.PRODUCT_OPTION_CODE = pod.PRODUCT_OPTION_CODE
@@ -184,6 +188,7 @@
 		LEFT JOIN product_images pi ON pi.product_code = p.product_code
 		LEFT JOIN product_tag_list ptl ON p.product_code = ptl.product_code
 		LEFT JOIN tag_list tl ON ptl.tag_code = tl.tag_code
+		LEFT JOIN (SELECT * FROM product_like_list WHERE product_like_list.id = #{id}) pll ON pll.product_code = p.product_code
 		WHERE p.product_code = #{productCode}
 		ORDER BY pod.product_option_detail_code
 	</select>
@@ -255,5 +260,20 @@
 		SET product_view_count = product_view_count + 1
 		WHERE product_code = #{productCode}
 	</update>
+	
+	<select id="inquery" resultType="Integer">
+		SELECT count(*) FROM product_like_list
+		WHERE id = #{id} AND product_code = #{productCode}
+	</select>
+	
+	<insert id="addLikeList">
+		INSERT INTO product_like_list
+		VALUES(PRODUCT_LIKE_LIST_SEQ.nextval, #{id}, #{productCode})
+	</insert>
+	
+	<delete id="deleteLikeList">
+		DELETE product_like_list
+		WHERE id = #{id} AND product_code = #{productCode}
+	</delete>
 	
 </mapper>

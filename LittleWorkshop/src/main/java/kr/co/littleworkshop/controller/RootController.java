@@ -30,7 +30,16 @@ public class RootController {
 	ProductService productService;
 	
 	@RequestMapping("/")
-	public String index(Model model, ProductPager pager) {
+	public String index(Model model, ProductPager pager, HttpSession session) {
+		Account account = (Account) session.getAttribute("account");
+		
+		if(account != null) {
+			pager.setId(account.getId());
+		}else {
+			pager.setId("");
+		}
+		
+		System.out.println(pager.getId());
 		
 		//최신작품
 		pager.setCondition("lates");

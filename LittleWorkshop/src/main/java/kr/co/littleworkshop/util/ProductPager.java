@@ -3,6 +3,7 @@ package kr.co.littleworkshop.util;
 public class ProductPager extends Pager {
 	private String condition;
 	private String sellerId;
+	private String id;
 	
 	public String getQuery() {
 		String query = super.getQuery();
@@ -37,6 +38,14 @@ public class ProductPager extends Pager {
 
 	public void setCondition(String condition) {
 		this.condition = condition;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	

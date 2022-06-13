@@ -10,8 +10,6 @@ import java.util.UUID;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import kr.co.littleworkshop.model.Product;
-
 public class Uploader<T extends UploadFile> {
 
 	 final String uploadPath = "C:/upload/";
@@ -19,7 +17,6 @@ public class Uploader<T extends UploadFile> {
 	public List<T> makeProductImageList(List<MultipartFile> files, Class<T> type, String folder) throws Exception {
 		List<T> result = new ArrayList<>();
 
-		
 		for (MultipartFile file : files) {
 			if (!file.isEmpty()) {
 				

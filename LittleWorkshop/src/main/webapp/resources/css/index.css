@@ -174,8 +174,13 @@ a:visited{
     margin-top: 5px;
     width: 24px;
     height: 24px;
-    font-size: 20px;  
+    font-size: 20px;
+    cursor: pointer;  
 }
 .bg{
     background-color: #fff;
+}
+
+.new_item>button>.push {
+	background-color: red;
 }

@@ -1,5 +1,6 @@
 package kr.co.littleworkshop.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -11,6 +12,7 @@ import kr.co.littleworkshop.model.ProductImages;
 import kr.co.littleworkshop.model.ProductOption;
 import kr.co.littleworkshop.model.ProductOptionDetail;
 import kr.co.littleworkshop.util.Pager;
+import kr.co.littleworkshop.util.ProductPager;
 
 @Repository
 public class ProductDaoImpl implements ProductDao {
@@ -19,7 +21,8 @@ public class ProductDaoImpl implements ProductDao {
 	SqlSession sql;
 	
 	@Override
-	public List<Product> list(Pager pager) {
+	public List<Product> list(ProductPager pager) {
+		System.out.println(pager.getId());
 		return sql.selectList("product.list", pager);
 	}
 
@@ -86,6 +89,21 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public void viewCount(int productCode) {
 		sql.update("product.viewCount", productCode);
+	}
+
+	@Override
+	public int inquery(HashMap<String, Object> map) {
+		return sql.selectOne("product.inquery", map);
+	}
+
+	@Override
+	public void addLikeList(HashMap<String, Object> map) {
+		sql.insert("product.addLikeList", map);
+	}
+
+	@Override
+	public void deleteLikeList(HashMap<String, Object> map) {
+		sql.delete("product.deleteLikeList", map);
 	}
 
 }

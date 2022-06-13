@@ -47,6 +47,16 @@ public class ProductController {
 	public String list(Model model, @ModelAttribute("pager") ProductPager pager, HttpSession session) {
 		Account account = (Account) session.getAttribute("account");
 		
+		if(account != null) {
+			pager.setId(account.getId());
+		}else {
+			pager.setId("");
+		}
+		
+		pager.setId("buyer1");
+		
+		System.out.println("ㅅㅂ" + pager.getId());
+		
 		if(pager.getKeyword() != null) {
 			keywordService.addKeyword(pager.getKeyword());
 			
@@ -177,6 +187,18 @@ public class ProductController {
 		int productCategoryCode = service.getProductCategoryCode(productCode);
 		
 		return productCategoryCode;
+	}
+	
+	@GetMapping("/heartPushAction")
+	@ResponseBody
+	public boolean heartPushAction(int productCode, String id) {
+		if(id == "") {
+			return false;
+		} else {
+			service.heartPushAction(productCode, id);
+			
+			return true;
+		}
 	}
 
 }

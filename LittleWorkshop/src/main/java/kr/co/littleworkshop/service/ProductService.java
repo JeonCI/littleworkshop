@@ -4,10 +4,11 @@ import java.util.List;
 
 import kr.co.littleworkshop.model.Product;
 import kr.co.littleworkshop.util.Pager;
+import kr.co.littleworkshop.util.ProductPager;
 
 public interface ProductService {
 
-	List<Product> list(Pager pager);
+	List<Product> list(ProductPager pager);
 
 	Product item(int code);
 
@@ -28,5 +29,7 @@ public interface ProductService {
 			Product product);
 
 	void viewCount(int productCode);
+
+	void heartPushAction(int productCode, String id);
 
 }

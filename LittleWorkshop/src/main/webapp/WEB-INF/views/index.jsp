@@ -21,6 +21,33 @@
 <link rel="stylesheet" href="/css/index.css">
 <link rel="stylesheet" href="/css/header.css">
 <link rel="stylesheet" href="/css/footer.css">
+
+<script>
+
+	function heartPush(icon){
+		var xhr = new XMLHttpRequest();
+
+        let productCode = icon.dataset.product_code;
+        let id = icon.dataset.id;
+        
+        console.log(productCode, id);
+
+        let url = 'product/heartPushAction?productCode=' + productCode + '&id=' + id;
+		
+		xhr.open('GET', url, true);
+
+		xhr.send();
+		
+		xhr.onload = (result) => {
+			if (xhr.status == 200) {
+				if(result == true) {
+					icon.classList.toggle("push");
+				}
+			} else {xhr.statusText}
+		}
+	}
+
+</script>
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
@@ -103,7 +130,7 @@
 		<ul class="items">
 				<c:forEach var="latesItem" items="${latestList}" end="7">
 					<li class="new_item">
-						<button><i class="bi bi-heart"></i></button>
+						<button><i class="bi bi-heart ${latesItem.likeState != 0 ? 'push':'' }" onclick="heartPush(this)" data-product_code="${latesItem.productCode}" data-id="${sessionScope.account.id}"></i></button>
 							<c:forEach var="image" items="${latesItem.productImageList}" end="0">
 								<div class="product_img">
 									<a href="product/view/${latesItem.productCode}"><img src="/upload/productimage/${latesItem.sellerId}/${latesItem.productCode}_${latesItem.productName}/${image.productImageUuid}"></a>

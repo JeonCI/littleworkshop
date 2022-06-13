@@ -16,6 +16,7 @@ public class Product {
 	private int productLikeCount;
 	private int productSellCount;
 	private int productViewCount;
+	private int likeState;
 	
 	private List<ProductOption> productOptionList;
 	private List<ProductImages> productImageList;
@@ -144,5 +145,13 @@ public class Product {
 
 	public void setProductViewCount(int productViewCount) {
 		this.productViewCount = productViewCount;
+	}
+
+	public int getLikeState() {
+		return likeState;
+	}
+
+	public void setLikeState(int likeState) {
+		this.likeState = likeState;
 	}
 }

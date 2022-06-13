@@ -16,6 +16,12 @@
 				</if>
 			</where>
 		</if>
+		<if test="sellerId != null">
+			<where>
+				p.seller_id = #{sellerId}
+			</where>
+		</if>
+			
 	</sql>
 	
 	<sql id="count">
@@ -48,7 +54,7 @@
 			<choose>
 				<!-- 최신작품 -->
 				<when test="condition.equals('lates')">
-					order by product_reg_date,product_code
+					order by product_reg_date, product_code desc
 				</when>
 				<!-- 인기작품 -->
 				<!-- <when test="condition == 'best'"> -->

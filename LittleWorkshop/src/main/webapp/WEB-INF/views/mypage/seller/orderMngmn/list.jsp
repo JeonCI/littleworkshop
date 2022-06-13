@@ -285,10 +285,19 @@ margin-bottom: 20px;
 		
 		<div id="buyerInfo">
 				<c:if test="${orderHistory.size() > 0}">
-					<c:if test="${item.orderStatus < 5 }">
-						<div id="spanDiv"><span onclick="selectAll();">전체선택</span> ｜ <span onclick="partialSelect();">선택접수</span></div>
+					<c:if test="${pager.status < 5 }">
+							<div id="spanDiv"><span onclick="selectAll();">전체선택</span>
+							｜ 
+							<span onclick="partialSelect();">
+								<c:if test="${pager.status == 1 }">선택 접수</c:if>
+								<c:if test="${pager.status == 2 }">선택 준비완료</c:if>									
+								<c:if test="${pager.status == 3 }">선택 발송접수</c:if>
+								<c:if test="${pager.status == 4 }">선택 배송완료</c:if>	
+							</span>
+							</div>
 					</c:if>
 					<c:forEach var="item" items="${orderHistory}" varStatus="status">
+
 						<div id="paymentList">
 							<div id="orderSelectDiv">
 
@@ -302,9 +311,9 @@ margin-bottom: 20px;
 									<span><a href="orderDetail/${item.orderListCode}">상세보기>></a></span>
 									<c:if test="${item.orderStatus < 5 }">
 										<button type="button" onclick="receptionBtn(${item.orderListCode}, this);">
-											<c:if test="${item.orderStatus == 1 }">주문 접수</c:if>
-											<c:if test="${item.orderStatus == 2 }">상품준비 완료</c:if>									
-											<c:if test="${item.orderStatus == 3 }">발송 접수</c:if>
+											<c:if test="${item.orderStatus == 1 }">주문접수</c:if>
+											<c:if test="${item.orderStatus == 2 }">상품준비완료</c:if>									
+											<c:if test="${item.orderStatus == 3 }">발송접수</c:if>
 											<c:if test="${item.orderStatus == 4 }">배송완료</c:if>								
 										</button>
 									</c:if>

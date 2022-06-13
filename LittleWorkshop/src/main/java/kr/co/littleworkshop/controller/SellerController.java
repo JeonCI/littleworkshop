@@ -53,7 +53,9 @@ public class SellerController {
 
 	// #상품관리
 	@RequestMapping("/productMngmn")
-	public String productMngmn(Model model, @ModelAttribute("pager") ProductPager pager) {
+	public String productMngmn(Model model, @ModelAttribute("pager") ProductPager pager, HttpSession session) {
+		Account account = (Account) session.getAttribute("account");
+		pager.setSellerId(account.getId());
 		List<Product> list = productService.list(pager);
 		List<ProductCategory> categoryList = categoryService.productCategoryList();	
 		model.addAttribute("list", list);

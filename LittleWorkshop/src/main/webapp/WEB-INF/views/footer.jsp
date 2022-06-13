@@ -34,11 +34,11 @@
             <p>제휴문의 : moacat@gmail.com</p>
             </div>
             <div>
-                <div class="footer_logo"><img src="image/logo.png"></div>
-                <div class="footer_sns"><img src="image/pngwing.com%20(1).png">
-                <img src="image/pngwing.com.png">
-                <img src="image/blog.png">
-                <img src="image/pngwing.com%20(2).png">
+                <div class="footer_logo"><img src="/image/logo.png"></div>
+                <div class="footer_sns"><img src="/image/pngwing.com%20(1).png">
+                <img src="/image/pngwing.com.png">
+                <img src="/image/blog.png">
+                <img src="/image/pngwing.com%20(2).png">
                 </div>
             </div>
         </div>

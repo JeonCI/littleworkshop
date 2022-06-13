@@ -269,9 +269,11 @@ font-weight: 600;
 .txt2>div>div:nth-child(2){
     text-align: right;
     width: 80%;
+    color: #222222;
 }
 .txt3{
     display: flex;
+    font-weight : bold;
 }
 #paymentInfo>div:nth-child(3){
     padding: 20px;
@@ -280,6 +282,7 @@ font-weight: 600;
 #totalPayment{
     width: 70%;
     text-align: right;
+    font-size: 24px;
 }
 .purchase_btn{
     width: 310px;
@@ -290,4 +293,5 @@ font-weight: 600;
     font-size: 18px;
     font-weight: bold;
     margin-left: 20px;
+    cursor:pointer;
 }

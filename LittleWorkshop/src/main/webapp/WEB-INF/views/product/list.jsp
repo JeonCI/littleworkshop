@@ -9,6 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Little Workshop</title>
+
 <style>
 
 a {
@@ -32,8 +33,12 @@ function setCategory(category){
 
 }
 </script>
+<link rel="stylesheet" href="list.css">
+<link rel="stylesheet" href="/css/header.css">
+<link rel="stylesheet" href="/css/footer.css">
 </head>
 <body>
+	<jsp:include page="../header.jsp"></jsp:include>
 	<div>
 		<h1>상품 목록</h1>
 		<form method="get" id="searchForm">
@@ -83,11 +88,7 @@ function setCategory(category){
 				</tbody>
 			</table>
 		</div>
-		<div>
-			<ul>
-				<li><a href="add">제품 등록</a></li>
-			</ul>
-		</div>
+
 	</div>
 	<div class="pager">
 		<div>
@@ -98,5 +99,6 @@ function setCategory(category){
 			<a href="?page=${pager.next }&${pager.query}">&nbsp; &gt;</a>
 		</div>
 	</div>
+	<jsp:include page="../footer.jsp"></jsp:include>
 </body>	
 </html>

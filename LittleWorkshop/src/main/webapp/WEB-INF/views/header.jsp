@@ -16,7 +16,7 @@
         <hr>
         <div class="container content_area">
             <div class="logo">
-                <a href="./"><img src="/image/logo.png"></a>
+                <a href="/"><img src="/image/logo.png"></a>
             </div>
            <form class="search" method="get" action="/product/search" autocomplete >
                <input class="searchbox" type="text" name="keyword" placeholder="원하시는 물건을 찾아보세요! ">
@@ -50,13 +50,12 @@
             <div><a href="#">공예</a></div>
         </div>
         	</div>
-            <div><a href="product/list">추천작품</a></div>
-            <div><a href="product/list?condition=lates">최신작품</a></div>
+            <div><a href="/product/list">추천작품</a></div>
+            <div><a href="/product/list?condition=lates">최신작품</a></div>
             <div><a href="#">인기작품</a></div>
             <div><a href="#">인기작가</a></div>
             <div><a href="#">작가추천</a></div>
             <div><a href="#">할인작품</a></div>
-            <div><a href="#">제품후기</a></div>
             <div><a href="#">기획/이벤트</a></div>
             <div><a href="notice/list">공지사항</a></div>
             <div id="shopmenu">
@@ -65,4 +64,5 @@
                 <ul><a href="/fd/fdMain">후원샵</a></ul>
             </div>
         </div>
+        <hr>
     </header>

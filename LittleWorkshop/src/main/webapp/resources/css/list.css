@@ -1,0 +1,93 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+a:link{
+    color: #222222;
+    text-decoration: none;
+}
+a:visited{
+    color: #222222;
+    text-decoration: none;
+}
+.banner{
+    width: 1920px;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+.banner .txt{
+    position: absolute;
+    top: 20%;
+	left: 50%;
+    font-size: 36px;
+    font-weight: bold;
+    color: #ffffff;
+}
+.banner .txt2{
+    position: absolute;
+    top: 50%;
+	left: 45%;
+    font-size: 20px;
+    text-align: left;
+    color: #ffffff;
+}
+.banner .txt2>span{
+    color: #ff9eb3;
+}
+.maincontent{
+    margin-left: 360px;
+    width: 1200px;
+}
+.category{
+    margin-top: 60px;
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+    padding: 20px 20px;
+    font-size: 16px;
+}
+.category>div>a{
+    color: #888888;
+}
+.item{
+    width: 288px;
+    height: 300px;
+    margin-top: 50px;
+    box-shadow: 0 0 0 1px #dddddd inset;
+    float:left;
+    margin-left: 10px;
+}
+.item>div{
+    margin-left: 15px;
+}
+.item>button{
+    border: 0;
+    background-color: #fff;
+    position: relative;
+    margin-left: 250px;
+}
+.pd-sellr>a{
+    font-size: 12px;
+    color: #888888;
+}
+.pd-name>a{
+    font-size: 14px;
+    font-weight: 500;
+}
+.pd-price>a{
+    font-size: 14px;
+    font-weight: 500;
+}
+.pd-price{
+    margin-top: 30px;
+}

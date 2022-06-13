@@ -53,10 +53,6 @@ public class ProductController {
 			pager.setId("");
 		}
 		
-		pager.setId("buyer1");
-		
-		System.out.println("ㅅㅂ" + pager.getId());
-		
 		if(pager.getKeyword() != null) {
 			keywordService.addKeyword(pager.getKeyword());
 			
@@ -68,7 +64,6 @@ public class ProductController {
 			}
 		}
 		
-		System.out.println(pager.getSearch());
 		
 		List<Product> list = service.list(pager);
 		List<ProductCategory> categoryList = categoryService.productCategoryList();
@@ -81,9 +76,10 @@ public class ProductController {
 	
 	
 	@GetMapping("/view/{productCode}")
-	public String view(@PathVariable int productCode, Model model) {
+	public String view(@PathVariable int productCode, Model model, HttpSession session) {
+
 		Product item = service.item(productCode);
-		service.viewCount(productCode);
+	
 
 		model.addAttribute("item", item);
 
@@ -189,15 +185,17 @@ public class ProductController {
 		return productCategoryCode;
 	}
 	
-	@GetMapping("/heartPushAction")
 	@ResponseBody
-	public boolean heartPushAction(int productCode, String id) {
-		if(id == "") {
-			return false;
-		} else {
-			service.heartPushAction(productCode, id);
-			
-			return true;
+	@GetMapping("/heartPushAction")
+	public String heartPushAction(int productCode,HttpSession session) {
+		Account account = (Account) session.getAttribute("account");
+		
+		
+		if(account == null)
+			return "fail";
+		else{
+			service.heartPushAction(productCode, account.getId());
+			return "success";
 		}
 	}
 

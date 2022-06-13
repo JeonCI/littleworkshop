@@ -113,10 +113,7 @@ public class ProductServiceImpl implements ProductService {
 		return dao.list(pager);
 	}
 
-	@Override
-	public Product item(int code) {
-		return dao.item(code);
-	}
+
 
 	@Override
 	public List<Product> categories() {
@@ -196,4 +193,10 @@ public class ProductServiceImpl implements ProductService {
 		}
 	}
 
+
+	@Override
+	public Product item(int code) {
+		dao.viewCount(code);
+		return dao.item(code);
+	}
 }

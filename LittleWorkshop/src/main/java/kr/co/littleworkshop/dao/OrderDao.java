@@ -24,4 +24,6 @@ public interface OrderDao {
 
 	void setOrderStatus(int orderCode);
 
+	void buyerCount(List<Integer> productCodeList);
+
 }

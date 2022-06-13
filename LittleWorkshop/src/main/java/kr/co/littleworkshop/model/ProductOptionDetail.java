@@ -5,7 +5,19 @@ public class ProductOptionDetail {
 	private int productOptionCode;
 	private String productOptionDetailName;
 	private int productSoldOut;
+	private int detailStatusCode;
 	
+	
+	
+
+	public int getDetailStatusCode() {
+		return detailStatusCode;
+	}
+
+	public void setDetailStatusCode(int detailStatusCode) {
+		this.detailStatusCode = detailStatusCode;
+	}
+
 	public int getProductOptionDetailCode() {
 		return productOptionDetailCode;
 	}

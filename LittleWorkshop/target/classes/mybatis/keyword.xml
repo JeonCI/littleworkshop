@@ -15,7 +15,7 @@
 	
 	<insert id="addAttentionKeyword">
 		INSERT INTO attention_keyword
-		VALUES(ATTENTION_KEYWORD_SEQ.nextval, #{id}, #{searchKeywordCode})
+		VALUES(ATTENTION_KEYWORD_SEQ.nextval, #{id}, #{searchKeywordCode}, sysdate)
 	</insert>
 	
 </mapper>

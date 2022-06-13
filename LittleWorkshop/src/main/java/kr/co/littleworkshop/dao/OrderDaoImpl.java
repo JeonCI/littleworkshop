@@ -67,4 +67,10 @@ public class OrderDaoImpl implements OrderDao {
 		sql.update("order.setOrderStatus",code);
 		
 	}
+
+	@Override
+	public void buyerCount(List<Integer> productCodeList) {
+		sql.update("order.buyerCount",productCodeList);
+		
+	}
 }

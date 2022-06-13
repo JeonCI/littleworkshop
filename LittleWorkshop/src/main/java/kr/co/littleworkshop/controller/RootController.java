@@ -34,12 +34,10 @@ public class RootController {
 		Account account = (Account) session.getAttribute("account");
 		
 		if(account != null) {
-			pager.setId(account.getId());
+			pager.setId(account.getId()); 
 		}else {
 			pager.setId("");
 		}
-		
-		System.out.println(pager.getId());
 		
 		//최신작품
 		pager.setCondition("lates");

@@ -1,5 +1,6 @@
 package kr.co.littleworkshop.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,16 +40,20 @@ public class OrderServiceImpl implements OrderService {
 	@Transactional
 	@Override
 	public void add(Order order) {
+		List<Integer> productCodeList = new ArrayList<Integer>();
 		dao.addOrder(order);
 		
 		for(ProductOrderDetail item : order.getOrderDetailList()) {
 			item.setOrderListCode(order.getOrderListCode());
+			productCodeList.add(item.getProductCode());
 			dao.addOrderDetail(item);
 		}
-		
+
 		if(order.getBasketList() != null)
 			for(int code : order.getBasketList()) 
 				basketDao.delete(code, order.getId());
+		
+		dao.buyerCount(productCodeList);
 	
 	}
 

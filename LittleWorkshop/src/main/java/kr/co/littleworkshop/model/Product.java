@@ -16,6 +16,7 @@ public class Product {
 	private int productLikeCount;
 	private int productSellCount;
 	private int productViewCount;
+	private int productBuyersCount;
 	private int likeState;
 	
 	private List<ProductOption> productOptionList;
@@ -23,6 +24,14 @@ public class Product {
 	private List<Basket> basketList;
 	private List<Tag> tagList;
 
+
+	public int getProductBuyersCount() {
+		return productBuyersCount;
+	}
+
+	public void setProductBuyersCount(int productBuyersCount) {
+		this.productBuyersCount = productBuyersCount;
+	}
 
 	public List<Basket> getBasketList() {
 		return basketList;

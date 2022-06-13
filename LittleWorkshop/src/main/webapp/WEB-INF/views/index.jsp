@@ -21,30 +21,37 @@
 <link rel="stylesheet" href="/css/index.css">
 <link rel="stylesheet" href="/css/header.css">
 <link rel="stylesheet" href="/css/footer.css">
-
 <script>
 
 	function heartPush(icon){
-		var xhr = new XMLHttpRequest();
-
-        let productCode = icon.dataset.product_code;
-        let id = icon.dataset.id;
-        
-        console.log(productCode, id);
-
-        let url = 'product/heartPushAction?productCode=' + productCode + '&id=' + id;
 		
-		xhr.open('GET', url, true);
-
-		xhr.send();
 		
-		xhr.onload = (result) => {
-			if (xhr.status == 200) {
-				if(result == true) {
-					icon.classList.toggle("push");
-				}
-			} else {xhr.statusText}
-		}
+	
+		
+			var xhr = new XMLHttpRequest();
+	
+	        let productCode = icon.dataset.product_code;
+	        let url = 'product/heartPushAction?productCode=' + productCode;
+			
+			xhr.open('GET', url, true);
+			xhr.send();
+			xhr.onload = () => {
+				if (xhr.status == 200){
+					
+					if(xhr.response === "success")
+						icon.classList.toggle("push");
+					else{
+						let login = confirm("로그인이 필요한 서비스입니다.");
+						if(login)
+							location.href= "/login";
+						
+					}
+					
+				}else
+					console.log(xhr.statusText);
+	
+			}
+		
 	}
 
 </script>
@@ -130,7 +137,7 @@
 		<ul class="items">
 				<c:forEach var="latesItem" items="${latestList}" end="7">
 					<li class="new_item">
-						<button><i class="bi bi-heart ${latesItem.likeState != 0 ? 'push':'' }" onclick="heartPush(this)" data-product_code="${latesItem.productCode}" data-id="${sessionScope.account.id}"></i></button>
+						<button><i class="bi bi-heart ${latesItem.likeState != 0 ? 'push':'' }" onclick="heartPush(this)" data-product_code="${latesItem.productCode}"></i></button>
 							<c:forEach var="image" items="${latesItem.productImageList}" end="0">
 								<div class="product_img">
 									<a href="product/view/${latesItem.productCode}"><img src="/upload/productimage/${latesItem.sellerId}/${latesItem.productCode}_${latesItem.productName}/${image.productImageUuid}"></a>

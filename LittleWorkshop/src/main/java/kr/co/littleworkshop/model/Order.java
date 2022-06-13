@@ -8,12 +8,11 @@ public class Order {
 	private int orderListCode;
 	private String id;
 	private int addressCode;
-	private int orderStatus;
 	private Date orderDate;
 	private String orderPayment;
 	private int paymentPrice;
 	private String orderStatusName;
-	
+	private int orderStatus;
 	private List<Integer> basketList;
 	private List<ProductOrderDetail> orderDetailList;
 	private List<Product> productList;
@@ -22,6 +21,12 @@ public class Order {
 
 
 
+	public int getOrderStatus() {
+		return orderStatus;
+	}
+	public void setOrderStatus(int orderStatus) {
+		this.orderStatus = orderStatus;
+	}
 	public String getOrderStatusName() {
 		return orderStatusName;
 	}
@@ -63,12 +68,6 @@ public class Order {
 	}
 	public void setAddressCode(int addressCode) {
 		this.addressCode = addressCode;
-	}
-	public int getOrderStatus() {
-		return orderStatus;
-	}
-	public void setOrderStatus(int orderStatus) {
-		this.orderStatus = orderStatus;
 	}
 	public Date getOrderDate() {
 		return orderDate;

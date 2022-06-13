@@ -143,20 +143,29 @@
 	</select>
 	
 	<insert id="addOrder">
-		INSERT INTO ORDER_LIST VALUES(ORDER_SEQ.nextval, #{id}, #{addressCode}, 1, sysdate, #{orderPayment}, #{paymentPrice})
+		INSERT INTO ORDER_LIST VALUES(ORDER_SEQ.nextval, #{id}, #{addressCode},1, sysdate, #{orderPayment}, #{paymentPrice})
 		<selectKey keyProperty="orderListCode" resultType="int" order="AFTER">
 			SELECT ORDER_SEQ.CURRVAL FROM DUAL
 		</selectKey>
 	</insert>
 	
 	<insert id="addOrderDetail">
-		INSERT INTO product_order_detail VALUES(PRODUCT_ORDERS_DETAIL_SEQ.nextval, #{orderListCode}, #{productCode}, #{orderPrice}, #{orderInfo}, #{orderAmount})
+		INSERT INTO product_order_detail VALUES(PRODUCT_ORDERS_DETAIL_SEQ.nextval, #{orderListCode}, #{productCode}, 1, #{orderPrice}, #{orderInfo}, #{orderAmount})
 	</insert>
 	
 	<update id="setOrderStatus">
 		UPDATE ORDER_LIST SET
 		ORDER_STATUS = ORDER_STATUS+1
 		WHERE ORDER_LIST_CODE = #{code}
+		
+	</update>
+	
+	<update id="buyerCount">
+		UPDATE PRODUCT SET
+		PRODUCT_BUYERS_COUNT = PRODUCT_BUYERS_COUNT+1
+		<foreach collection="list" item="list" open="WHERE PRODUCT_CODE IN(" separator="," close=")">
+			#{list}
+		</foreach>
 		
 	</update>
 

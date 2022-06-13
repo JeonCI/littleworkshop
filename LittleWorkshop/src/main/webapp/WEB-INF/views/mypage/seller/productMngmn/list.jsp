@@ -46,6 +46,8 @@ function setCategory(category){
 						<td>상품명</td>
 						<td>상품가격</td>
 						<td>상품 등록일</td>
+						<td>상품조회수</td>
+						<td>상품판매수</td>
 						<td>관리</td>
 					</tr>
 				</thead>
@@ -65,6 +67,8 @@ function setCategory(category){
 							<td><a href="productMngmn/view/${item.productCode}">${item.productName}</a></td>
 							<td>${item.productPrice}</td>
 							<td><fmt:formatDate value="${item.productRegDate }" pattern="yyyy/MM/dd"/></td>
+							<td>${item.productViewCount}</td>
+							<td>${item.productBuyersCount}</td>
 							<td><a href="productMngmn/update/${item.productCode }">수정</a> / <a href="productMngmn/delete/${item.productCode }">삭제</a></td>
 						</tr>
 					</c:forEach>

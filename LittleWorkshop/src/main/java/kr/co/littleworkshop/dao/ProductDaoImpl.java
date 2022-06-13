@@ -22,7 +22,6 @@ public class ProductDaoImpl implements ProductDao {
 	
 	@Override
 	public List<Product> list(ProductPager pager) {
-		System.out.println(pager.getId());
 		return sql.selectList("product.list", pager);
 	}
 

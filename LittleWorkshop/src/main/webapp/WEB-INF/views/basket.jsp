@@ -295,6 +295,10 @@ function paymentBtn(){
 			<c:if test="${list.size() > 0 }">
 				<div id="spanDiv"><span onclick="selectAll();">전체선택</span> ｜ <span onclick="partialDeletion();">선택삭제</span></div>
 				<form id="paymentForm" action="/payment" method="post" onsubmit="return false">
+				
+				
+				
+				<div id="sellerArea">
 				<c:forEach var="seller" items="${sellerList}">
 					<div class="sellerBox">
 						<input type="checkbox" class="sellerCheck checkbox" onclick="sellerCheck(this);" checked>
@@ -349,17 +353,21 @@ function paymentBtn(){
 						</div>
 					</div>
 				</c:forEach>
+				</div>
+				
+				
+				
 				<div id="paymentInfo">
-					<span>결제정보</span>
-					<div>
-						<div><span>상품수</span><span id="paymentAmount"></span></div>
-						<div><span>상품금액</span><span id="paymentPrice"></span></div>
-						<div><span>배송비</span><span id="paymentDelivery"></span></div>
+					<div class="txt1">결제정보</div>
+					<div class="txt2">
+                        <div><div>상품수</div><div id="paymentAmount"></div></div>
+                        <div><div>상품금액</div><div id="paymentPrice"></div></div>
+                        <div><div>배송비</div><div id="paymentDelivery"></div></div>
 					</div>
-					<div>
-						<span>총 결제금액</span><span id="totalPayment"></span>
+					<div class="txt3">
+						<div>총 결제금액</div><div id="totalPayment"></div>
 					</div>
-					<button type="button" onclick="paymentBtn();">구매하기</button>
+					<button class="purchase_btn" type="button" onclick="paymentBtn();">결제하기</button>
 				</div>
 				</form>
 			</c:if>

@@ -1,4 +1,4 @@
-* {
+ * {
     margin: 0;
     padding: 0;
     text-decoration: none;
@@ -180,6 +180,6 @@ a:visited{
     background-color: #fff;
 }
 
-.new_item>button>.push {
+button>.push {
 	background-color: red;
 }

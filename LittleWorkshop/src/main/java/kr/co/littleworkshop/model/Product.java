@@ -18,12 +18,23 @@ public class Product {
 	private int productViewCount;
 	private int productBuyersCount;
 	private int likeState;
+	private double salesRate;
 	
 	private List<ProductOption> productOptionList;
 	private List<ProductImages> productImageList;
 	private List<Basket> basketList;
 	private List<Tag> tagList;
 
+
+	
+	
+	public double getSalesRate() {
+		return salesRate;
+	}
+
+	public void setSalesRate(double salesRate) {
+		this.salesRate = salesRate;
+	}
 
 	public int getProductBuyersCount() {
 		return productBuyersCount;

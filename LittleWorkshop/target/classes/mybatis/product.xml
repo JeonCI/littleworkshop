@@ -22,37 +22,29 @@
 			</where>
 		</if>
 		<if test="search == 0">
-			<where>
-				<if test="keyword != null">
+			<if test="keyword != null">
+				<where>
 					p.product_category_code = #{search} AND p.product_name LIKE CONCAT('%',CONCAT(#{keyword},'%')) OR tl.tag_name LIKE CONCAT('%',CONCAT(#{keyword},'%'))
-				</if>
-
-			</where>
+				</where>
+			</if>
 		</if>
 			
 	</sql>
 
 	
-	<sql id="order">
+	<sql id="condition">
 		<if test="condition != null">
-			<choose>
-				<!-- 최신작품 -->
-				<when test="condition.equals('lates')">
-					order by product_reg_date, product_code desc
-				</when>
-				<!-- 인기작품 -->
-				<!-- <when test="condition == 'best'"> -->
-				<!-- </when> -->
-				<!-- 추천작품 -->
-				<!-- <when test="condition == 'rcmnd'"> -->
-				<!-- </when> -->
-				<!-- 할인작품 -->
-				<!-- <when test="condition == 'sale'"> -->
-				<!-- </when> -->
-			</choose>
+			<!-- 최신작품 -->
+			<if test="condition.equals('lates')">
+				order by product_reg_date, product_code desc
+			</if>
+			<if test="condition.equals('best')">
+				<if test="search != 0">
+					and product_category_code = #{search}
+				</if>
+			</if>
 		</if>
 	</sql>
-	
 	
 	<sql id="likeList">
 		<if test="id != null">
@@ -74,6 +66,7 @@
 		<result column="PRODUCT_BUYERS_COUNT" property="productBuyersCount"/>
 		<result column="PRODUCT_VIEW_COUNT" property="productViewCount"/>
 		<result column="like_state" property="likeState"/>
+		<result column="sales_rate" property="salesRate"/>
 <!-- 		<result column="product_sell_count" property="productSellCount"/> -->
 <!-- 		<result column="like_state" property="likeState"/> -->
 
@@ -139,7 +132,7 @@
 			LEFT JOIN tag_list tl ON ptl.tag_code = tl.tag_code
 			LEFT JOIN (SELECT * FROM product_like_list <include refid="likeList"></include>) pll ON pll.product_code = p.product_code)
 		<![CDATA[ WHERE RNUM > ((#{page} - 1) * #{perPage}) and RNUM <= ( #{page} * #{perPage})	]]>
-		 <include refid="order"></include>
+		 <include refid="condition"></include>
 	</select>
 	
 	<select id="total" resultType="Integer">
@@ -270,5 +263,30 @@
 		DELETE product_like_list
 		WHERE id = #{id} AND product_code = #{productCode}
 	</delete>
+	
+	<select id="bestList" resultMap="ProductMap">
+		 select sub.*,
+		    pi.product_code pi_product_code,
+		    pi.product_image_code product_image_code,
+		    pi.product_image_uuid product_image_uuid,
+		    pi.product_image_name product_image_name,
+		    c.product_category product_category,
+		    tl.tag_code tag_code,
+		    tl.tag_name tag_name,
+		    pll.product_like_code like_state,
+		    c.product_category product_category
+		    from (SELECT * FROM (SELECT  ROWNUM AS RNUM,
+		    p.*,  ROUND((p.PRODUCT_BUYERS_COUNT + (NVL(ll.count,0))) / (PRODUCT_VIEW_COUNT +  p.PRODUCT_BUYERS_COUNT + nvl(cc.count,0)),5) as sales_rate, ll.count as likeCount, cc.count as basketCount
+		        FROM (select * from product where PRODUCT_BUYERS_COUNT > 5 and PRODUCT_BUYERS_COUNT IS not NULL <include refid="condition"></include>) p
+		            LEFT JOIN (select product_code, count(product_code) as count FROM basket GROUP by product_code) cc ON cc.product_code = p.product_code
+		            LEFT JOIN (SELECT product_code, count(product_code) as count FROM product_like_list group by product_code) ll on ll.product_code = p.product_code
+		            ORDER BY sales_rate DESC, p.PRODUCT_BUYERS_COUNT)) sub
+		            LEFT JOIN product_category_list c ON sub.product_category_code = c.product_category_code
+		         LEFT JOIN PRODUCT_IMAGES pi ON pi.product_code = sub.product_code
+		         LEFT JOIN product_tag_list ptl ON sub.product_code = ptl.product_code
+		         LEFT JOIN tag_list tl ON ptl.tag_code = tl.tag_code
+		         LEFT JOIN (SELECT * FROM product_like_list) pll ON pll.product_code = sub.product_code
+	</select>
+	
 	
 </mapper>

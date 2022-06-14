@@ -22,7 +22,21 @@ public class ProductDaoImpl implements ProductDao {
 	
 	@Override
 	public List<Product> list(ProductPager pager) {
+		
+		if(pager.getCondition() != null) {
+			if(pager.getCondition().equals("lates")) {
+				System.out.println("최신작품 들어옴!");
+				return sql.selectList("product.list", pager);
+
+			}
+			else if(pager.getCondition().equals("best")) {
+				return sql.selectList("product.bestList", pager);
+			}
+		}
+		
 		return sql.selectList("product.list", pager);
+		
+		
 	}
 
 	@Override

@@ -68,51 +68,54 @@ function setOption(option){
  		//옵션이름 끝
  		
 		 //수량바 시작
-                amtDiv = document.createElement('div');
-                countDiv = document.createElement('div');
-                countInput = document.createElement('input');
-                addBtn = document.createElement('butten');
-                removeBtn = document.createElement('butten');
+ 		//수량바 시작
+        amtDiv = document.createElement('div');
+        countDiv = document.createElement('div');
+        countInput = document.createElement('input');
+        addBtn = document.createElement('button');
+        removeBtn = document.createElement('button');
 
-                addBtn.innerHTML = "add";
-                removeBtn.innerHTML = "remove";
-                addBtn.className = "material-symbols-outlined";
-                addBtn.setAttribute("onclick", "addOptionAmount(this);");
-                removeBtn.className = "material-symbols-outlined";
-                removeBtn.setAttribute("onclick", "removeOptionAmount(this);");
+        addBtn.innerHTML = "add";
+        removeBtn.innerHTML = "remove";
+        addBtn.className = "material-symbols-outlined";
+        addBtn.setAttribute("onclick", "addOptionAmount(this);");
+        removeBtn.className = "material-symbols-outlined";
+        removeBtn.setAttribute("onclick", "removeOptionAmount(this);");
 
-                countInput.className = "productAmount";
-                countInput.setAttribute("value", "1");
-                countInput.setAttribute("type", "text");
-                countInput.setAttribute("name", "items[" + count++ + "].productAmount");
-                countInput.setAttribute("onclick", "setOptionAmount(this);");
-                countDiv.append(removeBtn);
-                countDiv.append(countInput)
-                countDiv.append(addBtn);
-                amtDiv.append(countDiv);
-                //수량바 끝
+        countInput.className = "productAmount";
+        countInput.setAttribute("value", "1");
+        countInput.setAttribute("type", "text");
+        countInput.setAttribute("name", "items[" + count++ + "].productAmount");
+        countInput.setAttribute("onclick", "setOptionAmount(this);");
+        countDiv.append(removeBtn);
+        countDiv.append(countInput)
+        countDiv.append(addBtn);
+        amtDiv.append(countDiv);
+        //수량바 끝
 
-                //금액 시작
-                priceSpan = document.createElement('div');
-                priceSpan.className = 'price';
-                priceSpan.innerText = document.getElementById("productPrice").getAttribute("data-price") + "원";
-                amtDiv.append(priceSpan);
-                //금액 끝
+        //금액 시작
+        priceSpan = document.createElement('div');
+        priceSpan.className = 'price';
+        priceSpan.innerText = document.getElementById("productPrice").getAttribute("data-price") + "원";
+        amtDiv.append(priceSpan);
+        //금액 끝
 
-                div.append(amtDiv);
- 		
- 		//삭제버튼 시작
- 		deleteSpan = document.createElement('span');
- 		deleteSpan.innerText = " x";
- 		deleteSpan.className = "deleteOption";
- 		deleteSpan.setAttribute("onClick","deleteOption(this);");
- 		div.append(deleteSpan);
- 		//삭제버튼 끝
- 		
- 		document.getElementById("optionContiner").append(div);
- 		totalPrice();
+       
 
-	}
+        //삭제버튼 시작
+        deleteSpan = document.createElement('span');
+        deleteSpan.innerText = " x";
+        deleteSpan.className = "deleteOption";
+        deleteSpan.setAttribute("onClick", "deleteOption(this);");
+        amtDiv.append(deleteSpan);
+        //삭제버튼 끝
+
+         div.append(amtDiv);
+        
+        document.getElementById("optionContiner").append(div);
+        totalPrice();
+
+    }
 }
 //삭제
 function deleteOption(option){

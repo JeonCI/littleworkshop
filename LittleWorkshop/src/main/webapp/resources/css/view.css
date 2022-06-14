@@ -108,7 +108,8 @@ select{
 .total_price{
     font-size: 16px;
     color: #222222;
-    margin-left: 495px;
+    width: 100%;
+    text-align: right;
     margin-top: 35px;
 }
 .total_price>div>span{
@@ -137,8 +138,8 @@ select{
 }
 #optionContiner>div{
     margin-top: 20px;
-    width: 600px;
-    height: 105px;
+    width: 580px;
+    height: 85px;
     background-color: #f7f6f6;
     line-height: 30px;
 }
@@ -153,8 +154,12 @@ select{
     text-align: center;
     border: 0;
 }
+#optionContiner>div{
+    padding: 20px;
+}
 #optionContiner>div>div{
     display: flex;
+    margin-top: 20px;
 }
 #optionContiner>div>div>div:nth-child(1){
     display: flex;
@@ -163,7 +168,7 @@ select{
     border: 1px solid #dddddd;
     }
 
-#optionContiner>div>div>button{
+#optionContiner>div>div>div:nth-child(1)>button{
     width: 30px;
     border: 0;
     color: #dddddd;
@@ -171,14 +176,16 @@ select{
 }
 .amtDiv{
     display: flex;
+    
 }
 .price{
-    margin-left: 200px;
+    margin-left: 110px;
     text-align: right;
     width: 50%;
 }
-
-
+.deleteOption{
+    margin-left: 20px;
+}
 
 .maincontent{
     margin-left: 360px;

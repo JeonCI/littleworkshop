@@ -137,7 +137,7 @@
 		<ul class="items">
 				<c:forEach var="latesItem" items="${latestList}" end="7">
 					<li class="new_item">
-						<button><i class="bi bi-heart ${latesItem.likeState != 0 ? 'push':'' }" onclick="heartPush(this)" data-product_code="${latesItem.productCode}"></i></button>
+						<button><i class="bi bi-heart ${latesItem.likeState != 0 ? 'push':''}" onclick="heartPush(this)" data-product_code="${latesItem.productCode}"></i></button>
 							<c:forEach var="image" items="${latesItem.productImageList}" end="0">
 								<div class="product_img">
 									<a href="product/view/${latesItem.productCode}"><img src="/upload/productimage/${latesItem.sellerId}/${latesItem.productCode}_${latesItem.productName}/${image.productImageUuid}"></a>

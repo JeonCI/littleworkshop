@@ -65,7 +65,11 @@ function setCategory(category){
 				<c:forEach var="item" items="${list }">
 					<li class="item">
 						<button><i class="bi bi-heart"></i></button>
-						<div><img src="/upload/productimage/${latesItem.sellerId}/${latesItem.productCode}_${latesItem.productName}/${image.productImageUuid}"></div>
+						<c:forEach var="image" items="${item.productImageList}" end="0">
+								<div>
+									<a href="product/view/${item.productCode}"><img src="/upload/productimage/${item.sellerId}/${item.productCode}_${item.productName}/${image.productImageUuid}"></a>
+								</div>
+							</c:forEach>
 						<div class="pd-sellr"><a href="#">${item.sellerId}</a></div>
 						<div class="pd-name"><a href="view/${item.productCode}">${item.productName}</a></div>
 						<div class="pd-price"><a href="#">${item.productPrice}원</a></div>

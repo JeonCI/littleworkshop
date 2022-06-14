@@ -246,7 +246,7 @@ function order(){
 </head>
 <body>
 	<jsp:include page="../header.jsp"></jsp:include>
-	<div>
+	<div class="main">
         <form name="items" id="paymentForm" action="/payment" method="post" onsubmit="return false">
 
             <div class="container productcontent">

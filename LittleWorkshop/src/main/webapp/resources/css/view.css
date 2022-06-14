@@ -10,6 +10,9 @@ body {
     overflow-x: hidden;
     overflow-y: auto;
 }
+.main{
+	margin-top:50px;
+}
 body>div{
 	
 	width:1200px;
@@ -45,25 +48,28 @@ body>div{
     display: flex;
     flex-direction: column;
     margin-left:60px;
+   
 }
 .product_deatil-1{
     display: flex;
      font-size: 14px;
     color: #555555;
+     padding-bottom: 15px;
+    border-bottom: 1px solid #dddddd;
 }
 .bar{
     font-size: 12px;
     color: #dddddd;
     line-height: 20px;
 }
-.product_detail-2>h2{
+.product_detail-2>div{
     font-size: 20px;
     width: 90%;
     font-weight: 400
 }
 .product_detail-2{
     display: flex;
-    margin-top: 38px;
+    margin-top: 20px;
 }
 .like{
     font-size: 20px;
@@ -116,6 +122,8 @@ select{
 }
 .total_price>div>span{
     color: #92b6f3;
+    margin-left:50px;
+    text-align:right;
 }
 .buttons{
     display: flex;

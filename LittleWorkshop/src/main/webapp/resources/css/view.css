@@ -33,11 +33,12 @@ body>div{
 }
 .sub_images{
     display: flex;
+    justify-content: space-between;
+    margin-top: 1px;
 }
 .sub_img{
     width: 126px;
     height: 126px;
-    margin-right: 5px;
 }
 .sub_img>img{
     width: 126px;

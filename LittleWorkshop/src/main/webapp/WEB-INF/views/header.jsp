@@ -5,12 +5,12 @@
         	<c:if test="${account != null }">
 				${account.nickName} 님
 				<ul class="bar">｜</ul>
-				<ul><a href="logout">로그아웃</a></ul>
+				<ul><a href="/logout">로그아웃</a></ul>
 			</c:if>
 			<c:if test="${account == null }">
-			<ul><a href="login">로그인</a></ul>
+			<ul><a href="/login">로그인</a></ul>
 			<ul class="bar">｜</ul>
-            <ul><a href="signup">회원가입</a></ul>
+            <ul><a href="/signup">회원가입</a></ul>
 			</c:if>
         </div>
         <hr>

@@ -124,20 +124,23 @@ input::placeholder {
     font-size: 15px;
     line-height: 70px;
 }
-
+.search{
+	width: 70%;
+}
 .icon {
     display: flex;
     background-color: #00ff0000;
-    margin-left: 180px;
     margin-bottom: 0;
     margin-top: 0;
     padding: 7px;
     font-size: 30px;
     line-height: 50px;
-    justify-content: flex-end;
 }
-
-.icon > i {
+.icon>a{
+	width:auto;
+	height:auto;
+}
+.icon >a> i {
     margin-left: 60px;
 }
 

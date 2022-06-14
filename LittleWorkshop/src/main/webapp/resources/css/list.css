@@ -75,14 +75,12 @@ a:visited{
     float:left;
     margin-left: 10px;
 }
-.item>div{
-    margin-left: 15px;
-}
-.item>button{
-    border: 0;
-    background-color: #fff;
-    position: relative;
-    margin-left: 250px;
+.item>div>a>img{
+	width: 286px;
+	height : 160px;
+	object-fit: cover;
+	margin-left : 1px;
+	margin-top : 1px;
 }
 .pd-sellr>a{
     font-size: 12px;

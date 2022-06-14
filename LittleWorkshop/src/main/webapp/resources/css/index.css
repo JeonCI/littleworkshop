@@ -11,9 +11,7 @@ body {
     overflow-y: auto;
     margin: auto;
 }
-form{
-	width:1348px;
-}
+
 input:focus {
     outline: none;
 }

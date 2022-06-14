@@ -32,4 +32,34 @@ public class KeywordDaoImpl implements KeywordDao {
 		sql.insert("keyword.addAttentionKeyword", map);
 	}
 
+	@Override
+	public void addAttCategory(int code, String id) {
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("id", id);
+		map.put("code", code);
+		
+		sql.insert("keyword.addAttCategory", map);
+		
+	}
+
+	@Override
+	public int attCategoryCheck(int code, String id) {
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("id", id);
+		map.put("code", code);
+		
+		return sql.selectOne("keyword.attCategoryCheck", map);
+	}
+
+	@Override
+	public void updateAttCategory(int code, String id) {
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("id", id);
+		map.put("code", code);
+		
+		sql.update("keyword.updateAttCategory", map);
+
+	}
+
+
 }

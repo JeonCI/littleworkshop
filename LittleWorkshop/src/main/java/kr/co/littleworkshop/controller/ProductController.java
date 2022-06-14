@@ -110,11 +110,15 @@ public class ProductController {
 	
 	@GetMapping("/view/{productCode}")
 	public String view(@PathVariable int productCode, Model model, HttpSession session) {
-
-		Product item = service.item(productCode);
-	
-
-		model.addAttribute("item", item);
+		Account account = (Account) session.getAttribute("account");
+		Product item;
+		if(account!= null) 
+			item = service.item(productCode, account.getId());
+		else 
+			item = service.item(productCode);
+		
+		
+		model.addAttribute("item",item);
 
 		return path + "view";
 	}

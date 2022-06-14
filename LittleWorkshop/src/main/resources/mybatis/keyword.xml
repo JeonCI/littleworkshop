@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="keyword">
+
 	
 	<insert id="addKeyword">
 		INSERT INTO search_keyword_list
@@ -17,5 +18,24 @@
 		INSERT INTO attention_keyword
 		VALUES(ATTENTION_KEYWORD_SEQ.nextval, #{id}, #{searchKeywordCode}, sysdate)
 	</insert>
+	
+	
+	<select id="attCategoryCheck" resultType="Integer">
+		SELECT count(*) FROM attention_category
+		WHERE product_category_code = #{code} AND id = #{id}
+	</select>
+	
+	
+	<insert id="addAttCategory">
+		INSERT INTO attention_category
+		VALUES(ATTENTION_CATEGORY_SEQ.nextval, #{id}, #{code}, 1, sysdate)
+	</insert>
+	
+	<update id="updateAttCategory">
+		UPDATE ATTENTION_CATEGORY SET
+		attention_count = attention_count+1,
+		attention_category_reg_date = sysdate
+		where product_category_code = #{code} AND id = #{id}
+	</update>
 	
 </mapper>

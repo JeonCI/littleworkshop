@@ -8,4 +8,10 @@ public interface KeywordDao {
 
 	void addAttentionKeyword(String id, int searchKeywordCode);
 
+	void addAttCategory(int code, String id);
+
+	int attCategoryCheck(int code, String id);
+
+	void updateAttCategory(int code, String id);
+
 }

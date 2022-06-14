@@ -11,67 +11,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-*{
-    margin: 0px;
-    padding: 0px;
-}
-.material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 100,
-  'GRAD' -25,
-  'opsz' 12
-}
-
-.material-symbols-outlined {
-      font-variation-settings:
-      'FILL' 0,
-      'wght' 100,
-      'GRAD' 25,
-      'opsz' 12,
-    }  
-
-#optionContiner{  
-    margin-top: 20px;
-    display: block;
-    }
-    
-#optionContiner > div {
- 	background-color: #eeeeee;
-	width: 300px;
-	margin-bottom: 15px;
-}
-#optionContiner > div >div> butten {
-    border: 1px solid #dddddd;
-    border-radius: 5px;
-    background-color: white;
-    color : #888888;
-    font-size: 22px;
-    margin: auto;
-    vertical-align: middle;
-    cursor : pointer;
-}
-#optionContiner > div>div> input{
-	line-height : 24px;
-    width: 50px;
-    text-align: center;
-    color : #555555;
-    border : none;
-    font-size: 14px;
-    vertical-align: middle;
-}
-
-#optionContiner > div > .deleteOption{
-	width : 20px;
-	float: right;
-	cursor : pointer;
-}
-.productImage{
-width: 100px;
-height: 100px;
-}
-</style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 productList=[];
@@ -128,37 +67,39 @@ function setOption(option){
  		div.innerHTML += html;
  		//옵션이름 끝
  		
-		//수량바 시작
-		countDiv = document.createElement('div');
-		countInput = document.createElement('input');
-		addBtn = document.createElement('butten');
-		removeBtn = document.createElement('butten');
-		
-		addBtn.innerHTML="add";
-		removeBtn.innerHTML= "remove";
-		addBtn.className = "material-symbols-outlined";
-		addBtn.setAttribute("onclick","addOptionAmount(this);");
-		removeBtn.className  ="material-symbols-outlined";
-		removeBtn.setAttribute("onclick","removeOptionAmount(this);");
-		
-		countInput.className = "productAmount";
-		countInput.setAttribute("value","1");
-		countInput.setAttribute("type","text");
-		countInput.setAttribute("name","items[" + count++ + "].productAmount");
-		countInput.setAttribute("onclick","setOptionAmount(this);");
- 		countDiv.append(removeBtn);
- 		countDiv.append(countInput)
- 		countDiv.append(addBtn);
- 		
- 		div.append(countDiv);
- 		//수량바 끝
- 		
-		//금액 시작
-		priceSpan = document.createElement('span');
-		priceSpan.className = 'price';
- 		priceSpan.innerText = document.getElementById("productPrice").getAttribute("data-price")+"원";
- 		div.append(priceSpan);
- 		//금액 끝
+		 //수량바 시작
+                amtDiv = document.createElement('div');
+                countDiv = document.createElement('div');
+                countInput = document.createElement('input');
+                addBtn = document.createElement('butten');
+                removeBtn = document.createElement('butten');
+
+                addBtn.innerHTML = "add";
+                removeBtn.innerHTML = "remove";
+                addBtn.className = "material-symbols-outlined";
+                addBtn.setAttribute("onclick", "addOptionAmount(this);");
+                removeBtn.className = "material-symbols-outlined";
+                removeBtn.setAttribute("onclick", "removeOptionAmount(this);");
+
+                countInput.className = "productAmount";
+                countInput.setAttribute("value", "1");
+                countInput.setAttribute("type", "text");
+                countInput.setAttribute("name", "items[" + count++ + "].productAmount");
+                countInput.setAttribute("onclick", "setOptionAmount(this);");
+                countDiv.append(removeBtn);
+                countDiv.append(countInput)
+                countDiv.append(addBtn);
+                amtDiv.append(countDiv);
+                //수량바 끝
+
+                //금액 시작
+                priceSpan = document.createElement('div');
+                priceSpan.className = 'price';
+                priceSpan.innerText = document.getElementById("productPrice").getAttribute("data-price") + "원";
+                amtDiv.append(priceSpan);
+                //금액 끝
+
+                div.append(amtDiv);
  		
  		//삭제버튼 시작
  		deleteSpan = document.createElement('span');
@@ -295,47 +236,122 @@ function order(){
 
 
 </script>
+<link rel="stylesheet" href="/css/view.css">
+<link rel="stylesheet" href="/css/header.css">
+<link rel="stylesheet" href="/css/footer.css">
+
 </head>
 <body>
 	<div>
-	<form name="items" id="paymentForm" action="/payment" method="post" onsubmit="return false">
+        <form name="items" id="paymentForm" action="/payment" method="post" onsubmit="return false">
 
-		<div>
-			<p>${item.sellerId }</p>
-			<p>${item.productCategory }</p>
-			<p>${item.productName }</p>
-			<p id = "productPrice" data-price="${item.productPrice }">${item.productPrice }</p>
-			<p>${item.productDescription }</p>
-			<fmt:formatDate value="${item.productRegDate }" pattern="YYYY/MM/dd" />
-			<p>${item.productLikeCount }</p>
+            <div class="container productcontent">
+                <div>
+                    <div class="main_img">
+                        <c:if test="${item.productImageList.size() > 0 }">
+                            <c:forEach var="image" items="${item.productImageList }">
+                                <p><img class="productImage" src="/upload/productimage/${item.sellerId}/${item.productCode}_${item.productName}/${image.productImageUuid}"></p>
+                            </c:forEach>
+                        </c:if>
+                    </div>
+                    <div class="sub_images">
+                        <div class="sub_img"><img src="image/11.png"></div>
+                        <div class="sub_img"><img src="image/11.png"></div>
+                        <div class="sub_img"><img src="image/11.png"></div>
+                        <div class="sub_img"><img src="image/11.png"></div>
+                    </div>
+                </div>
+                <div class="product_detail">
+                    <div class="product_deatil-1">
+                        <div>${item.sellerId }</div>
+                        <div class="bar"> ｜ </div>
+                        <div>${item.productCategory }</div>
+                    </div>
+                    <div class="product_detail-2">
+                        <div>${item.productName }</div>
+                    </div>
+                    <div class="product_price">
+                        <div id="productPrice" data-price="${item.productPrice }"><span>${item.productPrice}</span></div>
+                    </div>
+                    <div class="shipping_fee">
+                        <div class="shipping-1">배송비</div>
+                        <div class="shipping-2">무료배송</div>
+                    </div>
+                    <div class="shipping_start">
+                        <div class="shipping-1">배송 시작</div>
+                        <div class="shipping-2">평균1일, 최대 5일이내</div>
+                    </div>
+                    <div class="amount">
+                        <div class="shipping-1">수량</div>
+                        <div class="shipping-2">n개남음</div>
+                    </div>
+                    <p>${item.productDescription }</p>
+                    <fmt:formatDate value="${item.productRegDate }" pattern="YYYY/MM/dd" />
+                    <p>${item.productLikeCount }</p>
 
-			<c:if test="${item.productOptionList.size() > 0 }">
-				<c:forEach var="option" items="${item.productOptionList }">
-					<select class="option" onchange="setOption(this);" data-option="${option.productOptionCode}" 
-						${option.productNecessaryOption == 1 ? 'required' : ''}>
-						<option selected="selected" value="0" disabled>${option.productOptionName}${option.productNecessaryOption == 1 ? '(필수)' : ''}</option>
-						<c:forEach var="detail" items="${option.productOptionDetail}">
-							<option value="${detail.productOptionDetailCode }">${detail.productOptionDetailName}</option>
-						</c:forEach>
-					</select>
-				</c:forEach>
-			</c:if>
-
-			<c:if test="${item.productImageList.size() > 0 }">
-				<c:forEach var="image" items="${item.productImageList }">
-					<p><img class="productImage" src="/upload/productimage/${item.sellerId}/${item.productCode}_${item.productName}/${image.productImageUuid}"></p>
-				</c:forEach>
-			</c:if>
+                    <c:if test="${item.productOptionList.size() > 0 }">
+                        <c:forEach var="option" items="${item.productOptionList }">
+                            <select class="option" onchange="setOption(this);" data-option="${option.productOptionCode}" ${option.productNecessaryOption==1 ? 'required' : '' }>
+                                <option selected="selected" value="0" disabled>${option.productOptionName}${option.productNecessaryOption == 1 ? '(필수)' : ''}</option>
+                                <c:forEach var="detail" items="${option.productOptionDetail}">
+                                    <option value="${detail.productOptionDetailCode }">${detail.productOptionDetailName}</option>
+                                </c:forEach>
+                            </select>
+                        </c:forEach>
+                    </c:if>
 
 
-		</div>
-		<div id="optionContiner" name="items"></div>
-		<div id="totalPrice">총 결제금액<span>0</span>원</div>
-		<div>
-			<button type="button" onclick="basket();">장바구니</button>
-			<button type="button"  onclick="order();">구매하기</button>
-		</div>
-		</form>
-	</div>
+
+
+                
+                <div id="optionContiner" name="items"></div>
+                <div class="total_price">
+                <div id="totalPrice">총 결제금액<span>0</span>원</div>
+                </div>
+                <div class="buttons">
+                    <button  class="purchase_btn" type="button" onclick="order();">구매하기</button>
+                    <button  class="cart_btn" type="button" onclick="basket();">장바구니</button>
+                </div>
+            </div>
+            </div>
+        </form>
+        <div class="container maincontent">
+        <div class="info_tab">
+            <div class="product_info">작품상세</div>
+            <div class="info_delivery">배송/교환/환불</div>
+            <div class="pre-review">구매후기</div>
+            <div class="question">문의사항</div>
+        </div>
+        <div class="product_img">
+            <img src="image/image1.jpg">
+        </div>
+        <div class="category">
+            <div class="tag"><a href="#">#강아지 방석</a></div>
+        </div>
+        <div class="prd-review">
+            <div class="title-style">
+                <h3>구매 후기<span>()</span></h3>
+                <div class="sort">
+                    <div>최신순</div>
+                    <div class="bar"> ｜ </div>
+                    <div>별점순</div>
+                </div>
+            </div>
+            <div class="review">
+                <div class="reviewer-thumnail"><img src="image/deer-g379da77a8_1920.jpg"></div>
+                <div class="review-1">
+                    <div class="review-2">
+                        <div class="writer">작성자</div>
+                        <div class="order_detail">제품명/옵션1/옵션2</div>
+                        <div class="score">★</div>
+                    </div>
+                    <div class="date">작성날짜</div>
+                    <div class="comment">정말 좋아요~</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
 </body>
 </html>

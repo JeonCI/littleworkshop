@@ -245,6 +245,7 @@ function order(){
 
 </head>
 <body>
+	<jsp:include page="../header.jsp"></jsp:include>
 	<div>
         <form name="items" id="paymentForm" action="/payment" method="post" onsubmit="return false">
 
@@ -328,7 +329,7 @@ function order(){
         <div class="product_img">
             <img src="image/image1.jpg">
         </div>
-        <div class="category">
+        <div class="catecategory">
             <div class="tag"><a href="#">#강아지 방석</a></div>
         </div>
         <div class="prd-review">
@@ -356,5 +357,6 @@ function order(){
         </div>
     </div>
     </div>
+    <jsp:include page="../footer.jsp"></jsp:include>
 </body>
 </html>

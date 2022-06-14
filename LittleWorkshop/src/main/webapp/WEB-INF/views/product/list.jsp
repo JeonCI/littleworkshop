@@ -47,12 +47,12 @@ function setCategory(category){
     <div class="container maincontent">
 		<form method="get" id="searchForm">
 			<input type="hidden" id="search" name="search">
-			<div class="category">
+			<div class="categoryMenu">
 				<div>카테고리</div>
 				<c:if test="${categoryList.size() > 0 }">
-					<div class="category ${pager.search==0?'click':''}" onclick="setCategory(this);"><a href="./list?${pager.type}">전체</a></div>
+					<div class="categorys ${pager.search==0?'click':''}" onclick="setCategory(this);"><a href="./list?${pager.type}">전체</a></div>
 					<c:forEach var="category" items="${categoryList}">
-						<div class="category ${category.productCategoryCode == pager.search?'click':''}" onclick="setCategory(this);" value="${category.productCategoryCode}"><a href="./list?search=${category.productCategoryCode}${pager.query}">${category.productCategory}</a></div>
+						<div class="categorys ${category.productCategoryCode == pager.search?'click':''}" onclick="setCategory(this);" value="${category.productCategoryCode}"><a href="./list?search=${category.productCategoryCode}${pager.query}">${category.productCategory}</a></div>
 					</c:forEach>
 				</c:if>
 			</div>

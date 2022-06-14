@@ -34,16 +34,12 @@ a:visited{
     border-bottom: solid 1px #ddd;
     padding-bottom: 25px;
     width: 300px;
+    text-align:center;
 }
 .sign_up{
     border-bottom: solid 2px #92b6f3;
     width: 300px;
-}
-.login>a{
-    margin: 125px;
-}
-.sign_up>a{
-    margin-left: 125px;   
+    text-align:center;
 }
 .sign_up>a:link{
     color: black;

@@ -32,8 +32,7 @@ a:visited{
 .mainbanner>img{
    display: block;
    width: auto;
-   margin: auto;
-    
+   margin: auto; 
 }
 .maincontent {
     margin:0 auto;

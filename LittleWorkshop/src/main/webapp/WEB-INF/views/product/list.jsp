@@ -33,70 +33,54 @@ function setCategory(category){
 
 }
 </script>
-<link rel="stylesheet" href="list.css">
+<link rel="stylesheet" href="/css/list.css">
 <link rel="stylesheet" href="/css/header.css">
 <link rel="stylesheet" href="/css/footer.css">
 </head>
 <body>
 	<jsp:include page="../header.jsp"></jsp:include>
-	<div>
-		<h1>상품 목록</h1>
+	<div class="banner">
+       	<div><img src="/image/deer-g379da77a8_1920.jpg"></div>
+        <div class="txt">최신작품</div>
+        <div class="txt2"> 소공방이 찜해버린 트렌디 <span>NEW</span> 아이템!</div>
+    </div>
+    <div class="container maincontent">
 		<form method="get" id="searchForm">
 			<input type="hidden" id="search" name="search">
-			<c:if test="${categoryList.size() > 0 }">
-				<ul>
-				<li class="category ${pager.search==0?'click':''}" onclick="setCategory(this);"><a href="./list?${pager.type}">전체</a></li>
-				<c:forEach var="category" items="${categoryList}">
-					<li class="category ${category.productCategoryCode == pager.search?'click':''}" onclick="setCategory(this);" value="${category.productCategoryCode}"><a href="./list?search=${category.productCategoryCode}${pager.query}">${category.productCategory}</a></li>
-				</c:forEach>
-				</ul>
-			</c:if>
-		</form>
-		<div>
-			<table border="1">
-				<thead>
-					<tr>
-						<td>상품 번호</td>
-						<td>판매자</td>
-						<td>카테고리</td>
-						<td>상품명</td>
-						<td>상품가격</td>
-						<td>상품 등록일</td>
-						<td>관리</td>
-					</tr>
-				</thead>
-				<tbody>
-					<c:if test="${list.size() < 1 }">
-						<tr>
-							<td colspan="7">등록된 제품이 없습니다.</td>
-						</tr>
-					</c:if>
-					
-					<c:if test="${list.size() > 0 }">
-					<c:forEach var="item" items="${list }">
-						<tr>
-							<td>${item.productCode}</td>
-							<td>${item.sellerId}</td>
-							<td>${item.productCategory}</td>
-							<td><a href="view/${item.productCode}">${item.productName}</a></td>
-							<td>${item.productPrice}</td>
-							<td><fmt:formatDate value="${item.productRegDate }" pattern="yyyy/MM/dd"/></td>
-							<td><a href="update/${item.productCode }">수정</a> / <a href="delete/${item.productCode }">삭제</a></td>
-						</tr>
+			<div class="category">
+				<div>카테고리</div>
+				<c:if test="${categoryList.size() > 0 }">
+					<div class="category ${pager.search==0?'click':''}" onclick="setCategory(this);"><a href="./list?${pager.type}">전체</a></div>
+					<c:forEach var="category" items="${categoryList}">
+						<div class="category ${category.productCategoryCode == pager.search?'click':''}" onclick="setCategory(this);" value="${category.productCategoryCode}"><a href="./list?search=${category.productCategoryCode}${pager.query}">${category.productCategory}</a></div>
 					</c:forEach>
-					</c:if>
-				</tbody>
-			</table>
-		</div>
-
-	</div>
-	<div class="pager">
-		<div>
-			<a href="?page=${pager.prev }&${pager.query}">&lt; &nbsp;</a>
-			<c:forEach var="page" items="${pager.list }">
-				<a href="?page=${page }&${pager.query} ">${page }</a>
-			</c:forEach>
-			<a href="?page=${pager.next }&${pager.query}">&nbsp; &gt;</a>
+				</c:if>
+			</div>
+		</form>
+		<ul>
+			<c:if test="${list.size() < 1 }">
+				<div>등록된 제품이 없습니다.</div>
+			</c:if>
+			<c:if test="${list.size() > 0 }">
+				<c:forEach var="item" items="${list }">
+					<li class="item">
+						<button><i class="bi bi-heart"></i></button>
+						<div><img src="/upload/productimage/${latesItem.sellerId}/${latesItem.productCode}_${latesItem.productName}/${image.productImageUuid}"></div>
+						<div class="pd-sellr"><a href="#">${item.sellerId}</a></div>
+						<div class="pd-name"><a href="view/${item.productCode}">${item.productName}</a></div>
+						<div class="pd-price"><a href="#">${item.productPrice}원</a></div>
+					</li>
+				</c:forEach>
+			</c:if>
+		</ul>
+		<div class="pager">
+			<div>
+				<a href="?page=${pager.prev }&${pager.query}">&lt; &nbsp;</a>
+				<c:forEach var="page" items="${pager.list }">
+					<a href="?page=${page }&${pager.query} ">${page }</a>
+				</c:forEach>
+				<a href="?page=${pager.next }&${pager.query}">&nbsp; &gt;</a>
+			</div>
 		</div>
 	</div>
 	<jsp:include page="../footer.jsp"></jsp:include>

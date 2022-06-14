@@ -7,12 +7,12 @@
 		<if test="search != 0">
 			<where>
 				<!-- 검색 페이지 일때  -->
-				<if test="keyword != null">
+				<if test="keyword == null">
 					p.product_category_code = #{search}
 				</if>
 				<!-- 네비게이션 페이지 일때  -->
-				<if test="keyword == null">
-					p.product_category_code = #{search} 
+				<if test="keyword != null">
+					p.product_category_code = #{search} AND (p.product_name LIKE CONCAT('%',CONCAT(#{keyword},'%')) OR tl.tag_name LIKE CONCAT('%',CONCAT(#{keyword},'%')))
 				</if>
 			</where>
 		</if>
@@ -21,33 +21,17 @@
 				p.seller_id = #{sellerId}
 			</where>
 		</if>
-			
-	</sql>
-	
-	<sql id="count">
-	
-		<if test="search != 0">
+		<if test="search == 0">
 			<where>
-				<!-- 검색 페이지 일때  -->
 				<if test="keyword != null">
-					p.product_category_code = #{search}
+					p.product_category_code = #{search} AND p.product_name LIKE CONCAT('%',CONCAT(#{keyword},'%')) OR tl.tag_name LIKE CONCAT('%',CONCAT(#{keyword},'%'))
 				</if>
-				<!-- 네비게이션 페이지 일때  -->
-				<if test="keyword == null">
-					p.product_category_code = #{search} 
-				</if>
+
 			</where>
 		</if>
-		<if test="search == 0"> 
-			<if test="keyword != null">
-				<where>
-					p.product_category_code = #{search} AND p.product_name LIKE CONCAT('%',CONCAT(#{keyword},'%')) OR tl.tag_name LIKE CONCAT('%',CONCAT(#{keyword},'%'))
-				</where>
-			</if>
-		</if>
+			
 	</sql>
-	
-	
+
 	
 	<sql id="order">
 		<if test="condition != null">
@@ -66,14 +50,6 @@
 				<!-- <when test="condition == 'sale'"> -->
 				<!-- </when> -->
 			</choose>
-		</if>
-	</sql>
-	
-	<sql id="keyword">
-		<if test="keyword != null">
-			<where>
-				p.product_name LIKE CONCAT('%',CONCAT(#{keyword},'%')) OR tl.tag_name LIKE CONCAT('%',CONCAT(#{keyword},'%'))
-			</where>
 		</if>
 	</sql>
 	
@@ -147,18 +123,21 @@
 		pi.product_image_code product_image_code,
 		pi.product_image_uuid product_image_uuid,
 		pi.product_image_name product_image_name,
-		tl.tag_code tag_code,
+        tl.tag_code tag_code,
 		tl.tag_name tag_name,
-		ptl.product_code ptl_product_code,
 		pll.product_like_code like_state
 		FROM (SELECT ROWNUM AS RNUM, sub.* FROM
-				(SELECT * FROM product p <include refid="search"></include>) sub) p
+		            (select product.* from product join
+		                (SELECT p.product_code FROM product p
+						LEFT JOIN product_tag_list ptl ON p.product_code = ptl.product_code
+						LEFT JOIN tag_list tl ON ptl.tag_code = tl.tag_code
+		                <include refid="search"></include>
+		                group by (p.product_code))sub2 on product.product_code = sub2.product_code) sub) p
 			JOIN product_category_list c ON p.product_category_code = c.product_category_code
 			LEFT JOIN PRODUCT_IMAGES pi ON pi.product_code = p.product_code
 			LEFT JOIN product_tag_list ptl ON p.product_code = ptl.product_code
 			LEFT JOIN tag_list tl ON ptl.tag_code = tl.tag_code
-			LEFT JOIN (SELECT * FROM product_like_list <include refid="likeList"></include>) pll ON pll.product_code = p.product_code
-			<include refid="keyword"></include>)
+			LEFT JOIN (SELECT * FROM product_like_list <include refid="likeList"></include>) pll ON pll.product_code = p.product_code)
 		<![CDATA[ WHERE RNUM > ((#{page} - 1) * #{perPage}) and RNUM <= ( #{page} * #{perPage})	]]>
 		 <include refid="order"></include>
 	</select>
@@ -167,7 +146,7 @@
 		SELECT count(distinct p.product_code) FROM product p
 		LEFT JOIN product_tag_list ptl ON p.product_code = ptl.product_code
 		LEFT JOIN tag_list tl ON ptl.tag_code = tl.tag_code
-		<include refid="count"></include>
+		<include refid="search"></include>
 	</select>
 	
 	<select id="item" resultMap="ProductMap">

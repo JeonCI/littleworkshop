@@ -97,6 +97,7 @@
 		<result column="product_description" property="productDescription"/>
 		<result column="PRODUCT_BUYERS_COUNT" property="productBuyersCount"/>
 		<result column="PRODUCT_VIEW_COUNT" property="productViewCount"/>
+		<result column="like_state" property="likeState"/>
 <!-- 		<result column="product_sell_count" property="productSellCount"/> -->
 <!-- 		<result column="like_state" property="likeState"/> -->
 
@@ -126,6 +127,8 @@
 			<result column="tag_name" property="tagName"/>
 			<result column="ptl_product_code" property="targetCode"/>
 		</collection>
+		
+		
 	</resultMap>
 	
 	<select id="list" resultMap="ProductMap">

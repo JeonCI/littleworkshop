@@ -52,7 +52,7 @@ window.onload = function(){
 	<div class="banner">
        	<div><img src="/image/deer-g379da77a8_1920.jpg"></div>
         <div class="txt">추천작품</div>
-        <div class="txt2"> 소공방이 찜해버린 트렌디 <span>NEW</span> 아이템!</div>
+        <div class="txt2">소공방이 추천하는 나만의 <span>PICK</span> 아이템!</div>
     </div>
     <div class="container maincontent">
 

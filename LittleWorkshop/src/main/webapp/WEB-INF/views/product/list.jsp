@@ -55,9 +55,16 @@ window.onload = function(){
 <body>
 	<jsp:include page="../header.jsp"></jsp:include>
 	<div class="banner">
-       	<div><img src="/image/deer-g379da77a8_1920.jpg"></div>
-        <div class="txt">최신작품</div>
-        <div class="txt2"> 소공방이 찜해버린 트렌디 <span>NEW</span> 아이템!</div>
+       	<c:if test="${pager.condition == 'lates'}">
+       	    <div><img src="/image/deer-g379da77a8_1920.jpg"></div>
+	        <div class="txt">최신작품</div>
+	        <div class="txt2">소공방이 찜해버린 트렌디 <span>NEW</span> 아이템!</div>
+        </c:if>
+        <c:if test="${pager.condition == 'best'}">
+            <div><img src="/image/deer-g379da77a8_1920.jpg"></div>
+	        <div class="txt">인기작품</div>
+	        <div class="txt2">소공방에서 핫한 <span>BEST</span> 아이템!</div>
+        </c:if>
     </div>
     <div class="container maincontent">
     	<form method="get" id="searchForm">

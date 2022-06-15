@@ -262,10 +262,10 @@ function order(){
                         </c:if>
                     </div>
                     <div class="sub_images">
-                        <div class="sub_img"><img src="image/11.png"></div>
-                        <div class="sub_img"><img src="image/11.png"></div>
-                        <div class="sub_img"><img src="image/11.png"></div>
-                        <div class="sub_img"><img src="image/11.png"></div>
+                        <div class="sub_img"><img src="/image/11.png"></div>
+                        <div class="sub_img"><img src="/image/11.png"></div>
+                        <div class="sub_img"><img src="/image/11.png"></div>
+                        <div class="sub_img"><img src="/image/11.png"></div>
                     </div>
                 </div>
                 <div class="product_detail">
@@ -306,10 +306,6 @@ function order(){
                             </select>
                         </c:forEach>
                     </c:if>
-
-
-
-
                 
                 <div id="optionContiner" name="items"></div>
                 <div class="total_price">

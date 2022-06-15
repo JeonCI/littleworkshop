@@ -18,9 +18,9 @@
             <div class="logo">
                 <a href="/"><img src="/image/logo.png"></a>
             </div>
-           <form class="search" method="get" action="/product/search" autocomplete >
+           <form class="search" method="get" action="/product/search" autocomplete>
                <input class="searchbox" type="text" name="keyword" placeholder="원하시는 물건을 찾아보세요! ">
-                <i class="bi bi-search"></i>
+               <i class="bi bi-search"></i>
            </form>
            <div class="icon">
            <c:if test="${account == null }">

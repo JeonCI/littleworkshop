@@ -345,7 +345,7 @@ function order(){
                 </div>
             </div>
             <div class="review">
-                <div class="reviewer-thumnail"><img src="image/deer-g379da77a8_1920.jpg"></div>
+                <div class="reviewer-thumnail"><img src="/image/deer-g379da77a8_1920.jpg"></div>
                 <div class="review-1">
                     <div class="review-2">
                         <div class="writer">작성자</div>

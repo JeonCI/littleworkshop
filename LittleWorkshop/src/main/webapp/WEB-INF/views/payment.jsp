@@ -113,7 +113,9 @@
                     <div>
                         <div>
                             <span>배송지</span>
-                            <span><span class="material-symbols-rounded">add_circle</span>배송지 추가</span>
+                            <span><span class="material-symbols-outlined">
+add_circle
+</span>배송지 추가</span>
                         </div>
                         <c:if test="${addressList.size() > 0}">
                             <select id="addressList">

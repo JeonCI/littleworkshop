@@ -9,6 +9,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Little Workshop</title>
+<!--공통 CD  N -->  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> 
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 <style>
 
@@ -45,18 +48,14 @@ function setCategory(category){
 
 }
 </script>
-<link rel="stylesheet" href="/css/list.css">
 <link rel="stylesheet" href="/css/header.css">
 <link rel="stylesheet" href="/css/footer.css">
+<link rel="stylesheet" href="/css/pager.css">
+<link rel="stylesheet" href="/css/searchList.css">
 </head>
 <body>
 	<jsp:include page="../header.jsp"></jsp:include>
-	<div class="banner">
-       	<div><img src="/image/deer-g379da77a8_1920.jpg"></div>
-        <div class="txt">최신작품</div>
-        <div class="txt2"> 소공방이 찜해버린 트렌디 <span>NEW</span> 아이템!</div>
-    </div>
-    <div class="container maincontent">
+    <div class="search-box">
 		<form method="get" id="searchForm">
 			<input type="hidden" id="search" name="search">
 			<div class="categoryMenu">
@@ -68,10 +67,19 @@ function setCategory(category){
 					</c:forEach>
 				</c:if>
 			</div>
+			<div class="search-option">
+               <div>가격대</div>
+               <input>
+               <div>~</div>
+               <input>
+               <div class="reset">초기화</div>
+               <div class="search">검색</div>
+           </div>
 		</form>
-		<ul>
+		</div>
+		<ul class="items">
 			<c:if test="${list.size() < 1 }">
-				<div>등록된 제품이 없습니다.</div>
+				<div class="notfound">등록된 제품이 없습니다.</div>
 			</c:if>
 			<c:if test="${list.size() > 0 }">
 				<c:forEach var="item" items="${list }">
@@ -89,16 +97,7 @@ function setCategory(category){
 				</c:forEach>
 			</c:if>
 		</ul>
-		<div class="pager">
-			<div>
-				<a href="?page=${pager.prev }&${pager.query}">&lt; &nbsp;</a>
-				<c:forEach var="page" items="${pager.list }">
-					<a href="?page=${page }&${pager.query} ">${page }</a>
-				</c:forEach>
-				<a href="?page=${pager.next }&${pager.query}">&nbsp; &gt;</a>
-			</div>
-		</div>
-	</div>
+		<jsp:include page="../pager.jsp"></jsp:include>
 	<jsp:include page="../footer.jsp"></jsp:include>
 </body>	
 </html>

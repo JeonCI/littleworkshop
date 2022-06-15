@@ -50,6 +50,7 @@ function setCategory(category){
 </script>
 <link rel="stylesheet" href="/css/header.css">
 <link rel="stylesheet" href="/css/footer.css">
+<link rel="stylesheet" href="/css/pager.css">
 <link rel="stylesheet" href="/css/list.css">
 </head>
 <body>
@@ -91,15 +92,7 @@ function setCategory(category){
 				</c:forEach>
 			</c:if>
 		</ul>
-		<div class="pager">
-			<div>
-				<a href="?page=${pager.prev }&${pager.query}">&lt; &nbsp;</a>
-				<c:forEach var="page" items="${pager.list }">
-					<a href="?page=${page }&${pager.query} ">${page }</a>
-				</c:forEach>
-				<a href="?page=${pager.next }&${pager.query}">&nbsp; &gt;</a>
-			</div>
-		</div>
+		<jsp:include page="../pager.jsp"></jsp:include>
 	</div>
 	<jsp:include page="../footer.jsp"></jsp:include>
 </body>	

@@ -73,7 +73,7 @@ function setCategory(category){
                <div>~</div>
                <input>
                <div class="reset">초기화</div>
-               <div class="search">검색</div>
+               <div class="searchs">검색</div>
            </div>
 		</form>
 		</div>

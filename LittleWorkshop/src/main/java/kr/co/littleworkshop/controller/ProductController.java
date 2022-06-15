@@ -43,7 +43,7 @@ public class ProductController {
 	@Autowired
 	KeywordService keywordService;
 	
-	@RequestMapping({"/list", "/search"})
+	@RequestMapping("/list")
 	public String list(Model model, @ModelAttribute("pager") ProductPager pager, HttpSession session) {
 		Account account = (Account) session.getAttribute("account");
 		
@@ -74,14 +74,51 @@ public class ProductController {
 		return path + "list";
 	}
 	
+	@RequestMapping("/search")
+	public String searchList(Model model, @ModelAttribute("pager") ProductPager pager, HttpSession session) {
+		Account account = (Account) session.getAttribute("account");
+		
+		if(account != null) {
+			pager.setId(account.getId());
+		}else {
+			pager.setId("");
+		}
+		
+		if(pager.getKeyword() != null) {
+			keywordService.addKeyword(pager.getKeyword());
+			
+			if(account != null) {
+				String id = account.getId();
+				String keyword = pager.getKeyword();
+				
+				keywordService.addAttentionKeyword(id, keyword);
+			}
+		}
+		
+		
+		List<Product> list = service.list(pager);
+		List<ProductCategory> categoryList = categoryService.productCategoryList();
+		
+		model.addAttribute("list", list);
+		model.addAttribute("categoryList",categoryList);
+		
+		return path + "searchList";
+	}
+	
+	
+	
 	
 	@GetMapping("/view/{productCode}")
 	public String view(@PathVariable int productCode, Model model, HttpSession session) {
-
-		Product item = service.item(productCode);
-	
-
-		model.addAttribute("item", item);
+		Account account = (Account) session.getAttribute("account");
+		Product item;
+		if(account!= null) 
+			item = service.item(productCode, account.getId());
+		else 
+			item = service.item(productCode);
+		
+		
+		model.addAttribute("item",item);
 
 		return path + "view";
 	}

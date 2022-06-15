@@ -10,6 +10,8 @@ public interface ProductService {
 
 	List<Product> list(ProductPager pager);
 
+	Product item(int code, String id);
+	
 	Product item(int code);
 
 	List<Product> categories();
@@ -28,7 +30,6 @@ public interface ProductService {
 			List<Integer> necessaryOptionValues, List<Integer> soldOutValues, List<String> tagNameList,
 			Product product);
 
-	void viewCount(int productCode);
 
 	void heartPushAction(int productCode, String id);
 

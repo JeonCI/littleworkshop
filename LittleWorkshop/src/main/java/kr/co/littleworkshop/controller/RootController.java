@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.littleworkshop.model.Account;
 import kr.co.littleworkshop.model.Product;
+import kr.co.littleworkshop.model.ProductImages;
 import kr.co.littleworkshop.service.AccountService;
 import kr.co.littleworkshop.service.ProductService;
 import kr.co.littleworkshop.util.ProductPager;
@@ -43,6 +44,19 @@ public class RootController {
 		pager.setCondition("lates");
 		List<Product> latestList = productService.list(pager);
 		model.addAttribute("latestList",latestList);
+		
+		//인기작품
+		pager.setCondition("best");
+		List<Product> bestList = productService.list(pager);
+		model.addAttribute("bestList",bestList);
+		
+//		if(bestList != null) 
+//			for( Product item : bestList) {
+//				System.out.println(item.getProductName() +"의 판매율: "+ item.getSalesRate());
+//				for(ProductImages image : item.getProductImageList())
+//				System.out.println(item.getProductName() +"의 사진: "+ image.getProductImageUuid());
+//		}
+			
 		return "index";
 	}
 	

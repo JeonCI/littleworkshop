@@ -9,9 +9,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Little Workshop</title>
-<!--공통 CD  N -->  
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 <style>
 
@@ -65,9 +62,9 @@ function setCategory(category){
 			<div class="categoryMenu">
 				<div>카테고리</div>
 				<c:if test="${categoryList.size() > 0 }">
-					<div class="categorys ${pager.search==0?'click':''}" onclick="setCategory(this);"><a href="./list?condition=${pager.condition}">전체</a></div>
+					<div class="categorys ${pager.search==0?'click':''} " onclick="setCategory(this);"><a class="searchCategory" href="./list?keyword=${pager.keyword}">전체</a></div>
 					<c:forEach var="category" items="${categoryList}">
-						<div class="categorys ${category.productCategoryCode == pager.search?'click':''}" onclick="setCategory(this);"><a class="searchCategory" href="./list?search=${category.productCategoryCode}${pager.type}">${category.productCategory}</a></div>
+						<div class="categorys ${category.productCategoryCode == pager.search?'click':''}" onclick="setCategory(this);"><a class="searchCategory" href="./search?keyword=${pager.keyword}&search=${category.productCategoryCode}">${category.productCategory}</a></div>
 					</c:forEach>
 				</c:if>
 			</div>
@@ -79,6 +76,7 @@ function setCategory(category){
 			<c:if test="${list.size() > 0 }">
 				<c:forEach var="item" items="${list }">
 					<li class="item">
+						<button><i class="bi bi-heart"></i></button>
 						<c:forEach var="image" items="${item.productImageList}" end="0">
 								<div>
 									<a href="/product/view/${item.productCode}"><img src="/upload/productimage/${item.sellerId}/${item.productCode}_${item.productName}/${image.productImageUuid}"></a>

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.littleworkshop.dao.KeywordDao;
 import kr.co.littleworkshop.dao.ProductDao;
 import kr.co.littleworkshop.dao.TagDao;
 import kr.co.littleworkshop.model.Product;
@@ -28,6 +29,9 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	TagDao tagDao;
 
+	@Autowired
+	KeywordDao keywordDao;
+	
 	private void productOptionAdd(List<String> productOptionNames, List<String> productOptionDetailNames,
 			List<Integer> optionCount, List<Integer> necessaryOptionValues, List<Integer> soldOutValues, int productCode) {
 
@@ -171,11 +175,6 @@ public class ProductServiceImpl implements ProductService {
 		return dao.getProductCategoryCode(productCode);
 	}
 
-	@Override
-	public void viewCount(int productCode) {
-		
-		dao.viewCount(productCode);
-	}
 
 	@Override
 	public void heartPushAction(int productCode, String id) {
@@ -196,7 +195,20 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product item(int code) {
-		dao.viewCount(code);
+
 		return dao.item(code);
+	}
+
+	@Override
+	public Product item(int code, String id) {
+		dao.viewCount(code);
+		Product item = dao.item(code);
+		if(keywordDao.attCategoryCheck(item.getProductCategoryCode(), id) > 0) {
+			keywordDao.updateAttCategory(item.getProductCategoryCode(), id);
+		}else {
+			keywordDao.addAttCategory(item.getProductCategoryCode(), id);
+		}
+		
+		return item;
 	}
 }

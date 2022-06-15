@@ -46,16 +46,11 @@ window.onload = function(){
          }); 
 }
 
-function setCategory(category){
-	
-	category.classList.toggle("click");
-
-}
 </script>
 <link rel="stylesheet" href="/css/header.css">
 <link rel="stylesheet" href="/css/footer.css">
-<link rel="stylesheet" href="/css/pager.css">
 <link rel="stylesheet" href="/css/searchList.css">
+<link rel="stylesheet" href="/css/pager.css">
 </head>
 <body>
 	<jsp:include page="../header.jsp"></jsp:include>
@@ -65,7 +60,7 @@ function setCategory(category){
 			<div class="categoryMenu">
 				<div>카테고리</div>
 				<c:if test="${categoryList.size() > 0 }">
-					<div class="categorys ${pager.search==0?'click':''} " onclick="setCategory(this);"><a class="searchCategory" href="./list?keyword=${pager.keyword}">전체</a></div>
+					<div class="categorys ${pager.search==0?'click':''} " ><a class="searchCategory" href="./list?keyword=${pager.keyword}">전체</a></div>
 					<c:forEach var="category" items="${categoryList}">
 						<div class="categorys ${category.productCategoryCode == pager.search?'click':''}" onclick="setCategory(this);"><a class="searchCategory" href="./search?keyword=${pager.keyword}&search=${category.productCategoryCode}">${category.productCategory}</a></div>
 					</c:forEach>
@@ -95,7 +90,7 @@ function setCategory(category){
 							</c:forEach>
 						<div class="pd-sellr"><a href="#">${item.sellerId}</a></div>
 						<div class="pd-name"><a href="view/${item.productCode}">${item.productName}</a></div>
-						<div class="pd-price"><a href="#">${item.productPrice}원</a></div>
+						<div class="pd-price"><a href="#"><fmt:formatNumber value="${item.productPrice}"/>원</a></div>
 					</li>
 				</c:forEach>
 			</c:if>

@@ -41,17 +41,11 @@ window.onload = function(){
 			 console.log(item);
          }); 
 }
-
-function setCategory(category){
-	
-	category.classList.toggle("click");
-
-}
 </script>
 <link rel="stylesheet" href="/css/header.css">
 <link rel="stylesheet" href="/css/footer.css">
-<link rel="stylesheet" href="/css/pager.css">
 <link rel="stylesheet" href="/css/list.css">
+<link rel="stylesheet" href="/css/pager.css">
 </head>
 <body>
 	<jsp:include page="../header.jsp"></jsp:include>
@@ -76,7 +70,7 @@ function setCategory(category){
 							</c:forEach>
 						<div class="pd-sellr"><a href="#">${item.sellerId}</a></div>
 						<div class="pd-name"><a href="view/${item.productCode}">${item.productName}</a></div>
-						<div class="pd-price"><a href="#">${item.productPrice}원</a></div>
+						<div class="pd-price"><a href="#"><fmt:formatNumber value="${item.productPrice}"/>원</a></div>
 					</li>
 				</c:forEach>
 			</c:if>

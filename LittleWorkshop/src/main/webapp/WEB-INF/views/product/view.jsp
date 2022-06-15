@@ -103,7 +103,7 @@ function setOption(option){
         //금액 시작
         priceSpan = document.createElement('div');
         priceSpan.className = 'price';
-        priceSpan.innerText = document.getElementById("productPrice").getAttribute("data-price") + "원";
+        priceSpan.innerText = document.getElementById("productPrice").getAttribute("data-price")+ "원";
         amtDiv.append(priceSpan);
         //금액 끝
 
@@ -282,7 +282,7 @@ function order(){
                         <div>${item.productName }</div>
                     </div>
                     <div class="product_price">
-                        <div id="productPrice" data-price="${item.productPrice }"><span>${item.productPrice}원</span></div>
+                        <div id="productPrice" data-price="${item.productPrice }"><span><fmt:formatNumber value="${item.productPrice}"/>원</span></div>
                     </div>
                     <div class="shipping_fee">
                         <div class="shipping-1">배송비</div>

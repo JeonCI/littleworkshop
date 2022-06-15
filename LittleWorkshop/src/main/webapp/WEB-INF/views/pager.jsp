@@ -12,8 +12,8 @@
             <a href="?page=${pager.prev }&${pager.query}"><span class="material-symbols-outlined">
                     arrow_back_ios
                 </span></a>
-            <c:forEach var="page" items="${pager.list }">
-               <div class="pagerBox"> <a href="?page=${page }&${pager.query} ">${page}</a> </div>
+            <c:forEach var="page" items="${pager.list }" varStatus="status">
+               <div class="pagerBox ${pager.page== status.count?'clicks':''}"><a href="?page=${page }&${pager.query} ">${page}</a> </div>
             </c:forEach>
             <a href="?page=${pager.next }&${pager.query}"><span class="material-symbols-outlined">
                     arrow_forward_ios

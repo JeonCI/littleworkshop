@@ -73,16 +73,16 @@
           <li class="item1">
               <div><a href="#"><img src="image/image1.jpg"></a></div>
           </li>
-          <c:forEach var="bestItem" items="${bestList}" end="5">
+          <c:forEach var="rcmndItem" items="${rcmndList}" end="5">
 	           <li class="item">
-	               <button><i class="bi bi-heart ${bestItem.likeState != 0 ? 'push':''}" onclick="heartPush(this)" data-product_code="${bestItem.productCode}" ></i></button>
-	               <c:forEach var="image" items="${bestItem.productImageList}" end="0">
-	                   <div><a href="product/view/${bestItem.productCode}"><img src="/upload/productimage/${bestItem.sellerId}/${bestItem.productCode}_${bestItem.productName}/${image.productImageUuid}"></a></div>
+	               <button><i class="bi bi-heart ${rcmndItem.likeState != 0 ? 'push':''}" onclick="heartPush(this)" data-product_code="${rcmndItem.productCode}" ></i></button>
+	               <c:forEach var="image" items="${rcmndItem.productImageList}" end="0">
+	                   <div><a href="product/view/${rcmndItem.productCode}"><img src="/upload/productimage/${rcmndItem.sellerId}/${rcmndItem.productCode}_${rcmndItem.productName}/${image.productImageUuid}"></a></div>
 	               </c:forEach>
 	               <div class="pd-txt">
-	                   <div><a href="#">${bestItem.sellerId}</a></div>
-	                   <div>${bestItem.productName}</div>
-	                   <div><fmt:formatNumber value="${bestItem.productPrice}"/>원</div>
+	                   <div><a href="#">${rcmndItem.sellerId}</a></div>
+	                   <div>${rcmndItem.productName}</div>
+	                   <div><fmt:formatNumber value="${rcmndItem.productPrice}"/>원</div>
 	               </div>
 	           </li>
  			</c:forEach>

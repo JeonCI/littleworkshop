@@ -132,15 +132,15 @@ add_circle
                             <p>배송지를 등록해주세요.</p>
                         </c:if>
                     </div>
-                    <div>
-                        <select>
-                            <option value="" selected>배송시 요청사항 선택</option>
-                            <option value="">부재 시 경비실에 맡겨주세요</option>
-                            <option value="">부재 시 전화주세요.</option>
-                            <option value="">부재 시 문앞에 놔주세요.</option>
-                            <option value="">요청사항을 직접 입력합니다.</option>
-                        </select>
-                    </div>
+<!--                     <div> -->
+<!--                         <select> -->
+<!--                             <option value="" selected>배송시 요청사항 선택</option> -->
+<!--                             <option value="">부재 시 경비실에 맡겨주세요</option> -->
+<!--                             <option value="">부재 시 전화주세요.</option> -->
+<!--                             <option value="">부재 시 문앞에 놔주세요.</option> -->
+<!--                             <option value="">요청사항을 직접 입력합니다.</option> -->
+<!--                         </select> -->
+<!--                     </div> -->
                     <div>
                         <c:if test="${paymentItems.size() > 0}">
                             <span>작품 정보</span>

@@ -118,11 +118,12 @@
          pi.product_image_uuid,
          s.order_status_name
          FROM
-		(SELECT ROWNUM AS RNUM, sub.* from (SELECT * FROM order_list where id = #{id} order by order_date) sub) o
+		(SELECT ROWNUM AS RNUM, sub.* from (SELECT * FROM order_list where id = #{id}) sub) o
         LEFT JOIN product_order_detail d ON d.order_list_code = o.order_list_code
         LEFT JOIN product p ON p.product_code = d.product_code
         LEFT JOIN order_status s ON s.order_status_code = o.order_status
         LEFT JOIN PRODUCT_IMAGES pi ON pi.product_code = p.product_code
+        ORDER BY ORDER_DATE DESC
 	</select>
 	
 	<select id="orderRequest" resultMap="OrderMap">
@@ -143,7 +144,8 @@
 	</select>
 	
 	<insert id="addOrder">
-		INSERT INTO ORDER_LIST VALUES(ORDER_SEQ.nextval, #{id}, #{addressCode},1, sysdate, #{orderPayment}, #{paymentPrice})
+		INSERT INTO ORDER_LIST(ORDER_LIST_CODE, ID, ADDRESS_CODE,ORDER_STATUS,ORDER_DATE,ORDER_PAYMENT,PAYMENT_PRICE)
+		VALUES(ORDER_SEQ.nextval, #{id}, #{addressCode},1, sysdate, #{orderPayment}, #{paymentPrice})
 		<selectKey keyProperty="orderListCode" resultType="int" order="AFTER">
 			SELECT ORDER_SEQ.CURRVAL FROM DUAL
 		</selectKey>

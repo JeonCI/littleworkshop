@@ -24,14 +24,15 @@ public class ProductDaoImpl implements ProductDao {
 	public List<Product> list(ProductPager pager) {
 		
 		if(pager.getCondition() != null) {
-			if(pager.getCondition().equals("lates")) {
-				System.out.println("최신작품 들어옴!");
+			if(pager.getCondition().equals("lates"))
 				return sql.selectList("product.list", pager);
 
-			}
-			else if(pager.getCondition().equals("best")) {
+			else if(pager.getCondition().equals("best")) 
 				return sql.selectList("product.bestList", pager);
-			}
+			
+			else if(pager.getCondition().equals("rcmnd")) 
+				return sql.selectList("product.rcmndList", pager);
+			
 		}
 		
 		return sql.selectList("product.list", pager);

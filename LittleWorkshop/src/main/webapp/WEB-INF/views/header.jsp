@@ -24,13 +24,15 @@
            </form>
            <div class="icon">
            <c:if test="${account == null }">
-               <a href="login"><i class="bi bi-person-circle"></i></a>
+               <a href="/login"><i class="bi bi-person-circle"></i></a>
+               <a href="/login"><i class="bi bi-cart"></i></a>
+           	   <a href="/login"><i class="bi bi-heart"></i></a>
            </c:if>
            <c:if test="${account != null }">
-               <a href="mypage/"><i class="bi bi-person-circle"></i></a>
-           </c:if>	
-            <a href="basket"><i class="bi bi-cart"></i></a>
-            <a href="like"><i class="bi bi-heart"></i></a>
+               <a href="/mypage/"><i class="bi bi-person-circle"></i></a>
+               <a href="/basket"><i class="bi bi-cart"></i></a>
+               <a href="/like"><i class="bi bi-heart"></i></a>
+           </c:if>
             </div>
         </div>
         <hr>
@@ -50,7 +52,7 @@
             <div><a href="#">공예</a></div>
         </div>
         	</div>
-            <div><a href="/product/list">추천작품</a></div>
+            <div><a href="/product/rcmndList">추천작품</a></div>
             <div><a href="/product/list?condition=lates">최신작품</a></div>
             <div><a href="/product/list?condition=best">인기작품</a></div>
             <div><a href="#">인기작가</a></div>

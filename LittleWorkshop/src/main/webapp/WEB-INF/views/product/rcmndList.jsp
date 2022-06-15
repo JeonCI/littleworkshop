@@ -57,22 +57,11 @@ function setCategory(category){
 	<jsp:include page="../header.jsp"></jsp:include>
 	<div class="banner">
        	<div><img src="/image/deer-g379da77a8_1920.jpg"></div>
-        <div class="txt">최신작품</div>
+        <div class="txt">추천작품</div>
         <div class="txt2"> 소공방이 찜해버린 트렌디 <span>NEW</span> 아이템!</div>
     </div>
     <div class="container maincontent">
-    	<form method="get" id="searchForm">
-			<input type="hidden" id="search" name="search">
-			<div class="categoryMenu">
-				<div>카테고리</div>
-				<c:if test="${categoryList.size() > 0 }">
-					<div class="categorys ${pager.search==0?'click':''}" onclick="setCategory(this);"><a href="./list?condition=${pager.condition}">전체</a></div>
-					<c:forEach var="category" items="${categoryList}">
-						<div class="categorys ${category.productCategoryCode == pager.search?'click':''}" onclick="setCategory(this);"><a class="searchCategory" href="./list?search=${category.productCategoryCode}${pager.type}">${category.productCategory}</a></div>
-					</c:forEach>
-				</c:if>
-			</div>
-		</form>
+
 		<ul class="items">
 			<c:if test="${list.size() < 1 }">
 				<div>등록된 제품이 없습니다.</div>

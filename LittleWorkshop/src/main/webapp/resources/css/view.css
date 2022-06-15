@@ -327,3 +327,6 @@ nav{
     justify-content: center;
     position: relative;
 }
+button{
+	cursor:pointer;
+}

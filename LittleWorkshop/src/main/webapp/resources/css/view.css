@@ -33,16 +33,21 @@ body>div{
 }
 .sub_images{
     display: flex;
-    justify-content: space-between;
-    margin-top: 1px;
+    justify-content: flex-start;
+    margin-top: 5px;
 }
 .sub_img{
-    width: 126px;
-    height: 126px;
+    width: 100px;
+    height: 100px;
 }
 .sub_img>img{
-    width: 126px;
-    height: 126px;
+    width: 100px;
+    height: 100px;
+}
+.sub_img:nth-child(n+2){
+	margin-left : 5px;
+    width: 100px;
+    height: 100px;
 }
 
 .product_detail{

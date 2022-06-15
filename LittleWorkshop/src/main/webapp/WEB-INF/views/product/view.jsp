@@ -260,16 +260,16 @@ function order(){
                 <div>
                     <div class="main_img">
                         <c:if test="${item.productImageList.size() > 0 }">
-                            <c:forEach var="image" items="${item.productImageList }">
+                            <c:forEach var="image" items="${item.productImageList }" end="0">
                                 <p><img class="productImage" src="/upload/productimage/${item.sellerId}/${item.productCode}_${item.productName}/${image.productImageUuid}"></p>
                             </c:forEach>
                         </c:if>
                     </div>
                     <div class="sub_images">
-                        <div class="sub_img"><img src="/image/11.png"></div>
-                        <div class="sub_img"><img src="/image/11.png"></div>
-                        <div class="sub_img"><img src="/image/11.png"></div>
-                        <div class="sub_img"><img src="/image/11.png"></div>
+                    	<c:forEach var="image" items="${item.productImageList }"  begin="1" >
+                    		<div class="sub_img"><img class="productImage" src="/upload/productimage/${item.sellerId}/${item.productCode}_${item.productName}/${image.productImageUuid}"></div>
+                    	</c:forEach>
+                        
                     </div>
                 </div>
                 <div class="product_detail">
@@ -328,7 +328,7 @@ function order(){
             <div class="question">문의사항</div>
         </div>
         <div class="product_img">
-            <img src="image/image1.jpg">
+            <img src="/image/image1.jpg">
         </div>
         <div class="catecategory">
             <div class="tag"><a href="#">#강아지 방석</a></div>

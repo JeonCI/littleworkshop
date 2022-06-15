@@ -278,7 +278,7 @@ function order(){
                         <div>${item.productName }</div>
                     </div>
                     <div class="product_price">
-                        <div id="productPrice" data-price="${item.productPrice }"><span>${item.productPrice}</span></div>
+                        <div id="productPrice" data-price="${item.productPrice }"><span>${item.productPrice}원</span></div>
                     </div>
                     <div class="shipping_fee">
                         <div class="shipping-1">배송비</div>
@@ -290,11 +290,9 @@ function order(){
                     </div>
                     <div class="amount">
                         <div class="shipping-1">수량</div>
-                        <div class="shipping-2">n개남음</div>
+                        <div class="shipping-2">10개남음</div>
                     </div>
                     <p>${item.productDescription }</p>
-                    <fmt:formatDate value="${item.productRegDate }" pattern="YYYY/MM/dd" />
-                    <p>${item.productLikeCount }</p>
 
                     <c:if test="${item.productOptionList.size() > 0 }">
                         <c:forEach var="option" items="${item.productOptionList }">

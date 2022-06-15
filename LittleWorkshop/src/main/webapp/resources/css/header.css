@@ -97,12 +97,13 @@ input::placeholder {
     position: relative;
 }
 
-.search > i {
+.search > button > i {
     position: absolute;
     left: 485px;
     top: 25px;
     color: #888888;
     font-size: 18px;
+    cursor: pointer;
 }
 
 .searchbox {

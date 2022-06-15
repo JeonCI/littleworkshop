@@ -67,6 +67,10 @@ a:visited{
 .categoryMenu>div>a{
     color: #888888;
 }
+.items {
+    width: 1200px;
+    overflow: hidden;
+}
 .item{
     width: 288px;
     height: 300px;
@@ -74,6 +78,12 @@ a:visited{
     box-shadow: 0 0 0 1px #dddddd inset;
     float:left;
     margin-left: 10px;
+}
+.item>div{
+	margin-left : 15px;
+}
+.item>div:nth-child(1){
+	margin-left : 0px;
 }
 .item>div>a>img{
 	width: 286px;
@@ -88,12 +98,15 @@ a:visited{
 }
 .pd-name>a{
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
 }
 .pd-price>a{
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
 }
 .pd-price{
     margin-top: 30px;
+}
+.click>a{
+	color: #92b6f3 !important;
 }

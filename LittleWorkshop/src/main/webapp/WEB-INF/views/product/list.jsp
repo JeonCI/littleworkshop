@@ -48,9 +48,9 @@ function setCategory(category){
 
 }
 </script>
-<link rel="stylesheet" href="/css/list.css">
 <link rel="stylesheet" href="/css/header.css">
 <link rel="stylesheet" href="/css/footer.css">
+<link rel="stylesheet" href="/css/list.css">
 </head>
 <body>
 	<jsp:include page="../header.jsp"></jsp:include>
@@ -72,7 +72,7 @@ function setCategory(category){
 				</c:if>
 			</div>
 		</form>
-		<ul>
+		<ul class="items">
 			<c:if test="${list.size() < 1 }">
 				<div>등록된 제품이 없습니다.</div>
 			</c:if>

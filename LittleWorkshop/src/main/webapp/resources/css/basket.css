@@ -46,9 +46,9 @@ margin-bottom: 80px;
 border: 1px solid #dddddd;
 padding: 20px 30px;
 }
-input[type=checkbox] {
-    display:none;
-}
+/* input[type=checkbox] { */
+/*     display:none; */
+/* } */
 input[type=checkbox] + label {
     display: block;
     cursor: pointer; 

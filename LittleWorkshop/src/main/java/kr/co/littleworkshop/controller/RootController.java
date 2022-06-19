@@ -58,14 +58,6 @@ public class RootController {
 		List<Product> rcmndList = productService.list(pager);
 		
 		model.addAttribute("rcmndList",rcmndList);
-		System.out.println("#######");
-		if(rcmndList != null) 
-			for( Product item : rcmndList) {
-				System.out.println(item.getProductName() +"의 판매율: "+ item.getSalesRate());
-				for(ProductImages image : item.getProductImageList())
-				System.out.println(item.getProductName() +"의 사진: "+ image.getProductImageUuid());
-		}
-			
 		return "index";
 	}
 	

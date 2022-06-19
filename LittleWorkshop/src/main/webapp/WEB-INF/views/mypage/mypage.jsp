@@ -39,7 +39,7 @@ width: 300px;
 		</div>
 		<div>
 			<span>관심리스트</span>
-			<div><a>좋아요 목록</a></div>
+			<div><a href="./like">좋아요 목록</a></div>
 		</div>
 		<div>
 			<span>내 정보</span>

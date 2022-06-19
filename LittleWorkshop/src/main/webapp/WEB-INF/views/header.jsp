@@ -31,7 +31,7 @@
            <c:if test="${account != null }">
                <a href="/mypage/"><i class="bi bi-person-circle"></i></a>
                <a href="/basket"><i class="bi bi-cart"></i></a>
-               <a href="/like"><i class="bi bi-heart"></i></a>
+               <a href="/mypage/like"><i class="bi bi-heart"></i></a>
            </c:if>
             </div>
         </div>

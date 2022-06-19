@@ -14,10 +14,10 @@ public interface AccountDao {
 
 	void delete(String id);
 
-	Account item(Account item);
-
-	void update(Account account);
+	void update(Account item);
 
 	int checkId(Account account);
+
+	Account item(String id);
 
 }

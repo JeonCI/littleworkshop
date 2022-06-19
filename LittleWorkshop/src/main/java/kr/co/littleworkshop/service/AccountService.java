@@ -16,7 +16,7 @@ public interface AccountService {
 
 	Account item(String id);
 
-	void update(Account account);
+	void update(Account item);
 
 	boolean checkId(Account account);
 

@@ -35,13 +35,13 @@ public class AccountDaoImpl implements AccountDao {
 	}
 
 	@Override
-	public Account item(Account item) {
-		return sql.selectOne("account.item", item);
+	public Account item(String id) {
+		return sql.selectOne("account.item", id);
 	}
 
 	@Override
-	public void update(Account account) {
-		sql.update("account.update", account);
+	public void update(Account item) {
+		sql.update("account.update", item);
 	}
 
 	@Override

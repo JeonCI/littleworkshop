@@ -10,13 +10,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.littleworkshop.model.Account;
 import kr.co.littleworkshop.model.AccountAddress;
 import kr.co.littleworkshop.model.Order;
 import kr.co.littleworkshop.model.ReceiveRequest;
 import kr.co.littleworkshop.service.AccountAddressService;
+import kr.co.littleworkshop.service.AccountService;
 import kr.co.littleworkshop.service.BuyerService;
 import kr.co.littleworkshop.service.OrderService;
 import kr.co.littleworkshop.util.Pager;
@@ -34,7 +39,8 @@ public class BuyerController {
 	AccountAddressService addressService;
 	@Autowired
 	OrderService orderService;
-	
+	@Autowired
+	AccountService accountService;
 	
 	
 	@RequestMapping("/")
@@ -104,5 +110,42 @@ public class BuyerController {
 		addressService.delete(code, account.getId());
 		return "redirect:../../address";
 	}
+	
+	
+	
+	// #회원정보 수정
+	@GetMapping("/accountInfo_Edit")
+	public String accountInfoEdit(Model model, HttpSession session) {
+		Account account = (Account) session.getAttribute("account");
+		
+		Account item = accountService.item(account.getId());
+		model.addAttribute("item", item);
+		return path + "accountInfo";
+	}
+	
+	@ResponseBody
+	@PostMapping("/accountInfo_Edit")
+	public boolean accountInfoEdit(Account item, HttpSession session, RedirectAttributes ra) {
+		Account account = (Account) session.getAttribute("account");
+		item.setId(account.getId());
+		item.setClassify(account.getClassify());
+		
+		System.out.println(item.getAccountName());
+		System.out.println(item.getPhone());
+		
+		accountService.update(item);
+		ra.addFlashAttribute("edit", true);
+		return true;
+	}
+	
+	
+	// #좋아요
+	@GetMapping("/like")
+	public String likeList(Model model, HttpSession session) {
+		Account account = (Account) session.getAttribute("account");
+		return path + "like";
+	}
+	
+
 
 }

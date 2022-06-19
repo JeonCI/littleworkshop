@@ -33,4 +33,6 @@ public interface ProductService {
 
 	void heartPushAction(int productCode, String id);
 
+	List<Product> likeList(String id);
+
 }

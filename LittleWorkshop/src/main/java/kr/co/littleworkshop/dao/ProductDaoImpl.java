@@ -120,4 +120,9 @@ public class ProductDaoImpl implements ProductDao {
 		sql.delete("product.deleteLikeList", map);
 	}
 
+	@Override
+	public List<Product> likeList(String id) {
+		return sql.selectList("product.likeList", id);
+	}
+
 }

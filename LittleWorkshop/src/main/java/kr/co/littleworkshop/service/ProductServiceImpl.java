@@ -211,4 +211,9 @@ public class ProductServiceImpl implements ProductService {
 		
 		return item;
 	}
+
+	@Override
+	public List<Product> likeList(String id) {
+		return dao.likeList(id);
+	}
 }

@@ -42,5 +42,6 @@
 		SELECT COUNT(id) FROM account
 		WHERE id=#{id}
 	</select>
+
 	
 </mapper>

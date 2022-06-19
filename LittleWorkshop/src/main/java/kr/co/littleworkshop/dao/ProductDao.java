@@ -47,4 +47,6 @@ public interface ProductDao {
 
 	void deleteLikeList(HashMap<String, Object> map);
 
+	List<Product> likeList(String id);
+
 }

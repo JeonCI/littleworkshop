@@ -19,11 +19,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import kr.co.littleworkshop.model.Account;
 import kr.co.littleworkshop.model.AccountAddress;
 import kr.co.littleworkshop.model.Order;
+import kr.co.littleworkshop.model.Product;
 import kr.co.littleworkshop.model.ReceiveRequest;
 import kr.co.littleworkshop.service.AccountAddressService;
 import kr.co.littleworkshop.service.AccountService;
 import kr.co.littleworkshop.service.BuyerService;
 import kr.co.littleworkshop.service.OrderService;
+import kr.co.littleworkshop.service.ProductService;
 import kr.co.littleworkshop.util.Pager;
 
 
@@ -41,6 +43,8 @@ public class BuyerController {
 	OrderService orderService;
 	@Autowired
 	AccountService accountService;
+	@Autowired
+	ProductService productService;
 	
 	
 	@RequestMapping("/")
@@ -125,16 +129,12 @@ public class BuyerController {
 	
 	@ResponseBody
 	@PostMapping("/accountInfo_Edit")
-	public boolean accountInfoEdit(Account item, HttpSession session, RedirectAttributes ra) {
+	public boolean accountInfoEdit(Account item, HttpSession session) {
 		Account account = (Account) session.getAttribute("account");
 		item.setId(account.getId());
 		item.setClassify(account.getClassify());
 		
-		System.out.println(item.getAccountName());
-		System.out.println(item.getPhone());
-		
 		accountService.update(item);
-		ra.addFlashAttribute("edit", true);
 		return true;
 	}
 	
@@ -143,6 +143,9 @@ public class BuyerController {
 	@GetMapping("/like")
 	public String likeList(Model model, HttpSession session) {
 		Account account = (Account) session.getAttribute("account");
+		List<Product> list = productService.likeList(account.getId());
+		
+		model.addAttribute("list", list);
 		return path + "like";
 	}
 	

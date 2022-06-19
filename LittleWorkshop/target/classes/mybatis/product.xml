@@ -339,4 +339,13 @@
 		         <![CDATA[ WHERE RNUM > ((#{page} - 1) * #{perPage}) and RNUM <= ( #{page} * #{perPage})	]]>
 	</select>
 	
+		
+	<select id="likeList" resultMap="ProductMap">
+		SELECT product.*,product_images.product_image_uuid,product_like_list.product_like_code as like_state FROM product
+		LEFT JOIN product_like_list ON product.product_code = product_like_list.product_code
+		LEFT JOIN account ON product_like_list.id = account.id 
+        LEFT JOIN product_images ON product_images.product_code = product.product_code
+		WHERE account.id = #{id}
+	</select>
+	
 </mapper>

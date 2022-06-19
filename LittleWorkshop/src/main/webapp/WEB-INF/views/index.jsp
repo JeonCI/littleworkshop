@@ -25,9 +25,6 @@
 
 	function heartPush(icon){
 		
-		
-	
-		
 			var xhr = new XMLHttpRequest();
 	
 	        let productCode = icon.dataset.product_code;

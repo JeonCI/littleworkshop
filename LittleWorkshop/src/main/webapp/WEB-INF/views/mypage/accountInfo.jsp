@@ -9,10 +9,6 @@
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 window.onload = function() {
-	
-// 	if(document.getElementById("editBtn").value){
-// 		alert("정상적으로 변경되었습니다.");
-// 	}
 
 	document.getElementById("editBtn").onclick = function(){
 		$.ajax({
@@ -54,7 +50,7 @@ window.onload = function() {
 				<input name="email" type="text" value="${item.email}">
 			</div>
 			<div>
-				<button id="editBtn" value="${edit}" type="button">회원정보 수정하기</button>
+				<button id="editBtn" type="button">회원정보 수정하기</button>
 			</div>
 		</form>
 	</div>

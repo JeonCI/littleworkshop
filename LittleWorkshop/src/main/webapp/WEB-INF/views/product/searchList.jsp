@@ -31,20 +31,77 @@ a {
 
 window.onload = function(){
 	
-	let url = location.href.split('?')[0].split('/');
-	url = url[url.length-1];
+// 	let url = location.href.split('?')[0].split('/');
+// 	url = url[url.length-1];
 	
 // 	if(url === "list")
 // 		 Array.from(document.querySelectorAll('.searchCategory')).forEach(function(item, index) {
 // 			 item.setAttribute("href", item.getAttribute("href").replace("list","list"));
 // 			 console.log(item);
 //          }); 
-	if(url === "search")
-		 Array.from(document.querySelectorAll('.searchCategory')).forEach(function(item, index) {
-			 item.setAttribute("href", item.getAttribute("href").replace("list","search"));
-			 console.log(item);
-         }); 
+// 	if(url === "search")
+// 		 Array.from(document.querySelectorAll('.searchCategory')).forEach(function(item, index) {
+// 			 item.setAttribute("href", item.getAttribute("href").replace("list","search"));
+// 			 console.log(item);
+//          }); 
+// const ch = /[0-9]+$/;
+
+// document.querySelector('#minPrice').onkeyup = e => {
+// 	console.log("dddddd");
+// 		if(!ch.test(document.querySelector('#minPrice').value)) 
+// 			console.log("안됨");
+// 		else
+// 			console.log("됨");
+// 	};
+
 }
+
+function searchPrice(){
+	
+
+	
+	let minPrice = document.querySelector('#minPrice');
+	let maxPrice = document.querySelector('#maxPrice');
+	let min = minPrice.value;
+	let max = maxPrice.value;
+	
+	if(!minPrice.value && !maxPrice.value){
+		alert("가격을 입력해주세요.");
+		return;
+	}
+	
+	if(maxPrice.value){
+		console.log("?");
+	}
+	if(parseInt(minPrice.value) > parseInt(maxPrice.value)){
+		console.log("!!!!");
+	}
+	
+	if(maxPrice.value && parseInt(minPrice.value) > parseInt(maxPrice.value)){
+		console.log("최소, 최대 변경");
+		maxPrice.value = min;
+		minPrice.value = max;
+	}
+	
+	let href = location.href;
+	
+	if(minPrice.value){
+		href += "&minPrice=" + minPrice.value
+	}
+	
+	if(maxPrice.value){
+		href += "&maxPrice=" + maxPrice.value;
+	}
+	
+	console.log(href);
+};
+
+function resetPrice(){
+	let minPrice = document.querySelector('#minPrice');
+	let maxPrice = document.querySelector('#maxPrice');
+	minPrice.value = "";
+	maxPrice.value = "";
+};
 
 </script>
 <link rel="stylesheet" href="/css/header.css">
@@ -68,11 +125,11 @@ window.onload = function(){
 			</div>
 			<div class="search-option">
                <div>가격대</div>
-               <input>
+               <input id="minPrice" name="minPrice">
                <div>~</div>
-               <input>
-               <div class="reset">초기화</div>
-               <div class="searchs">검색</div>
+               <input id="maxPrice" name="maxPrice">
+               <div class="reset" onclick="resetPrice();">초기화</div>
+               <div class="searchs" onclick="searchPrice();">검색</div>
            </div>
 		</form>
 		</div>

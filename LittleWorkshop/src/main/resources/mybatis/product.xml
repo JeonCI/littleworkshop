@@ -28,7 +28,6 @@
 				</where>
 			</if>
 		</if>
-			
 	</sql>
 
 	
@@ -72,7 +71,7 @@
 			</if>
 		</if>
 	</sql>
-	
+
 	<sql id="likeList">
 		<if test="id != null">
 			<where>
@@ -80,6 +79,16 @@
 			</where>
 		</if>
 	</sql>
+	
+	<sql id="searchPrice">
+		<if test="minPrice != 0">
+			AND PRODUCT_PRICE >= #{minPrice}
+		</if>
+		<if test="maxPrice != 0">
+			AND PRODUCT_PRICE <![CDATA[<=]]> #{maxPrice}
+		</if>
+	</sql>
+
 
 	<resultMap type="Product" id="ProductMap">
 		<id column="product_code" property="productCode"/>
@@ -159,7 +168,7 @@
 			LEFT JOIN tag_list tl ON ptl.tag_code = tl.tag_code
 			LEFT JOIN (SELECT * FROM product_like_list <include refid="likeList"></include>) pll ON pll.product_code = p.product_code)
 		<![CDATA[ WHERE RNUM > ((#{page} - 1) * #{perPage}) and RNUM <= ( #{page} * #{perPage})	]]>
-		 <include refid="condition"></include>
+		 <include refid="searchPrice"></include><include refid="condition"></include>
 	</select>
 	
 	<select id="total" resultType="Integer">

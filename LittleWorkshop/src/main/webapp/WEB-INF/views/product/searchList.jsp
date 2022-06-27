@@ -31,77 +31,111 @@ a {
 
 window.onload = function(){
 	
-// 	let url = location.href.split('?')[0].split('/');
-// 	url = url[url.length-1];
+	let url = location.href.split('?')[0].split('/');
+	url = url[url.length-1];
 	
 // 	if(url === "list")
 // 		 Array.from(document.querySelectorAll('.searchCategory')).forEach(function(item, index) {
 // 			 item.setAttribute("href", item.getAttribute("href").replace("list","list"));
 // 			 console.log(item);
 //          }); 
-// 	if(url === "search")
-// 		 Array.from(document.querySelectorAll('.searchCategory')).forEach(function(item, index) {
-// 			 item.setAttribute("href", item.getAttribute("href").replace("list","search"));
-// 			 console.log(item);
-//          }); 
-// const ch = /[0-9]+$/;
+	if(url === "search")
+		 Array.from(document.querySelectorAll('.searchCategory')).forEach(function(item, index) {
+			 item.setAttribute("href", item.getAttribute("href").replace("list","search"));
+         }); 
 
-// document.querySelector('#minPrice').onkeyup = e => {
-// 	console.log("dddddd");
-// 		if(!ch.test(document.querySelector('#minPrice').value)) 
-// 			console.log("안됨");
-// 		else
-// 			console.log("됨");
-// 	};
+
+
 
 }
 
 function searchPrice(){
-	
+	const URLSearch = new URLSearchParams(location.search);
 
+	
 	
 	let minPrice = document.querySelector('#minPrice');
 	let maxPrice = document.querySelector('#maxPrice');
 	let min = minPrice.value;
 	let max = maxPrice.value;
 	
-	if(!minPrice.value && !maxPrice.value){
+	if(!min && !max){
+		if(URLSearch.get("minPrice") != null)
+			minPrice.value = URLSearch.get("minPrice");
+		
+		
+		if(URLSearch.get("maxPrice") != null)
+			maxPrice.value = URLSearch.get("maxPrice");
+		
+		
 		alert("가격을 입력해주세요.");
 		return;
 	}
 	
-	if(maxPrice.value){
-		console.log("?");
-	}
-	if(parseInt(minPrice.value) > parseInt(maxPrice.value)){
-		console.log("!!!!");
-	}
 	
-	if(maxPrice.value && parseInt(minPrice.value) > parseInt(maxPrice.value)){
-		console.log("최소, 최대 변경");
+	if(min && parseInt(min) > parseInt(max)){
 		maxPrice.value = min;
 		minPrice.value = max;
 	}
-	
-	let href = location.href;
-	
-	if(minPrice.value){
-		href += "&minPrice=" + minPrice.value
+
+	//가격 재설정 루트
+	if(URLSearch.get("minPrice") != null || URLSearch.get("maxPrice") != null){
+		if(URLSearch.get("minPrice") != null){
+			if(minPrice.value == "" || minPrice.value == 0)
+				URLSearch.delete("minPrice");
+			else
+				URLSearch.set("minPrice",  minPrice.value);
+			
+			if(maxPrice.value != "" || maxPrice.value != 0)
+				URLSearch.set("maxPrice",  maxPrice.value);
+		}
+		
+		if(URLSearch.get("maxPrice") != null){
+			if(maxPrice.value == "" || maxPrice.value == 0)
+				URLSearch.delete("maxPrice");
+			else
+				URLSearch.set("maxPrice",  maxPrice.value);
+			
+			if(minPrice.value != "" || minPrice.value != 0)
+				URLSearch.set("minPrice",  minPrice.value);
+				
+		}
+	  	location.href = replaceAt(location.href,location.href.indexOf("?"),URLSearch.toString());
 	}
 	
-	if(maxPrice.value){
-		href += "&maxPrice=" + maxPrice.value;
+	//가격 초기검색 루트
+	else{  
+		let href = location.href;
+		
+		if(minPrice.value)
+			href += "&minPrice=" + minPrice.value;
+		if(maxPrice.value)
+			href += "&maxPrice=" + maxPrice.value;
+		location.href = href;
 	}
 	
-	console.log(href);
+
 };
 
 function resetPrice(){
+	const URLSearch = new URLSearchParams(location.search);
+	
 	let minPrice = document.querySelector('#minPrice');
 	let maxPrice = document.querySelector('#maxPrice');
 	minPrice.value = "";
 	maxPrice.value = "";
+	
+	URLSearch.delete("minPrice");
+	URLSearch.delete("maxPrice");
+
+	location.href = replaceAt(location.href,location.href.indexOf("?"),URLSearch.toString());
+	
 };
+
+function replaceAt(input, index, character){
+	
+    return input.substr(0, index) + "?" +character;
+}
 
 </script>
 <link rel="stylesheet" href="/css/header.css">
@@ -125,9 +159,9 @@ function resetPrice(){
 			</div>
 			<div class="search-option">
                <div>가격대</div>
-               <input id="minPrice" name="minPrice">
+               <input id="minPrice" name="minPrice" value="${pager.minPrice != '' ? pager.minPrice:''}">
                <div>~</div>
-               <input id="maxPrice" name="maxPrice">
+               <input id="maxPrice" name="maxPrice" value="${pager.maxPrice != '' ? pager.maxPrice:''}">
                <div class="reset" onclick="resetPrice();">초기화</div>
                <div class="searchs" onclick="searchPrice();">검색</div>
            </div>

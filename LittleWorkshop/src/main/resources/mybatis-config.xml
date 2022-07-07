@@ -28,6 +28,7 @@
 		<typeAlias type="kr.co.littleworkshop.model.ReceiveRequest" alias="ReceiveRequest"/>
 		<typeAlias type="kr.co.littleworkshop.model.Order" alias="Order"/>
 		<typeAlias type="kr.co.littleworkshop.model.ProductOrderDetail" alias="ProductOrderDetail"/>
+		<typeAlias type="kr.co.littleworkshop.model.ProfileImage" alias="ProfileImage"/>
 	</typeAliases>
 
 

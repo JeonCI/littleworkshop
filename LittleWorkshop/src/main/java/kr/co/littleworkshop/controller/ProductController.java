@@ -78,9 +78,6 @@ public class ProductController {
 	public String searchList(Model model, @ModelAttribute("pager") ProductPager pager, HttpSession session) {
 		Account account = (Account) session.getAttribute("account");
 		
-		System.out.println(pager.getSearch());
-		System.out.println(pager.getMaxPrice());
-		System.out.println(pager.getMinPrice());
 		if(account != null) {
 			pager.setId(account.getId());
 		}else {

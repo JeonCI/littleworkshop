@@ -154,7 +154,6 @@ public class SellerController {
 	@PostMapping("/orderMngmn/update")
 	public String update(@RequestParam int orderCode) {
 		orderService.setOrderStatus(orderCode);
-	
 		return "success";
 	}
 	

@@ -74,4 +74,10 @@ public class OrderServiceImpl implements OrderService {
 		 dao.setOrderStatus(orderCode);
 		
 	}
+
+
+	@Override
+	public Order orderStatusInfo(String id) {
+		return dao.orderStatusInfo(id);
+	}
 }

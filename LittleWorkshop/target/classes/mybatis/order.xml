@@ -168,7 +168,15 @@
 		<foreach collection="list" item="list" open="WHERE PRODUCT_CODE IN(" separator="," close=")">
 			#{list}
 		</foreach>
-		
 	</update>
+	
+	<select id="orderStatusInfo" resultType="Order">
+		SELECT DISTINCT
+		(select count(*) from order_list LEFT JOIN product_order_detail on product_order_detail.order_list_code = order_list.order_list_code where detail_status_code in(1,2,3)) as preparation,
+		(select count(*) from order_list LEFT JOIN product_order_detail on product_order_detail.order_list_code = order_list.order_list_code where detail_status_code in(4)) as delivery,
+		(select count(*) from order_list LEFT JOIN product_order_detail on product_order_detail.order_list_code = order_list.order_list_code where detail_status_code in(5,6)) as completed,
+		(select count(*)from order_list LEFT JOIN product_order_detail on product_order_detail.order_list_code = order_list.order_list_code where detail_status_code in(8)) as refund
+		from order_list LEFT JOIN product_order_detail on product_order_detail.order_list_code = order_list.order_list_code WHERE ID = #{id}
+	</select>
 
 </mapper>

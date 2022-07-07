@@ -26,4 +26,6 @@ public interface OrderDao {
 
 	void buyerCount(List<Integer> productCodeList);
 
+	Order orderStatusInfo(String id);
+
 }

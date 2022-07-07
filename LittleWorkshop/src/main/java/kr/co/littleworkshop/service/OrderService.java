@@ -22,4 +22,6 @@ public interface OrderService {
 
 	void setOrderStatus(int orderCode);
 
+	Order orderStatusInfo(String id);
+
 }

@@ -73,4 +73,9 @@ public class OrderDaoImpl implements OrderDao {
 		sql.update("order.buyerCount",productCodeList);
 		
 	}
+
+	@Override
+	public Order orderStatusInfo(String id) {
+		return sql.selectOne("order.orderStatusInfo",id);
+	}
 }

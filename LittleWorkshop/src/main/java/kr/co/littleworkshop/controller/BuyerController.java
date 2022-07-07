@@ -48,8 +48,26 @@ public class BuyerController {
 	
 	
 	@RequestMapping("/")
-	public String list(Model model, Pager pager) {
-		return path + "mypage";
+	public String list(Model model, Pager pager, HttpSession session) {
+		Account account = (Account) session.getAttribute("account");
+
+		
+		if(account.getClassify() == 2) {
+
+			return path + "sellerPage";
+		}
+		
+		
+		List<Order> orderList = orderService.orderHistory(account.getId(), pager);
+		model.addAttribute("orderHistory", orderList);
+		
+		List<Product> list = productService.likeList(account.getId());
+		model.addAttribute("likeList", list);
+		
+		Order status = orderService.orderStatusInfo(account.getId());
+		model.addAttribute("status", status);
+		
+		return path + "buyerPage";
 	}
 	
 	// #주문내역

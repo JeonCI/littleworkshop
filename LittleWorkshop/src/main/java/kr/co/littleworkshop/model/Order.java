@@ -17,10 +17,39 @@ public class Order {
 	private List<ProductOrderDetail> orderDetailList;
 	private List<Product> productList;
 	
+	private int preparation;
+	private int delivery;
+	private int refund;
+	private int completed;
 	
 
 
 
+	public int getCompleted() {
+		return completed;
+	}
+	public void setCompleted(int completed) {
+		this.completed = completed;
+	}
+	public int getPreparation() {
+		return preparation;
+	}
+	public void setPreparation(int preparation) {
+		this.preparation = preparation;
+	}
+
+	public int getDelivery() {
+		return delivery;
+	}
+	public void setDelivery(int delivery) {
+		this.delivery = delivery;
+	}
+	public int getRefund() {
+		return refund;
+	}
+	public void setRefund(int refund) {
+		this.refund = refund;
+	}
 	public int getOrderStatus() {
 		return orderStatus;
 	}

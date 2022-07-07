@@ -6,25 +6,25 @@
 <sql id="status">
 	<choose>
 		<when test="pager.status == 0">
-			WHERE ORDER_LIST.ORDER_STATUS= 0
+			WHERE d.DETAIL_STATUS_CODE= 0
 		</when>
 		<when test="pager.status == 1">
-			WHERE ORDER_LIST.ORDER_STATUS= 1
+			WHERE d.DETAIL_STATUS_CODE= 1
 		</when>
 		<when test="pager.status == 2">
-			WHERE ORDER_LIST.ORDER_STATUS= 2
+			WHERE d.DETAIL_STATUS_CODE= 2
 		</when>
 		<when test="pager.status == 3">
-			WHERE ORDER_LIST.ORDER_STATUS= 3
+			WHERE d.DETAIL_STATUS_CODE= 3
 		</when>
 		<when test="pager.status == 4">
-			WHERE ORDER_LIST.ORDER_STATUS= 4
+			WHERE d.DETAIL_STATUS_CODE= 4
 		</when>
 		<when test="pager.status == 5">
-			WHERE ORDER_LIST.ORDER_STATUS= 5
+			WHERE d.DETAIL_STATUS_CODE= 5
 		</when>
 		<when test="pager.status == 6">
-			WHERE ORDER_LIST.ORDER_STATUS= 6
+			WHERE d.DETAIL_STATUS_CODE= 6
 		</when>
 	</choose>
 </sql>
@@ -71,6 +71,8 @@
 			<result column="ORDER_PRICE" property="orderPrice" />
 			<result column="ORDER_INFO" property="orderInfo" />
 			<result column="ORDER_AMOUNT" property="orderAmount" />
+			<result column="DETAIL_STATUS_CODE" property="detailStatusCode" />
+			<result column="DETAIL_STATUS_NAME" property="detailStatusName" />
 		</collection>
 		
 		<collection property="productList" column="product_code" ofType="Product" javaType="ArrayList">
@@ -111,41 +113,43 @@
 	<select id="orderHistory" resultMap="OrderMap">
          SELECT
          o.rnum, o.order_list_code, o.order_status, o.order_date, o.payment_price,
-         d.order_code, d.order_price,d.order_info, d.order_amount,
+         d.order_code, d.order_price,d.order_info, d.order_amount, d.detail_status_code,
          p.PRODUCT_CODE product_code,
 		 p.SELLER_ID SELLER_ID,
 		 p.PRODUCT_NAME PRODUCT_NAME,
          pi.product_image_uuid,
-         s.order_status_name
+         s.order_status_name as detail_status_name
          FROM
 		(SELECT ROWNUM AS RNUM, sub.* from (SELECT * FROM order_list where id = #{id}) sub) o
         LEFT JOIN product_order_detail d ON d.order_list_code = o.order_list_code
         LEFT JOIN product p ON p.product_code = d.product_code
-        LEFT JOIN order_status s ON s.order_status_code = o.order_status
+        LEFT JOIN order_status s ON s.order_status_code = d.DETAIL_STATUS_CODE
         LEFT JOIN PRODUCT_IMAGES pi ON pi.product_code = p.product_code
         ORDER BY ORDER_DATE DESC
 	</select>
 	
 	<select id="orderRequest" resultMap="OrderMap">
         SELECT
-         o.rnum, o.order_list_code, o.order_status, o.order_date, o.payment_price,
-         d.order_code, d.order_price,d.order_info, d.order_amount,
+         o.rnum, o.order_list_code, o.order_date, o.payment_price,
+         d.order_code, d.order_price,d.order_info, d.order_amount, d.detail_status_code as order_status,
          p.PRODUCT_CODE product_code,
 		 p.SELLER_ID SELLER_ID,
 		 p.PRODUCT_NAME PRODUCT_NAME,
          pi.product_image_uuid,
          s.order_status_name
          FROM
-		(SELECT ROWNUM AS RNUM, sub.* from (SELECT * FROM order_list <include refid="status"></include> order by order_date) sub) o
+		(SELECT ROWNUM AS RNUM, sub.* from (SELECT order_list.* FROM order_list LEFT JOIN product_order_detail d ON d.order_list_code = order_list.order_list_code
+		LEFT JOIN product p ON p.product_code = d.product_code
+		<include refid="status"></include> and p.seller_id = #{id} order by order_date) sub) o
         LEFT JOIN product_order_detail d ON d.order_list_code = o.order_list_code
         LEFT JOIN product p ON p.product_code = d.product_code
-        LEFT JOIN order_status s ON s.order_status_code = o.order_status 
+        LEFT JOIN order_status s ON s.order_status_code = d.DETAIL_STATUS_CODE
         LEFT JOIN PRODUCT_IMAGES pi ON pi.product_code = p.product_code where p.seller_id = #{id}
 	</select>
 	
 	<insert id="addOrder">
-		INSERT INTO ORDER_LIST(ORDER_LIST_CODE, ID, ADDRESS_CODE,ORDER_STATUS,ORDER_DATE,ORDER_PAYMENT,PAYMENT_PRICE)
-		VALUES(ORDER_SEQ.nextval, #{id}, #{addressCode},1, sysdate, #{orderPayment}, #{paymentPrice})
+		INSERT INTO ORDER_LIST(ORDER_LIST_CODE, ID, ADDRESS_CODE,ORDER_DATE,ORDER_PAYMENT,PAYMENT_PRICE, ORDER_STATUS)
+		VALUES(ORDER_SEQ.nextval, #{id}, #{addressCode},sysdate, #{orderPayment}, #{paymentPrice},1)
 		<selectKey keyProperty="orderListCode" resultType="int" order="AFTER">
 			SELECT ORDER_SEQ.CURRVAL FROM DUAL
 		</selectKey>
@@ -156,10 +160,12 @@
 	</insert>
 	
 	<update id="setOrderStatus">
-		UPDATE ORDER_LIST SET
-		ORDER_STATUS = ORDER_STATUS+1
-		WHERE ORDER_LIST_CODE = #{code}
-		
+		UPDATE product_order_detail SET
+		DETAIL_STATUS_CODE = DETAIL_STATUS_CODE+1
+		WHERE ORDER_LIST_CODE = #{code} 
+		<foreach collection="productList" item="list" open="AND PRODUCT_CODE IN(" separator="," close=")">
+			#{list}
+		</foreach>
 	</update>
 	
 	<update id="buyerCount">

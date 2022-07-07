@@ -8,7 +8,23 @@ public class ProductOrderDetail {
 	private int orderPrice;
 	private String orderInfo;
 	private int orderAmount;
+	private int detailStatusCode;
+	private String detailStatusName;
 	
+	
+	
+	public String getDetailStatusName() {
+		return detailStatusName;
+	}
+	public void setDetailStatusName(String detailStatusName) {
+		this.detailStatusName = detailStatusName;
+	}
+	public int getDetailStatusCode() {
+		return detailStatusCode;
+	}
+	public void setDetailStatusCode(int detailStatusCode) {
+		this.detailStatusCode = detailStatusCode;
+	}
 	public int getOrderCode() {
 		return orderCode;
 	}

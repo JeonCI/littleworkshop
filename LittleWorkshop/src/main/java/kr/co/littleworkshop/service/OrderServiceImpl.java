@@ -70,8 +70,8 @@ public class OrderServiceImpl implements OrderService {
 
 
 	@Override
-	public void setOrderStatus(int orderCode) {
-		 dao.setOrderStatus(orderCode);
+	public void setOrderStatus(int orderCode, List<Integer> productCode) {
+		 dao.setOrderStatus(orderCode,productCode);
 		
 	}
 

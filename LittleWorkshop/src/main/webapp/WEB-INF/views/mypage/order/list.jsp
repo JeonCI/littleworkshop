@@ -174,6 +174,14 @@
 									</c:forEach>
 									<div>
 										<span class="productName">${product.productName}</span>
+										<c:forEach var="info" items="${item.orderDetailList}">
+												<c:if test="${info.productCode == product.productCode}">
+													<c:if test="${infoCode != info.productCode}">
+														<span>${info.detailStatusName}</span>
+													</c:if>
+													<c:set var="infoCode" value="${info.productCode}"></c:set>
+												</c:if>
+										</c:forEach>
 										<span>${item.orderStatusName}</span>
 										<div class="optionBoxList">
 											<c:forEach var="info" items="${item.orderDetailList}">

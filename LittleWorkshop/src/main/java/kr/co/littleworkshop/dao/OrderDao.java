@@ -22,7 +22,7 @@ public interface OrderDao {
 
 	List<Order> orderRequest(String id, orderPager pager);
 
-	void setOrderStatus(int orderCode);
+	void setOrderStatus(int orderCode, List<Integer> productCode);
 
 	void buyerCount(List<Integer> productCodeList);
 

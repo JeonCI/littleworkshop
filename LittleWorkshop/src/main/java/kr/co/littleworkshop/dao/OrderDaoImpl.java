@@ -40,6 +40,7 @@ public class OrderDaoImpl implements OrderDao {
 
 	@Override
 	public void addOrderDetail(ProductOrderDetail item) {
+		
 		sql.insert("order.addOrderDetail", item);
 		
 	}
@@ -62,9 +63,11 @@ public class OrderDaoImpl implements OrderDao {
 	}
 
 	@Override
-	public void setOrderStatus(int code) {
-
-		sql.update("order.setOrderStatus",code);
+	public void setOrderStatus(int code, List<Integer> productCode) {
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("code", code);
+		map.put("productList", productCode);
+		sql.update("order.setOrderStatus",map);
 		
 	}
 

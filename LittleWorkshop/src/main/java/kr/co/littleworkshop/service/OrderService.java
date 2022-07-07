@@ -20,7 +20,7 @@ public interface OrderService {
 
 	List<Order> orderRequest(String id, orderPager pager);
 
-	void setOrderStatus(int orderCode);
+	void setOrderStatus(int orderCode, List<Integer> productCode);
 
 	Order orderStatusInfo(String id);
 

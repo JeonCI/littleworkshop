@@ -152,8 +152,8 @@ public class SellerController {
 	
 	@ResponseBody
 	@PostMapping("/orderMngmn/update")
-	public String update(@RequestParam int orderCode) {
-		orderService.setOrderStatus(orderCode);
+	public String update(@RequestParam int orderCode, @RequestParam(value = "productCode[]") List<Integer> productCode) {
+		orderService.setOrderStatus(orderCode,productCode);
 		return "success";
 	}
 	

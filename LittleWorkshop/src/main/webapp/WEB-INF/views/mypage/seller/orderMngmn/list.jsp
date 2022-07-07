@@ -251,10 +251,16 @@ margin-bottom: 20px;
 // 		};
 		
 		if(addWaybillNumber){
+			let productCode = [];
+			
+			Array.from(self.closest("#paymentList").querySelectorAll(".productBox")).forEach(function(item,index){
+				productCode.push(parseInt(item.getAttribute("data-product")));
+			});
+			
 			$.ajax({
 				type: "POST",
 				url:"orderMngmn/update",
-		        data : {"orderCode" : parseInt(orderCode)},
+		        data : {"orderCode" : parseInt(orderCode), "productCode" : productCode},
 				success: function(result){
 					self.closest("#paymentList").remove();
 			 		if(document.querySelectorAll("#paymentList").length === 0){
@@ -321,7 +327,7 @@ margin-bottom: 20px;
 <!-- 							</form> -->
 							</div>
 							<c:forEach var="product" items="${item.productList}">
-								<div class="productBox">
+								<div class="productBox" data-product = "${product.productCode}">
 									<c:forEach var="image" items="${product.productImageList}" end="0">
 										<div class="productImage">
 											<a href="/product/view/${product.productCode}"><img src="/upload/productimage/${product.sellerId}/${product.productCode}_${product.productName}/${image.productImageUuid}"></a>

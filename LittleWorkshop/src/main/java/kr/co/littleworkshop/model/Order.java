@@ -12,6 +12,7 @@ public class Order {
 	private String orderPayment;
 	private int paymentPrice;
 	private String orderStatusName;
+	private String detailStatusName;
 	private int orderStatus;
 	private List<Integer> basketList;
 	private List<ProductOrderDetail> orderDetailList;

@@ -68,6 +68,7 @@ public class RootController {
 	
 	@PostMapping("/login")
 	public String login(HttpSession session, Account account, Model model) {
+		
 		SaltCode salt = new SaltCode();
 		salt.accountSaltCode(account);
 		
@@ -77,7 +78,10 @@ public class RootController {
 			session.setAttribute("account", account);
 			model.addAttribute("account", account);
 			
-			return "redirect:.";
+			String target = (String) session.getAttribute("target");
+			session.removeAttribute("target");
+			System.out.println(target);
+			return "redirect:" + (target == null ? "/" : target);
 		}
 		
 		model.addAttribute("msg", "아이디 또는 비밀번호를 확인해 주세요!");

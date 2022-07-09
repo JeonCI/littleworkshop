@@ -23,16 +23,9 @@
                <button><i class="bi bi-search"></i></button>
            </form>
            <div class="icon">
-           <c:if test="${account == null }">
-               <a href="/login"><i class="bi bi-person-circle"></i></a>
-               <a href="/login"><i class="bi bi-cart"></i></a>
-           	   <a href="/login"><i class="bi bi-heart"></i></a>
-           </c:if>
-           <c:if test="${account != null }">
                <a href="/mypage/"><i class="bi bi-person-circle"></i></a>
                <a href="/basket"><i class="bi bi-cart"></i></a>
                <a href="/mypage/like"><i class="bi bi-heart"></i></a>
-           </c:if>
             </div>
         </div>
         <hr>
@@ -40,16 +33,16 @@
            <div class="dropdown">
             <div class="category">카테고리</div>
             <div class="dropdown-content">
-            <div><a href="#">패션/잡화</a></div>
-            <div><a href="#">악세서리</a></div>
-            <div><a href="#">인테리어소품</a></div>
-            <div><a href="#">반려동물 관련</a></div>
-            <div><a href="#">전자기기 관련</a></div>
-            <div><a href="#">뷰티/화장품</a></div>
-            <div><a href="#">가구</a></div>
-            <div><a href="#">식품</a></div>
-            <div><a href="#">문구/팬시</a></div>
-            <div><a href="#">공예</a></div>
+            <div><a href="/product/search?search=1">패션/잡화</a></div>
+            <div><a href="/product/search?search=2">악세서리</a></div>
+            <div><a href="/product/search?search=3">인테리어 소품</a></div>
+            <div><a href="/product/search?search=4">반려동물</a></div>
+            <div><a href="/product/search?search=5">전자기기</a></div>
+            <div><a href="/product/search?search=6">뷰티/화장품</a></div>
+            <div><a href="/product/search?search=7">가구</a></div>
+            <div><a href="/product/search?search=8">식품</a></div>
+            <div><a href="/product/search?search=9">문구/팬시</a></div>
+            <div><a href="/product/search?search=10">공예</a></div>
         </div>
         	</div>
             <div><a href="/product/rcmndList">추천작품</a></div>

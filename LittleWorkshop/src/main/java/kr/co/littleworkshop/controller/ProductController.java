@@ -47,11 +47,10 @@ public class ProductController {
 	public String list(Model model, @ModelAttribute("pager") ProductPager pager, HttpSession session) {
 		Account account = (Account) session.getAttribute("account");
 		
-		if(account != null) {
+		if(account != null) 
 			pager.setId(account.getId());
-		}else {
+		else 
 			pager.setId("");
-		}
 		
 		if(pager.getKeyword() != null) {
 			keywordService.addKeyword(pager.getKeyword());
@@ -64,13 +63,10 @@ public class ProductController {
 			}
 		}
 		
-		
 		List<Product> list = service.list(pager);
 		List<ProductCategory> categoryList = categoryService.productCategoryList();
-		
 		model.addAttribute("list", list);
 		model.addAttribute("categoryList",categoryList);
-		
 		return path + "list";
 	}
 	
@@ -78,11 +74,10 @@ public class ProductController {
 	public String searchList(Model model, @ModelAttribute("pager") ProductPager pager, HttpSession session) {
 		Account account = (Account) session.getAttribute("account");
 		
-		if(account != null) {
+		if(account != null) 
 			pager.setId(account.getId());
-		}else {
+		else 
 			pager.setId("");
-		}
 		
 		if(pager.getKeyword() != null) {
 			keywordService.addKeyword(pager.getKeyword());
@@ -95,27 +90,22 @@ public class ProductController {
 			}
 		}
 		
-		
 		List<Product> list = service.list(pager);
 		List<ProductCategory> categoryList = categoryService.productCategoryList();
-		
 		model.addAttribute("list", list);
 		model.addAttribute("categoryList",categoryList);
-		
 		return path + "searchList";
 	}
 	
 	@RequestMapping("/rcmndList")
 	public String rcmndList(Model model, @ModelAttribute("pager") ProductPager pager, HttpSession session) {
 		Account account = (Account) session.getAttribute("account");
-		if(account != null) 
-			pager.setCondition("rcmnd");
-		else
-			pager.setCondition(null);
 		
 		if(account != null) {
+			pager.setCondition("rcmnd");
 			pager.setId(account.getId());
 		}else {
+			pager.setCondition(null);
 			pager.setId("");
 		}
 		
@@ -132,10 +122,8 @@ public class ProductController {
 		
 		List<Product> list = service.list(pager);
 		List<ProductCategory> categoryList = categoryService.productCategoryList();
-		
 		model.addAttribute("list", list);
 		model.addAttribute("categoryList",categoryList);
-		
 		return path + "rcmndList";
 	}
 	
@@ -151,21 +139,16 @@ public class ProductController {
 		else 
 			item = service.item(productCode);
 		
-		
 		model.addAttribute("item",item);
-
 		return path + "view";
 	}
 
 	@GetMapping("/add")
 	public String add(Model model, HttpSession session) {
 		List<Product> categories = service.categories();
-
 		Account account = (Account) session.getAttribute("account");
-
 		model.addAttribute("productCategories", categories);
 		model.addAttribute("account", account);
-
 		return path + "add";
 	}
 
@@ -185,7 +168,6 @@ public class ProductController {
 		}
 		
 		service.add(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues, soldOutValues, tagNameList, product);
-		
 		Uploader<ProductImages> uploader = new Uploader<>();
 		String root = "productimage/"+product.getSellerId()+"/"+product.getProductCode()+"_"+product.getProductName();
 
@@ -204,17 +186,11 @@ public class ProductController {
 	@GetMapping("/update/{productCode}")
 	public String update(@PathVariable int productCode, Model model) {
 		List<Product> categories = service.categories();
-
 		Product item = new Product();
-
 		item.setProductCode(productCode);
-
 		item = service.item(productCode);
-
-
 		model.addAttribute("item", item);
 		model.addAttribute("productCategories", categories);
-
 		return path + "update";
 	}
 
@@ -225,10 +201,8 @@ public class ProductController {
 						@RequestParam("optionCount") List<Integer> optionCount,
 						@RequestParam("productNecessaryOption") List<Integer> necessaryOptionValues,
 						@RequestParam("productSoldOut") List<Integer> soldOutValues,
-						@RequestParam("tagList") List<String> tagNameList,
-						Product product) {
+						@RequestParam("tagList") List<String> tagNameList, Product product) {
 		product.setProductCode(productCode);
-
 		service.update(productOptionNames, productOptionDetailNames, optionCount, necessaryOptionValues, soldOutValues, tagNameList, product);
 
 		return "redirect:../list";
@@ -244,7 +218,6 @@ public class ProductController {
 	@ResponseBody
 	public List<Integer> getSoldOut(@RequestParam("productCode") int productCode) {
 		List<Integer> productSoldOutList = service.getSoldOutList(productCode);
-		
 		return productSoldOutList;
 	}
 	
@@ -252,7 +225,6 @@ public class ProductController {
 	@ResponseBody
 	public int getProductCategoryCode(@RequestParam("productCode") int productCode) {
 		int productCategoryCode = service.getProductCategoryCode(productCode);
-		
 		return productCategoryCode;
 	}
 	
@@ -260,8 +232,7 @@ public class ProductController {
 	@GetMapping("/heartPushAction")
 	public String heartPushAction(int productCode,HttpSession session) {
 		Account account = (Account) session.getAttribute("account");
-		
-		
+
 		if(account == null)
 			return "fail";
 		else{

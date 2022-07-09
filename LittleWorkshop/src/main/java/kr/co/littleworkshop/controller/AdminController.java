@@ -33,19 +33,19 @@ public class AdminController {
 		
 		if(service.adminLogin(account)) {
 			account.setPasswd(null);
-			
 			session.setAttribute("account", account);
 			
 			return "redirect:manage";
 		}
 		
-		model.addAttribute("msg", "아이디 또는 비밀번호를 확인해 주세요!");
+		model.addAttribute("msg", "아이디 또는 비밀번호를 확인해 주세요.");
 		
 		return "redirect:./";
 	}
 	
 	@GetMapping("/adminLogout")
 	public String adminLogout(HttpSession session) {
+		
 		session.invalidate();
 		
 		return "redirect:./";

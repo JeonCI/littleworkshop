@@ -31,7 +31,7 @@ import kr.co.littleworkshop.util.CookieManager;
 @RequestMapping("/basket")
 public class BasketController {
 	final String path = "basket/";
-
+	
 	@Autowired
 	BasketService service;
 
@@ -50,7 +50,6 @@ public class BasketController {
 
 		model.addAttribute("sellerList", sellerList);
 		model.addAttribute("list", list);
-
 		return "basket";
 	}
 
@@ -78,9 +77,7 @@ public class BasketController {
 	@GetMapping("/delete/{code}")
 	public String delete(@PathVariable int code, HttpSession session) {
 		Account account = (Account) session.getAttribute("account");
-
 		service.delete(code, account.getId());
-
 		return "success";
 	}
 
@@ -88,9 +85,7 @@ public class BasketController {
 	@PostMapping("/partialDeletion")
 	public String partialDeletion(HttpSession session, @RequestBody List<Integer> deleteList) {
 		Account account = (Account) session.getAttribute("account");
-
 		service.partialDeletion(deleteList, account.getId());
-
 		return "success";
 	}
 
@@ -98,9 +93,7 @@ public class BasketController {
 	@GetMapping("/update/{code}")
 	public String update(@PathVariable int code, HttpSession session, @RequestParam(value = "amount") int amount) {
 		Account account = (Account) session.getAttribute("account");
-
 		service.update(code, account.getId(), amount);
-
 		return "success";
 	}
 

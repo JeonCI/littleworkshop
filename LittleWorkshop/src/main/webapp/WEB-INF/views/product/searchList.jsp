@@ -151,10 +151,24 @@ function replaceAt(input, index, character){
 			<div class="categoryMenu">
 				<div>카테고리</div>
 				<c:if test="${categoryList.size() > 0 }">
-					<div class="categorys ${pager.search==0?'click':''} " ><a class="searchCategory" href="./list?keyword=${pager.keyword}">전체</a></div>
+					<div class="categorys ${pager.search==0?'click':''} " >
+					<c:if test="${pager.keyword != null}">
+						<a class="searchCategory" href="./search?keyword=${pager.keyword}">전체</a></div>
+					</c:if>
+					<c:if test="${pager.keyword == null}">
+						<a class="searchCategory" href="./search?">전체</a></div>
+					</c:if>
+					
 					<c:forEach var="category" items="${categoryList}">
-						<div class="categorys ${category.productCategoryCode == pager.search?'click':''}" onclick="setCategory(this);"><a class="searchCategory" href="./search?keyword=${pager.keyword}&search=${category.productCategoryCode}">${category.productCategory}</a></div>
+						<div class="categorys ${category.productCategoryCode == pager.search?'click':''}" onclick="setCategory(this);">
+						<c:if test="${pager.keyword != null}">
+							<a class="searchCategory" href="./search?keyword=${pager.keyword}&search=${category.productCategoryCode}">${category.productCategory}</a></div>
+						</c:if>
+						<c:if test="${pager.keyword == null}">
+							<a class="searchCategory" href="./search?search=${category.productCategoryCode}">${category.productCategory}</a></div>
+						</c:if>
 					</c:forEach>
+					
 				</c:if>
 			</div>
 			<div class="search-option">
@@ -166,7 +180,7 @@ function replaceAt(input, index, character){
                <div class="searchs" onclick="searchPrice();">검색</div>
            </div>
 		</form>
-		</div>
+	</div>
 		<ul class="items">
 			<c:if test="${list.size() < 1 }">
 				<div class="notfound">등록된 제품이 없습니다.</div>

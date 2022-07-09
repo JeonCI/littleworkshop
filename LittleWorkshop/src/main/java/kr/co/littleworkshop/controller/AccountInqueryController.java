@@ -37,17 +37,14 @@ public class AccountInqueryController {
 	public String add(Model model, HttpSession session) {
 		List<AccountInquery> categoryList = service.CategoryList();
 		Account account = (Account) session.getAttribute("account");
-		
 		model.addAttribute("categories", categoryList);
 		model.addAttribute("account", account);
-		
 		return path + "add";
 	}
 	
 	@PostMapping("/add")
 	public String add(AccountInquery item) {
 		service.add(item);
-		
 		return "redirect:./list";
 	}
 	
@@ -55,26 +52,21 @@ public class AccountInqueryController {
 	public String update(@PathVariable int accountInqueryCode, Model model) {
 		AccountInquery item = service.item(accountInqueryCode);
 		List<AccountInquery> categoryList = service.CategoryList();
-		
 		model.addAttribute("item", item);
 		model.addAttribute("categories", categoryList);
-		
 		return path + "update";
 	}
 	
 	@PostMapping("/update/{accountInqueryCode}")
 	public String update(@PathVariable int accountInqueryCode, AccountInquery item) {
 		item.setAccountInqueryCode(accountInqueryCode);
-		
 		service.update(item);
-		
 		return "redirect:../list";
 	}
 	
 	@GetMapping("/delete/{accountInqueryCode}")
 	public String delete(@PathVariable int accountInqueryCode) {
 		service.delete(accountInqueryCode);
-		
 		return "redirect:../list";
 	}
 }

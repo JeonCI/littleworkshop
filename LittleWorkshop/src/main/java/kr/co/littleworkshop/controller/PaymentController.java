@@ -54,7 +54,6 @@ public class PaymentController {
 		
 		model.addAttribute("paymentItems", paymentItems);
 		model.addAttribute("addressList", addressList);
-
 		return "payment";
 
 	}	
@@ -65,25 +64,7 @@ public class PaymentController {
 		Account account = (Account) session.getAttribute("account");
 		order.setId(account.getId());
 		service.add(order);
-		
-
 		return "sessecs";
 
 	}	
-
-	
-//	@GetMapping("")
-//	public 	String payment(int productCode[], HttpSession session,Model model) {
-//		Account account = (Account) session.getAttribute("account");
-//		List<AccountAddress> addressList = addressService.list(account.getId());
-//		List<Product> productList = service.paymentList(productCode, account.getId());
-//		
-//		model.addAttribute("productList", productList);
-//		model.addAttribute("addressList", addressList);
-//		
-//		return "payment";
-//
-//	}
-
-	
 }

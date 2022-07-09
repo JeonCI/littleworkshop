@@ -24,18 +24,14 @@ public class NoticeController {
 	@GetMapping("/list")
 	public String list(Model model) {
 		List<Notice> list = service.list();
-		
 		model.addAttribute("list", list);
-		
 		return path + "list";
 	}
 	
 	@GetMapping("/view/{noticeCode}")
 	public String view(@PathVariable int noticeCode, Model model) {
 		Notice item = service.noticeItem(noticeCode);
-		
 		model.addAttribute("item", item);
-		
 		return path + "view";
 	}
 }

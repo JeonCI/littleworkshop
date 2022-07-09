@@ -50,12 +50,8 @@ public class BuyerController {
 	@RequestMapping("/")
 	public String list(Model model, Pager pager, HttpSession session) {
 		Account account = (Account) session.getAttribute("account");
-
-		
-		if(account.getClassify() == 2) {
-
+		if(account.getClassify() == 2) 
 			return path + "sellerPage";
-		}
 		
 		
 		List<Order> orderList = orderService.orderHistory(account.getId(), pager);
@@ -74,11 +70,8 @@ public class BuyerController {
 	@RequestMapping("/orderList")
 	public String order(Model model, Pager pager, HttpSession session) {
 		Account account = (Account) session.getAttribute("account");
-		
 		List<Order> orderList = orderService.orderHistory(account.getId(), pager);
-
 		model.addAttribute("orderHistory", orderList);
-	
 		return path + "order/list";
 	}
 	
@@ -87,7 +80,6 @@ public class BuyerController {
 	@RequestMapping("/address")
 	public String address(Model model, HttpSession session) {
 		Account account = (Account) session.getAttribute("account");
-		
 		List<AccountAddress> list = addressService.list(account.getId());
 		model.addAttribute("list", list);
 		return path + "address/list";
@@ -112,7 +104,6 @@ public class BuyerController {
 		Account account = (Account) session.getAttribute("account");
 		AccountAddress item = addressService.item(code, account.getId());
 		List<ReceiveRequest> requestList = addressService.requestList();
-		
 		model.addAttribute("requestList", requestList);
 		model.addAttribute("item", item);
 		return path + "address/update";
@@ -139,7 +130,6 @@ public class BuyerController {
 	@GetMapping("/accountInfo_Edit")
 	public String accountInfoEdit(Model model, HttpSession session) {
 		Account account = (Account) session.getAttribute("account");
-		
 		Account item = accountService.item(account.getId());
 		model.addAttribute("item", item);
 		return path + "accountInfo";
@@ -151,7 +141,6 @@ public class BuyerController {
 		Account account = (Account) session.getAttribute("account");
 		item.setId(account.getId());
 		item.setClassify(account.getClassify());
-		
 		accountService.update(item);
 		return true;
 	}
@@ -162,7 +151,6 @@ public class BuyerController {
 	public String likeList(Model model, HttpSession session) {
 		Account account = (Account) session.getAttribute("account");
 		List<Product> list = productService.likeList(account.getId());
-		
 		model.addAttribute("list", list);
 		return path + "like";
 	}

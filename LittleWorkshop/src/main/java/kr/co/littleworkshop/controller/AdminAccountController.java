@@ -23,6 +23,7 @@ public class AdminAccountController {
 	
 	@GetMapping("/accountList")
 	public String accountList(Model model) {
+		
 		List<Account> accountList = accountService.list();
 		
 		model.addAttribute("accountList", accountList);
@@ -32,6 +33,7 @@ public class AdminAccountController {
 	
 	@GetMapping("/accountDelete/{accountid}")
 	public String deleteAccount(@PathVariable String id) {
+		
 		accountService.delete(id);
 		
 		return "redirect:../accountList";
@@ -39,6 +41,7 @@ public class AdminAccountController {
 	
 	@GetMapping("/accountUpdate/{id}")
 	public String accountUpdate(@PathVariable String id, Model model) {
+		
 		Account item = accountService.item(id);
 		
 		model.addAttribute("item", item);
@@ -48,8 +51,8 @@ public class AdminAccountController {
 	
 	@PostMapping("/accountUpdate/{id}")
 	public String accountUpdate(@PathVariable String id, Account account) {
-		account.setId(id);
 		
+		account.setId(id);
 		accountService.update(account);
 		
 		return "redirect:../accountList";

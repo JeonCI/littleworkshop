@@ -85,8 +85,7 @@ public class SellerController {
 					@RequestParam("optionCount") List<Integer> optionCount,
 					@RequestParam("ProductImage") List<MultipartFile> ProductImages,
 					@RequestParam("productNecessaryOption") List<Integer> necessaryOptionValues,
-					@RequestParam("tagList") List<String> tagNameList,
-					Product product) {
+					@RequestParam("tagList") List<String> tagNameList, Product product) {
 		List<Integer> soldOutValues = new ArrayList<Integer>();
 		for(int i = 0; i < productOptionDetailNames.size(); i++) {
 			soldOutValues.add(1);

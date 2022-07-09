@@ -29,29 +29,25 @@
 	<context:component-scan base-package="kr.co.littleworkshop" />
 	
 	<interceptors>
-	
-	<!-- 관리자 Interceptor -->
+		<!-- 관리자 Interceptor -->
 		<interceptor>
 			<mapping path="/admin/manage/**"/>
 			<beans:bean class="kr.co.littleworkshop.util.AdminInterceptor"></beans:bean>
 		</interceptor>
 	
-	
-	<!-- 사용자 Interceptor -->
+		<!-- 사용자 Interceptor -->
 		<interceptor>
 			<mapping path="/mypage/**"/>
 			<mapping path="/payment"/>
 			<mapping path="/basket"/>
 			<beans:bean class="kr.co.littleworkshop.util.AccountInterceptor"></beans:bean>
 		</interceptor>
-		
 	
-	<!-- 판매자 Interceptor -->
+		<!-- 판매자 Interceptor -->
 		<interceptor>
 			<mapping path="/mypage/seller/**"/>
 			<beans:bean class="kr.co.littleworkshop.util.SellerInterceptor"></beans:bean>
 		</interceptor>
-		
 	</interceptors>
 	
 </beans:beans>

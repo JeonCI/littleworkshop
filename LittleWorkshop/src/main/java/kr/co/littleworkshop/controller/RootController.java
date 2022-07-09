@@ -56,7 +56,11 @@ public class RootController {
 		else
 			pager.setCondition(null);
 		List<Product> rcmndList = productService.list(pager);
-		
+		if(rcmndList.size() < 1) {
+			pager.setCondition(null);
+			rcmndList = productService.list(pager);
+		}
+			
 		model.addAttribute("rcmndList",rcmndList);
 		return "index";
 	}
@@ -80,7 +84,6 @@ public class RootController {
 			
 			String target = (String) session.getAttribute("target");
 			session.removeAttribute("target");
-			System.out.println(target);
 			return "redirect:" + (target == null ? "/" : target);
 		}
 		

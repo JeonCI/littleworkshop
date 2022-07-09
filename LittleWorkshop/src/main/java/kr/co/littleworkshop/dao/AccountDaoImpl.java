@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.littleworkshop.model.Account;
+import kr.co.littleworkshop.model.ProfileImage;
 
 @Repository
 public class AccountDaoImpl implements AccountDao {
@@ -45,8 +46,25 @@ public class AccountDaoImpl implements AccountDao {
 	}
 
 	@Override
-		public int checkId(Account account) {
+	public int checkId(Account account) {
 			return sql.selectOne("account.checkId", account);
+	}
+
+	@Override
+	public void addProfileImage(ProfileImage item) {
+		sql.insert("account.addProfileImage", item);
+		
+	}
+
+	@Override
+	public ProfileImage getProfileImage(String id) {
+		return sql.selectOne("account.getProfileImage", id);
+	}
+
+	@Override
+	public void updateProfileImage(ProfileImage item) {
+		sql.update("account.updateProfileImage", item);
+		
 	}
 
 }

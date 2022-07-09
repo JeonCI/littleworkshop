@@ -42,6 +42,22 @@
 		SELECT COUNT(id) FROM account
 		WHERE id=#{id}
 	</select>
-
+	
+	<insert id="addProfileImage">
+		INSERT INTO PROFILE_IMAGE
+		VALUES(PROFILE_IMAGE_SEQ.nextval, #{id}, #{profileImageUuid}, #{profileImageName})
+	</insert>
+	
+	<select id="getProfileImage" resultType="ProfileImage">
+		SELECT * FROM PROFILE_IMAGE
+		WHERE id=#{id}
+	</select>
+	
+	<update id="updateProfileImage">
+		UPDATE PROFILE_IMAGE SET
+		PROFILE_IMAGE_UUID = #{profileImageUuid},
+		PROFILE_IMAGE_NAME = #{profileImageName}
+		WHERE id = #{id}
+	</update>
 	
 </mapper>

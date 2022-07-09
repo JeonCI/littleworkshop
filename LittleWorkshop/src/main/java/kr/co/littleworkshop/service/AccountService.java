@@ -3,6 +3,7 @@ package kr.co.littleworkshop.service;
 import java.util.List;
 
 import kr.co.littleworkshop.model.Account;
+import kr.co.littleworkshop.model.ProfileImage;
 
 public interface AccountService {
 
@@ -19,6 +20,12 @@ public interface AccountService {
 	void update(Account item);
 
 	boolean checkId(Account account);
+
+	void addProfileImage(ProfileImage item);
+
+	ProfileImage getProfileImage(String id);
+
+	void updateProfileImage(ProfileImage item);
 
 
 

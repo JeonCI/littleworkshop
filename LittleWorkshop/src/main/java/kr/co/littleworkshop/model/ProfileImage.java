@@ -1,6 +1,8 @@
 package kr.co.littleworkshop.model;
 
-public class ProfileImage {
+import kr.co.littleworkshop.util.UploadFile;
+
+public class ProfileImage implements UploadFile{
 	
 	int profileImageCode;
 	String id;
@@ -31,5 +33,24 @@ public class ProfileImage {
 	public void setProfileImageName(String profileImageName) {
 		this.profileImageName = profileImageName;
 	}
+	
+	
+	@Override
+	public void setFileNm(String filename) {
+		this.profileImageName = filename;
+	}
+	@Override
+	public void setFileUuid(String uuid) {
+		this.profileImageUuid = uuid;
+	}
+	@Override
+	public String getFileNm() {
+		return profileImageName;
+	}
+	@Override
+	public String getFileUuid() {
+		return profileImageUuid;
+	}
+	
 
 }

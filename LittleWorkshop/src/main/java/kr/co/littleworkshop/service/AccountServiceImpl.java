@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.littleworkshop.dao.AccountDao;
 import kr.co.littleworkshop.model.Account;
+import kr.co.littleworkshop.model.ProfileImage;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -66,6 +67,22 @@ public class AccountServiceImpl implements AccountService {
 			return true;
 		else
 			return false;
+	}
+
+	@Override
+	public void addProfileImage(ProfileImage item) {
+		dao.addProfileImage(item);
+	}
+
+	@Override
+	public ProfileImage getProfileImage(String id) {
+		return dao.getProfileImage(id);
+	}
+
+	@Override
+	public void updateProfileImage(ProfileImage item) {
+		dao.updateProfileImage(item);
+		
 	}
 
 }

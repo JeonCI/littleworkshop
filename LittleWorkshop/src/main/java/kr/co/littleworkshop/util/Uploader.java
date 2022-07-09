@@ -38,4 +38,28 @@ public class Uploader<T extends UploadFile> {
 
 		return result;
 	}
+	
+	public T makeProfileImage(MultipartFile file, Class<T> type, String folder) throws Exception {
+		
+		T result = null;
+			if (!file.isEmpty()) {
+				
+				String filename = file.getOriginalFilename();
+				String uuid = UUID.randomUUID().toString() + filename;
+				String root = uploadPath + folder + "/" + uuid;
+				
+				Path directoryPath = Paths.get(root);
+				Files.createDirectories(directoryPath);
+				file.transferTo(new File(root));
+				
+				T item = type.getDeclaredConstructor().newInstance();
+				item.setFileNm(filename);
+				item.setFileUuid(uuid);
+
+				
+				result = item;
+			}
+		
+		return result;
+	}
 }

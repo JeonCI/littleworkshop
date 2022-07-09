@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>Little Workshop</title>
 <!--공통 CD  N -->  
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
@@ -91,16 +92,66 @@ body > div{
 	border: 1px solid #dddddd;
 	margin-bottom: 15px;
 }
-
+.profileImg{
+	display: block;
+	width:100px;
+	height:100px;
+	border-radius: 10%;
+}
 </style>
+<script>
+window.onload = function() {
+	
+	let input = document.getElementById("img");
+	input.addEventListener('change', function(){
+		let profileImg = new FormData(document.getElementById("profileImg_form"));
+		// 변경
+		$.ajax({
+			type: "post",
+			url:"./profileImg",
+			enctype: 'multipart/form-data',
+	        processData: false,
+	        contentType: false,
+			data: profileImg,
+			success: function(result){
+				console.log("dd");
+			},error: function(){
+				console.log("실패");
+			}
+		});
+		
+		// 미리보기
+	    for(let image of event.target.files){
+	        let img = document.getElementById("profileImg");
+		  	const reader = new FileReader();
+			reader.onload = function(event){
+				img.setAttribute("src", event.target.result);
+			}
+			reader.readAsDataURL(event.target.files[0]);	
+		}
+	});
+}
+</script>
 </head>
 <body>
 <jsp:include page="../header.jsp"></jsp:include>
 <div id="wrap">
 	<div>
 		<div id="profile">
-			<div>이미지</div>
-			<span>닉네임</span>
+			<div>
+				<form id="profileImg_form" method="post" action="./profileImg" enctype="multipart/form-data">
+					<label class="profileImg" for="img">
+						<c:if test="${profileImage == null}">
+							<img id="profileImg" class="profileImg" src="/image/deer-g379da77a8_1920.jpg">
+						</c:if>
+						<c:if test="${profileImage != null}">
+							<img id="profileImg" class="profileImg" src="/upload/profileImg/${profileImage.id}/${profileImage.profileImageUuid}">
+						</c:if>
+					</label>
+					<input id="img" type="file" accept="image/*" hidden="hidden" name="profileImg">
+				</form>
+			</div>
+			<span>${account.nickName} 님 환영합니다</span>
 		</div>
 		<div id="buyerContent">
 			<div>

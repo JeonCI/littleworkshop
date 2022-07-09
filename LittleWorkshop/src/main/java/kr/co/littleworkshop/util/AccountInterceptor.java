@@ -9,26 +9,27 @@ import kr.co.littleworkshop.model.Account;
 
 public class AccountInterceptor extends HandlerInterceptorAdapter {
 
-
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		HttpSession session = request.getSession();
-		
 		if(session != null) {
 			Account account = (Account) session.getAttribute("account");
-			if(account != null) {
+			if(account != null) 
 				return true;
-			}
 		}
 		
+
 		String referer  = (String)request.getHeader("REFERER");
-	
 		session.setAttribute("target", referer != null ? referer : "/");
+		
+//		String query = request.getQueryString();
+//		String uri = request.getRequestURI(); 
+//		
+//		session.setAttribute("target", request.getRequestURI() + (query != null ? "?"+query : ""));
+		
 		response.sendRedirect("/login");
 		
 		return false;
 	}
-
-	
 }
 

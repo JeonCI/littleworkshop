@@ -193,7 +193,7 @@ function replaceAt(input, index, character){
 									<a href="/product/view/${item.productCode}"><img src="/upload/productimage/${item.sellerId}/${item.productCode}_${item.productName}/${image.productImageUuid}"></a>
 								</div>
 							</c:forEach>
-						<div class="pd-sellr"><a href="#">${item.sellerId}</a></div>
+						<div class="pd-sellr"><a href="/seller/${item.sellerId}">${item.sellerId}</a></div>
 						<div class="pd-name"><a href="view/${item.productCode}">${item.productName}</a></div>
 						<div class="pd-price"><a href="#"><fmt:formatNumber value="${item.productPrice}"/>원</a></div>
 					</li>

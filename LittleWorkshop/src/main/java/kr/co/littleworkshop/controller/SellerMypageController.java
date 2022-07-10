@@ -37,7 +37,7 @@ import kr.co.littleworkshop.util.orderPager;
 
 @Controller
 @RequestMapping("/mypage/seller")
-public class SellerController {
+public class SellerMypageController {
 	final String path = "mypage/seller/";
 	
 	@Autowired

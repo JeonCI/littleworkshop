@@ -40,7 +40,7 @@ import kr.co.littleworkshop.util.Uploader;
 
 @Controller
 @RequestMapping("/mypage")
-public class BuyerController {
+public class BuyerMypageController {
 	final String path = "mypage/";
 
 	@Autowired

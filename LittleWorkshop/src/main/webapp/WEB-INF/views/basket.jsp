@@ -309,7 +309,7 @@ function paymentBtn(){
 				<c:forEach var="seller" items="${sellerList}">
 					<div class="sellerBox">
 						<input type="checkbox" class="sellerCheck checkbox" onclick="sellerCheck(this);" checked>
-						<span>${seller}</span>
+						<span><a href="/seller/${seller}">${seller}</a></span>
 						<c:forEach var="item" items="${list}">
 							<c:if test="${seller == item.sellerId}">
 								<div class="productBox">

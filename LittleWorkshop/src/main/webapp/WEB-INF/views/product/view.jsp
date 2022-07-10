@@ -274,7 +274,7 @@ function order(){
                 </div>
                 <div class="product_detail">
                     <div class="product_deatil-1">
-                        <div>${item.sellerId }</div>
+                        <div><a href="/seller/${item.sellerId}">${item.sellerId}</a></div>
                         <div class="bar"> ｜ </div>
                         <div>${item.productCategory }</div>
                     </div>

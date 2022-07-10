@@ -178,10 +178,10 @@
 	
 	<select id="orderStatusInfo" resultType="Order">
 		SELECT DISTINCT
-		(select count(*) from order_list LEFT JOIN product_order_detail on product_order_detail.order_list_code = order_list.order_list_code where detail_status_code in(1,2,3)) as preparation,
-		(select count(*) from order_list LEFT JOIN product_order_detail on product_order_detail.order_list_code = order_list.order_list_code where detail_status_code in(4)) as delivery,
-		(select count(*) from order_list LEFT JOIN product_order_detail on product_order_detail.order_list_code = order_list.order_list_code where detail_status_code in(5,6)) as completed,
-		(select count(*)from order_list LEFT JOIN product_order_detail on product_order_detail.order_list_code = order_list.order_list_code where detail_status_code in(8)) as refund
+		(select count(count(product_code)) from order_list LEFT JOIN product_order_detail on product_order_detail.order_list_code = order_list.order_list_code where detail_status_code in(1,2,3) group by product_order_detail.product_code) as preparation,
+		(select count(count(product_code)) from order_list LEFT JOIN product_order_detail on product_order_detail.order_list_code = order_list.order_list_code where detail_status_code in(4) group by product_order_detail.product_code) as delivery,
+		(select count(count(product_code)) from order_list LEFT JOIN product_order_detail on product_order_detail.order_list_code = order_list.order_list_code where detail_status_code in(5,6) group by product_order_detail.product_code) as completed,
+		(select count(count(product_code))from order_list LEFT JOIN product_order_detail on product_order_detail.order_list_code = order_list.order_list_code where detail_status_code in(8) group by product_order_detail.product_code) as refund
 		from order_list LEFT JOIN product_order_detail on product_order_detail.order_list_code = order_list.order_list_code WHERE ID = #{id}
 	</select>
 

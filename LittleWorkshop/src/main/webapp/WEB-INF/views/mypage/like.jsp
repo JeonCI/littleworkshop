@@ -141,7 +141,7 @@ button>.push {
 								</div>
 							</c:forEach>
 					<div class="pd-txt">
-					<div><a href="#">${item.sellerId}</a></div>
+					<div><a href="/seller/${item.sellerId}">${item.sellerId}</a></div>
 						<div><a href="#">${item.productName}</a></div>
 	 					<div><div><fmt:formatNumber value="${item.productPrice}"/>원</div></div>
 					</div>

@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Little Workshop</title>
-<!--공통 CD  N -->  
+<!--공통 CDN -->  
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
@@ -76,7 +76,7 @@
 	                   <div><a href="product/view/${rcmndItem.productCode}"><img src="/upload/productimage/${rcmndItem.sellerId}/${rcmndItem.productCode}_${rcmndItem.productName}/${image.productImageUuid}"></a></div>
 	               </c:forEach>
 	               <div class="pd-txt">
-	                   <div><a href="#">${rcmndItem.sellerId}</a></div>
+	                   <div><a href="/seller/${rcmndItem.sellerId}">${rcmndItem.sellerId}</a></div>
 	                   <div>${rcmndItem.productName}</div>
 	                   <div><fmt:formatNumber value="${rcmndItem.productPrice}"/>원</div>
 	               </div>
@@ -99,7 +99,7 @@
 								</div>
 							</c:forEach>
 					<div class="pd-txt">
-					<div><a href="#">${latesItem.sellerId}</a></div>
+					<div><a href="/seller/${latesItem.sellerId}">${latesItem.sellerId}</a></div>
 						<div><a href="#">${latesItem.productName}</a></div>
 	 					<div><div><fmt:formatNumber value="${latesItem.productPrice}"/>원</div></div>
 					</div>
@@ -121,7 +121,7 @@
 	                   <div><a href="product/view/${bestItem.productCode}"><img src="/upload/productimage/${bestItem.sellerId}/${bestItem.productCode}_${bestItem.productName}/${image.productImageUuid}"></a></div>
 	               </c:forEach>
 	               <div class="pd-txt">
-	                   <div><a href="#">${bestItem.sellerId}</a></div>
+	                   <div><a href="/seller/${bestItem.sellerId}">${bestItem.sellerId}</a></div>
 	                   <div>${bestItem.productName}</div>
 	                   <div><fmt:formatNumber value="${bestItem.productPrice}"/>원</div>
 	               </div>

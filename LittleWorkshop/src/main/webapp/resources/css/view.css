@@ -235,10 +235,9 @@ hr{
     width: 860px;
 }
 .catecategory{
+	width: 860px;
     margin-left: 170px;
     margin-top: 50px;
-    display: table;
-    width: 100%;
 }
 .catecategory>div>a:link{
     color: #555555;
@@ -246,7 +245,20 @@ hr{
 .catecategory>div>a:visited{
     color: #555555;
 }
-.catecategory>div{
+.catecategory> .tags{
+	width: 860px;
+}
+#profileImg{
+	border-radius: 50%;
+    width: 160px;
+    height: 160px;
+}
+#profile{
+	display: flex;
+}
+
+.catecategory> .tags >.tag{
+	float: left;
     width: 151px;
     height: 43px;
     border: 1px solid #dddddd;
@@ -257,6 +269,9 @@ hr{
     color: #555555;
     margin-right: 10px;
     margin-bottom: 15px;
+}
+.catecategory> .tags >.tag:nth-child(5n){	
+	margin-left: 0px;
 }
 .prd-review{
     margin-top: 170px;

@@ -167,7 +167,7 @@ input::placeholder {
     flex-direction: row;
     text-align: end;
     margin-right: 0px;
-    margin-left: 114px;
+    margin-left: auto;
 }
 
 #shopmenu > ul:nth-child(1) a:visited {

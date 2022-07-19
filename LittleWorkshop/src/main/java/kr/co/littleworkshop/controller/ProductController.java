@@ -23,6 +23,9 @@ import kr.co.littleworkshop.model.ProductCategory;
 import kr.co.littleworkshop.model.ProductImages;
 import kr.co.littleworkshop.model.ProductOption;
 import kr.co.littleworkshop.model.ProductOptionDetail;
+import kr.co.littleworkshop.model.ProfileImage;
+import kr.co.littleworkshop.model.Tag;
+import kr.co.littleworkshop.service.AccountService;
 import kr.co.littleworkshop.service.CategoryService;
 import kr.co.littleworkshop.service.KeywordService;
 import kr.co.littleworkshop.service.ProductService;
@@ -36,6 +39,9 @@ public class ProductController {
 
 	@Autowired
 	ProductService service;
+	
+	@Autowired
+	AccountService accountService;
 
 	@Autowired
 	CategoryService categoryService;
@@ -139,6 +145,8 @@ public class ProductController {
 		else 
 			item = service.item(productCode);
 		
+		ProfileImage profileImage = accountService.getProfileImage(item.getSellerId());
+		model.addAttribute("profileImage", profileImage);
 		model.addAttribute("item",item);
 		return path + "view";
 	}

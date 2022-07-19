@@ -331,7 +331,32 @@ function order(){
             <img src="/image/image1.jpg">
         </div>
         <div class="catecategory">
-            <div class="tag"><a href="#">#강아지 방석</a></div>
+        	<div id="profile">
+				<div class="profileImg">
+					<c:if test="${profileImage == null}">
+						<a href="/seller/${item.sellerId}"><img id="profileImg" class="profileImg" src="/image/deer-g379da77a8_1920.jpg"></a>
+					</c:if>
+					<c:if test="${profileImage != null}">
+						<a href="/seller/${item.sellerId}"><img id="profileImg" class="profileImg" src="/upload/profileImg/${profileImage.id}/${profileImage.profileImageUuid}"></a>
+					</c:if>
+				</div>
+				<div>
+					<div class="profileText">
+						<h3><a href="/seller/${item.sellerId}">${item.sellerId}</a></h3>
+						<div>소개내용</div>
+					</div>
+					<div class="buttons">
+						<button type="button" id="followBtn">+팔로우</button>
+						<a href="/seller/${item.sellerId}"><button type="button" id="viewMore">작품 더보기</button></a>
+					</div>
+				</div>
+			</div>
+			<ul class="tags">
+				<c:forEach items="${item.tagList}" var="tag">
+					<li class="tag"><a href="/product/search?keyword=${tag.tagName}">#${tag.tagName}</a></li>
+				</c:forEach>
+	           
+            </ul>
         </div>
         <div class="prd-review">
             <div class="title-style">

@@ -49,10 +49,10 @@
             <div><a href="/product/list?condition=lates">최신작품</a></div>
             <div><a href="/product/list?condition=best">인기작품</a></div>
             <div><a href="#">인기작가</a></div>
-            <div><a href="#">작가추천</a></div>
+<!--             <div><a href="#">작가추천</a></div> -->
             <div><a href="#">할인작품</a></div>
             <div><a href="#">기획/이벤트</a></div>
-            <div><a href="notice/list">공지사항</a></div>
+            <div><a href="/notice/list">공지사항</a></div>
             <div id="shopmenu">
                 <ul><a href="/">쇼핑샵</a></ul>
                 <ul>｜</ul>

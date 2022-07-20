@@ -20,6 +20,9 @@ public class Product {
 	private int likeState;
 	private double salesRate;
 	
+	private String orderInfo;
+	private int orderAmount;
+	
 	private List<ProductOption> productOptionList;
 	private List<ProductImages> productImageList;
 	private List<Basket> basketList;
@@ -28,6 +31,22 @@ public class Product {
 
 	
 	
+	public String getOrderInfo() {
+		return orderInfo;
+	}
+
+	public void setOrderInfo(String orderInfo) {
+		this.orderInfo = orderInfo;
+	}
+
+	public int getOrderAmount() {
+		return orderAmount;
+	}
+
+	public void setOrderAmount(int orderAmount) {
+		this.orderAmount = orderAmount;
+	}
+
 	public double getSalesRate() {
 		return salesRate;
 	}

@@ -29,6 +29,7 @@
 		<typeAlias type="kr.co.littleworkshop.model.Order" alias="Order"/>
 		<typeAlias type="kr.co.littleworkshop.model.ProductOrderDetail" alias="ProductOrderDetail"/>
 		<typeAlias type="kr.co.littleworkshop.model.ProfileImage" alias="ProfileImage"/>
+		<typeAlias type="kr.co.littleworkshop.model.Review" alias="Review"/>
 	</typeAliases>
 
 
@@ -46,5 +47,6 @@
 		<mapper resource="mybatis/fd.xml"/>
 		<mapper resource="mybatis/fdOpinion.xml"/>
 		<mapper resource="mybatis/tag.xml"/>
+		<mapper resource="mybatis/review.xml"/>
 	</mappers>
 </configuration>

@@ -12,8 +12,8 @@ public class Order {
 	private String orderPayment;
 	private int paymentPrice;
 	private String orderStatusName;
-	private String detailStatusName;
 	private int orderStatus;
+	private int reviewStatues;
 	private List<Integer> basketList;
 	private List<ProductOrderDetail> orderDetailList;
 	private List<Product> productList;
@@ -26,6 +26,12 @@ public class Order {
 
 
 
+	public int getReviewStatues() {
+		return reviewStatues;
+	}
+	public void setReviewStatues(int reviewStatues) {
+		this.reviewStatues = reviewStatues;
+	}
 	public int getCompleted() {
 		return completed;
 	}

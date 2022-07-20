@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="review">
+
+
+
+	<resultMap type="Product" id="ProductMap">
+		<id property="productCode" column="product_code"/>
+		<result property="productName" column="product_name"/>
+		<result property="sellerId" column="seller_id"/>
+		<result property="orderInfo" column="order_info"/>
+		<result property="orderAmount" column="order_amount"/>
+		
+		<collection property="productImageList" column="PRODUCT_IMAGE_CODE" ofType="ProductImages" javaType="ArrayList">
+			<id property="productImageCode" column="PRODUCT_IMAGE_CODE"/>
+			<result property="productImageUuid" column="PRODUCT_IMAGE_UUID"/>
+		</collection>
+	</resultMap>
+	
+	
+	<select id="reviewList" resultMap="ProductMap">
+		SELECT
+		product.product_code,
+		product.product_name,
+		product.seller_id,
+		product_images.product_image_uuid,
+		product_order_detail.order_info,
+		product_order_detail.order_amount
+		FROM product
+		LEFT JOIN product_images on product_images.product_code = product.product_code
+		LEFT JOIN product_order_detail on product_order_detail.product_code = product.product_code
+		LEFT JOIN order_list on product_order_detail.order_list_code = order_list.order_list_code
+		LEFT JOIN account on order_list.id = account.id
+		where order_list.id=#{id} and product_order_detail.detail_status_code in(5,6) and product_order_detail.review_status = 0
+	</select>
+</mapper>

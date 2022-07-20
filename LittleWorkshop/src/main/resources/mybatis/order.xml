@@ -156,7 +156,7 @@
 	</insert>
 	
 	<insert id="addOrderDetail">
-		INSERT INTO product_order_detail VALUES(PRODUCT_ORDERS_DETAIL_SEQ.nextval, #{orderListCode}, #{productCode}, 1, #{orderPrice}, #{orderInfo}, #{orderAmount})
+		INSERT INTO product_order_detail VALUES(PRODUCT_ORDERS_DETAIL_SEQ.nextval, #{orderListCode}, #{productCode}, 1, #{orderPrice}, #{orderInfo}, #{orderAmount}, 0)
 	</insert>
 	
 	<update id="setOrderStatus">

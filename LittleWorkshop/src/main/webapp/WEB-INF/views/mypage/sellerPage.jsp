@@ -134,8 +134,8 @@ window.onload = function() {
 			</div>
 			<div>
 				<span>나의 후기</span>
-				<div><a>후기목록</a></div>
 				<div><a>후기쓰기</a></div>
+				<div><a>후기목록</a></div>
 			</div>
 			<div>
 				<span>관심리스트</span>

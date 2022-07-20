@@ -26,11 +26,13 @@ import kr.co.littleworkshop.model.Product;
 import kr.co.littleworkshop.model.ProductImages;
 import kr.co.littleworkshop.model.ProfileImage;
 import kr.co.littleworkshop.model.ReceiveRequest;
+import kr.co.littleworkshop.model.Review;
 import kr.co.littleworkshop.service.AccountAddressService;
 import kr.co.littleworkshop.service.AccountService;
 import kr.co.littleworkshop.service.BuyerService;
 import kr.co.littleworkshop.service.OrderService;
 import kr.co.littleworkshop.service.ProductService;
+import kr.co.littleworkshop.service.ReviewService;
 import kr.co.littleworkshop.util.DeleteFile;
 import kr.co.littleworkshop.util.Pager;
 import kr.co.littleworkshop.util.UploadFile;
@@ -53,7 +55,8 @@ public class BuyerMypageController {
 	AccountService accountService;
 	@Autowired
 	ProductService productService;
-	
+	@Autowired
+	ReviewService reviewService;
 	
 	@RequestMapping("/")
 	public String list(Model model, Pager pager, HttpSession session) {
@@ -197,4 +200,31 @@ public class BuyerMypageController {
 		}
 		return "success";
 	}
+	
+	// #리뷰쓰기
+	@GetMapping("/reviewList")
+	public String reviewList(Model model, HttpSession session) {
+		Account account = (Account) session.getAttribute("account");
+		List<Product> list = reviewService.reviewList(account.getId());
+		
+		for(Product item:list) {
+			System.out.println(item.getOrderAmount());
+			System.out.println(item.getProductName());
+			for(ProductImages image: item.getProductImageList()) {
+				System.out.println(image.getProductImageUuid());
+			}
+		}
+		
+		model.addAttribute("list", list);
+		return path + "reviewList";
+	}
+	
+	@PostMapping("/reviewList")
+	public String reviewList(Review review, HttpSession session) {
+		System.out.println("별점 : "+review.getReviewScore());
+		System.out.println("내용 : "+review.getReviewContents());
+		return "redirect:./reviewList";
+	}
+	
+	
 }

@@ -173,7 +173,7 @@ window.onload = function() {
 			<div>
 				<span>나의 후기</span>
 				<div><a href="./reviewList">후기쓰기</a></div>
-				<div><a href=".">후기목록</a></div>
+				<div><a href="./myReview">후기목록</a></div>
 			</div>
 			<div>
 				<span>관심리스트</span>

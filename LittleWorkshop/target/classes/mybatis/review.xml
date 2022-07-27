@@ -9,8 +9,13 @@
 		<id property="productCode" column="product_code"/>
 		<result property="productName" column="product_name"/>
 		<result property="sellerId" column="seller_id"/>
+		<result property="orderCode" column="order_code"/>
 		<result property="orderInfo" column="order_info"/>
 		<result property="orderAmount" column="order_amount"/>
+		<result property="reviewContents" column="review_contents"/>
+		<result property="reviewDate" column="review_date"/>
+		<result property="reviewScore" column="review_score"/>
+		<result property="reviewCode" column="review_code"/>
 		
 		<collection property="productImageList" column="PRODUCT_IMAGE_CODE" ofType="ProductImages" javaType="ArrayList">
 			<id property="productImageCode" column="PRODUCT_IMAGE_CODE"/>
@@ -25,6 +30,7 @@
 		product.product_name,
 		product.seller_id,
 		product_images.product_image_uuid,
+		product_order_detail.order_code,
 		product_order_detail.order_info,
 		product_order_detail.order_amount
 		FROM product
@@ -34,4 +40,43 @@
 		LEFT JOIN account on order_list.id = account.id
 		where order_list.id=#{id} and product_order_detail.detail_status_code in(5,6) and product_order_detail.review_status = 0
 	</select>
+	
+	<select id="myReview" resultMap="ProductMap">
+		SELECT
+		product.product_code,
+		product.product_name,
+		product.seller_id,
+		product_images.product_image_uuid,
+		product_order_detail.order_code,
+		product_order_detail.order_info,
+		product_order_detail.order_amount,
+        review.review_contents,
+        review.review_score,
+        review.review_date,
+        review.review_code
+		FROM review
+        LEFT JOIN product on review.product_code = product.product_code
+		LEFT JOIN product_images on product_images.product_code = product.product_code
+		LEFT JOIN product_order_detail on product_order_detail.product_code = product.product_code
+		where review.id=#{id}
+	</select>
+	
+	<insert id="add">
+		INSERT INTO review(REVIEW_CODE, ID, PRODUCT_CODE, ORDER_CODE, REVIEW_CONTENTS, REVIEW_DATE, REVIEW_SCORE)
+		VALUES(REVIEW_SEQ.nextval, #{id}, #{productCode}, #{orderCode}, #{reviewContents}, SYSDATE, #{reviewScore})
+	</insert>
+	
+	<update id="update">
+		UPDATE review SET 
+		review_contents = #{reviewContents},
+		review_score = #{reviewScore}
+		WHERE id = #{id} AND review_code = #{reviewCode}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM review
+		WHERE id=#{id} AND review_code = #{code}
+	</delete>
+	
+	
 </mapper>

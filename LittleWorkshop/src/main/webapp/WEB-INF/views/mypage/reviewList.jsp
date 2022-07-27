@@ -87,6 +87,10 @@ color: yellow;
 							<div id="sellerId"><a href="/seller/${item.sellerId}">${item.sellerId}</a></div>
 							<form id="reviewForm" method="post">
 								<div>
+									<input type="hidden" name="productCode" value="${item.productCode}">
+									<input type="hidden" name="orderCode" value="${item.orderCode}">
+								</div>
+								<div>
 									<textarea id="contents" name="reviewContents"></textarea>
 								</div>
 								<div id="reviewScore">

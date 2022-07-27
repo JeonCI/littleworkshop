@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import kr.co.littleworkshop.model.Order;
 import kr.co.littleworkshop.model.Product;
 import kr.co.littleworkshop.model.ProductOrderDetail;
+import kr.co.littleworkshop.model.Review;
 import kr.co.littleworkshop.util.Pager;
 import kr.co.littleworkshop.util.orderPager;
 
@@ -80,5 +81,11 @@ public class OrderDaoImpl implements OrderDao {
 	@Override
 	public Order orderStatusInfo(String id) {
 		return sql.selectOne("order.orderStatusInfo",id);
+	}
+
+	@Override
+	public void setReviewStatus(Review review) {
+		sql.update("order.setReviewStatus",review);
+		
 	}
 }

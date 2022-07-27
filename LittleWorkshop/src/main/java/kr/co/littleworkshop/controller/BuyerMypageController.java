@@ -206,25 +206,41 @@ public class BuyerMypageController {
 	public String reviewList(Model model, HttpSession session) {
 		Account account = (Account) session.getAttribute("account");
 		List<Product> list = reviewService.reviewList(account.getId());
-		
-		for(Product item:list) {
-			System.out.println(item.getOrderAmount());
-			System.out.println(item.getProductName());
-			for(ProductImages image: item.getProductImageList()) {
-				System.out.println(image.getProductImageUuid());
-			}
-		}
-		
 		model.addAttribute("list", list);
 		return path + "reviewList";
 	}
 	
 	@PostMapping("/reviewList")
 	public String reviewList(Review review, HttpSession session) {
-		System.out.println("별점 : "+review.getReviewScore());
-		System.out.println("내용 : "+review.getReviewContents());
+		Account account = (Account) session.getAttribute("account");
+		review.setId(account.getId());
+		reviewService.add(review);
 		return "redirect:./reviewList";
 	}
 	
+	// #내가 쓴 리뷰
+	@GetMapping("/myReview")
+	public String myReview(Model model, HttpSession session) {
+		Account account = (Account) session.getAttribute("account");
+		List<Product> list = reviewService.myReview(account.getId());
+		model.addAttribute("list", list);
+		return path + "myReview";
+	}
+	
+	@PostMapping("/myReview/{code}")
+	public String myReview(@PathVariable int code, Review review, HttpSession session) {
+		Account account = (Account) session.getAttribute("account");
+		review.setId(account.getId());
+		review.setReviewCode(code);
+		reviewService.update(review);
+		return "redirect:../myReview";
+	}
+	
+	@GetMapping("/myReview/delete/{code}")
+	public String deleteReview(@PathVariable int code, HttpSession session) {
+		Account account = (Account) session.getAttribute("account");
+		reviewService.delete(code, account.getId());
+		return "redirect:../..//myReview";
+	}
 	
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import kr.co.littleworkshop.model.Order;
 import kr.co.littleworkshop.model.Product;
 import kr.co.littleworkshop.model.ProductOrderDetail;
+import kr.co.littleworkshop.model.Review;
 import kr.co.littleworkshop.util.Pager;
 import kr.co.littleworkshop.util.orderPager;
 
@@ -27,5 +28,7 @@ public interface OrderDao {
 	void buyerCount(List<Integer> productCodeList);
 
 	Order orderStatusInfo(String id);
+
+	void setReviewStatus(Review review);
 
 }

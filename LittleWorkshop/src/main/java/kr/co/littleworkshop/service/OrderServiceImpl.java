@@ -13,6 +13,7 @@ import kr.co.littleworkshop.model.Basket;
 import kr.co.littleworkshop.model.Order;
 import kr.co.littleworkshop.model.Product;
 import kr.co.littleworkshop.model.ProductOrderDetail;
+import kr.co.littleworkshop.model.Review;
 import kr.co.littleworkshop.util.Pager;
 import kr.co.littleworkshop.util.orderPager;
 
@@ -79,5 +80,12 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public Order orderStatusInfo(String id) {
 		return dao.orderStatusInfo(id);
+	}
+
+
+	@Override
+	public void setReviewStatus(Review review) {
+		dao.setReviewStatus(review);
+		
 	}
 }

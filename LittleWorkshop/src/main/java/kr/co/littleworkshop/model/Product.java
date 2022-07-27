@@ -22,6 +22,12 @@ public class Product {
 	
 	private String orderInfo;
 	private int orderAmount;
+	private int orderCode;
+	
+	private int reviewCode;
+	private String reviewContents;
+	private Date reviewDate;
+	private int reviewScore;
 	
 	private List<ProductOption> productOptionList;
 	private List<ProductImages> productImageList;
@@ -31,6 +37,47 @@ public class Product {
 
 	
 	
+	
+	public int getReviewCode() {
+		return reviewCode;
+	}
+
+	public void setReviewCode(int reviewCode) {
+		this.reviewCode = reviewCode;
+	}
+
+	public String getReviewContents() {
+		return reviewContents;
+	}
+
+	public void setReviewContents(String reviewContents) {
+		this.reviewContents = reviewContents;
+	}
+
+	public Date getReviewDate() {
+		return reviewDate;
+	}
+
+	public void setReviewDate(Date reviewDate) {
+		this.reviewDate = reviewDate;
+	}
+
+	public int getReviewScore() {
+		return reviewScore;
+	}
+
+	public void setReviewScore(int reviewScore) {
+		this.reviewScore = reviewScore;
+	}
+
+	public int getOrderCode() {
+		return orderCode;
+	}
+
+	public void setOrderCode(int orderCode) {
+		this.orderCode = orderCode;
+	}
+
 	public String getOrderInfo() {
 		return orderInfo;
 	}

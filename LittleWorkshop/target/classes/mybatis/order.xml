@@ -184,5 +184,13 @@
 		(select count(count(product_code))from order_list LEFT JOIN product_order_detail on product_order_detail.order_list_code = order_list.order_list_code where detail_status_code in(8) group by product_order_detail.product_code) as refund
 		from order_list LEFT JOIN product_order_detail on product_order_detail.order_list_code = order_list.order_list_code WHERE ID = #{id}
 	</select>
+	
+	<update id="setReviewStatus">
+		UPDATE product_order_detail SET
+		review_status = 1
+		where ORDER_CODE = #{orderCode} and PRODUCT_CODE = #{productCode}
+	</update>
+	
+	
 
 </mapper>

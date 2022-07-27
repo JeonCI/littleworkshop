@@ -22,9 +22,13 @@
 <script>
 let paymentList;
 window.onload = function() {
-	totalPrice();
+	let paymentForm = document.getElementById("paymentForm"); 
+	
+	if(paymentForm != null)
+		totalPrice();
 	
 };
+
 function deleteOption(option){
 	let code = option.parentNode.getAttribute("data-code");
 	
@@ -85,7 +89,6 @@ function setOptionAmount(option){
 		else
 			option.value = option.value;
 
-		console.log("값 변경");
 		$.ajax({
 			type: "GET",
 			url:"/basket/update/"+code,
